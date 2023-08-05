@@ -1,0 +1,52 @@
+.loto-game-room-page {
+  background-color: rgb(224, 224, 224);
+}
+
+.loto-game-room-page-content {
+  min-height: calc(100vh - 70px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.loto-game-room__gameinfo {
+  background-color: #8e8e8f;
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+  font-size: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.loto-game-room__gameprocess {
+  background-color: #8e8e8f;
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+  font-size: 20px;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.loto-game-room__cask {
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 10px 10px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.loto-game-room__main {
+  flex: 1 1 auto;
+}
