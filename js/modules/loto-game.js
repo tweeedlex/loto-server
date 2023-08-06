@@ -25,26 +25,53 @@ function shuffleArray(array) {
   return array;
 }
 
-export function generateLotoCard() {
-  const numbersPerRow = 27;
-  const minNumber = 1;
-  const maxNumber = 90;
-  const totalNumbers = 15;
-
-  let lotoCard = [];
-
-  let rowNumbers = generateRandomNumbersWithoutRepeats(
-    minNumber,
-    maxNumber,
-    totalNumbers
-  );
-  lotoCard.push(rowNumbers);
-
-  for (let i = lotoCard[0].length; i < numbersPerRow; i++) {
-    lotoCard[0].push(" ");
+const deleteNumbers = (card) => {
+  const newCard = [...card];
+  for (let i = 1; i <= 3; i++) {
+    let deleted = [];
+    for (let j = 0; j < 4; j++) {
+      let index = i * 9 - Math.ceil(Math.random() * 9);
+      deleted.push(index);
+      while (deleted.includes(index)) {
+        index = i * 9 - Math.ceil(Math.random() * 9);
+      }
+      newCard[index] = " ";
+    }
   }
 
-  return shuffleArray(lotoCard[0]);
+  return newCard;
+};
+
+export function generateLotoCard() {
+  //   Карта состоит из таблицы, 9х3 поля. Используемые номера от 1 до 90.
+  // В каждой колонке карты может быть 1 или 2 числа (не 0 и не 3). В каждой строке 5 заполненных клеток. Таким образом, в карте 27 полей, 15 из которых заполнены.
+
+  //В первой колонке используется числа от 1 до 9 (9 штук); в колонках со 2-ой по 8-ую числа одного десятка (от 10 до 19, 10 штук); и в последней 9-ой колонке числа от 80 до 90 (11 штук).
+
+  let card = [];
+
+  for (let i = 0; i < 27; i++) {
+    card.push(0);
+  }
+
+  for (let i = 1; i <= 9; i++) {
+    const column = generateRandomNumbersWithoutRepeats(i * 10 - 9, i * 10, 3);
+
+    for (let j = 0; j < 3; j++) {
+      let index = j * 9 + i - 1;
+      card[index] = column[j];
+    }
+  }
+
+  let newCard = deleteNumbers(card);
+
+  for (let i = 1; i <= 9; i++) {
+    if (newCard[i] == " " && newCard[i + 9] == " " && newCard[i + 18] == " ") {
+      newCard = deleteNumbers(card);
+    }
+  }
+
+  return newCard;
 }
 
 export async function openGamePage(roomId, message, eventSource) {

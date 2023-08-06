@@ -284,3 +284,18 @@ h6 {
   font-size: inherit;
   font-weight: 400;
 }
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-top-color: #000;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

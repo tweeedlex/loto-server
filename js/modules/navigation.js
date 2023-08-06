@@ -9,6 +9,7 @@ export function lotoNavigation() {
     lotoRooms.forEach((room) => {
       room.addEventListener("click", async function () {
         if (room.getAttribute("room") == 1) {
+          room.innerHTML = `<div class="loader"></div>`;
           let roomId = 1;
           let res = await impHttp.isGameStarted(roomId);
           if (res.data == true) {
@@ -55,6 +56,7 @@ export function lotoNavigation() {
             }
           };
         } else if (room.getAttribute("room") == 2) {
+          room.innerHTML = `<div class="loader"></div>`;
           let roomId = 2;
           let res = await impHttp.isGameStarted(roomId);
           if (res.data == true) {
@@ -102,6 +104,7 @@ export function lotoNavigation() {
             }
           };
         } else if (room.getAttribute("room") == 3) {
+          room.innerHTML = `<div class="loader"></div>`;
           let roomId = 3;
           let res = await impHttp.isGameStarted(roomId);
           if (res.data == true) {
