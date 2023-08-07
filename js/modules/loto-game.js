@@ -27,15 +27,24 @@ function shuffleArray(array) {
 
 const deleteNumbers = (card) => {
   const newCard = [...card];
-  for (let i = 1; i <= 3; i++) {
-    let deleted = [];
-    for (let j = 0; j < 4; j++) {
-      let index = i * 9 - Math.ceil(Math.random() * 9);
-      deleted.push(index);
-      while (deleted.includes(index)) {
-        index = i * 9 - Math.ceil(Math.random() * 9);
+  // delete 4 numbers from each row
+
+  for (let i = 0; i < 3; i++) {
+    let row = newCard.slice(i * 9, i * 9 + 9);
+    let numbers = [];
+    for (let j = 0; j < 9; j++) {
+      if (row[j] != " ") {
+        numbers.push(j);
       }
-      newCard[index] = " ";
+    }
+
+    let numbersToDelete = generateRandomNumbersWithoutRepeats(0, 8, 4);
+    numbersToDelete.forEach((number) => {
+      row[number] = " ";
+    });
+
+    for (let j = 0; j < 9; j++) {
+      newCard[i * 9 + j] = row[j];
     }
   }
 
@@ -63,13 +72,52 @@ export function generateLotoCard() {
     }
   }
 
-  let newCard = deleteNumbers(card);
+  let isValid = false;
+  let newCard;
 
-  for (let i = 1; i <= 9; i++) {
-    if (newCard[i] == " " && newCard[i + 9] == " " && newCard[i + 18] == " ") {
-      newCard = deleteNumbers(card);
+  while (!isValid) {
+    isValid = true;
+    newCard = deleteNumbers(card);
+    console.log(newCard);
+
+    for (let i = 0; i < 9; i++) {
+      if (
+        newCard[i] == " " &&
+        newCard[i + 9] == " " &&
+        newCard[i + 18] == " "
+      ) {
+        isValid = false;
+      }
+    }
+
+    let rows = [];
+    for (let i = 1; i <= 3; i++) {
+      for (let j = 0; j < 9; j++) {
+        rows.push(newCard[j]);
+      }
+    }
+
+    // check if each row has 5 numbers
+    for (let i = 0; i < 27; i += 9) {
+      let row = rows.slice(i, i + 9);
+      let count = 0;
+      row.forEach((cell) => {
+        if (cell != " ") {
+          count++;
+        }
+      });
+
+      if (count != 5) {
+        isValid = false;
+      }
     }
   }
+
+  // for (let i = 1; i <= 9; i++) {
+  //   if (newCard[i] == " " && newCard[i + 9] == " " && newCard[i + 18] == " ") {
+  //     newCard = deleteNumbers(card);
+  //   }
+  // }
 
   return newCard;
 }
