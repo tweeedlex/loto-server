@@ -36,6 +36,8 @@
   gap: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
+
+  transform: rotate(180deg);
 }
 
 .loto-game-room__cask {
@@ -45,6 +47,7 @@
   text-align: center;
   justify-content: center;
   display: flex;
+  transform: rotate(180deg);
 }
 
 .loto-game-room__main {

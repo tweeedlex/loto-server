@@ -78,7 +78,6 @@ export function generateLotoCard() {
   while (!isValid) {
     isValid = true;
     newCard = deleteNumbers(card);
-    console.log(newCard);
 
     for (let i = 0; i < 9; i++) {
       if (
