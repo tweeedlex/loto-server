@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:5001/api";
+export const API_URL = "https://loto-server.onrender.com";
 
 const $api = axios.create({
   withCredentials: true,
