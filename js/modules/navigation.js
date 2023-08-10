@@ -9,9 +9,11 @@ import * as impLotoNavigation from "./loto-navigation.js";
 export function addListeners(ws) {
   let game = document.querySelector(".games");
   let lotoRooms = game.querySelectorAll(".loto-room");
+
   lotoRooms.forEach((room) => {
-    room.addEventListener("click", (e) => {
+    room.addEventListener("click", () => {
       // room.innerHTML = `<div class="loader"></div>`;
+      console.log("pressed");
       const roomId = room.getAttribute("room");
       impLotoNavigation.openLotoRoom(ws, roomId);
     });

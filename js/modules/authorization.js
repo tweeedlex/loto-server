@@ -1,5 +1,7 @@
 import * as impHttpRequests from "./http.js";
 import * as impInterface from "./authinterface.js";
+import * as impNav from "./navigation.js";
+import * as impLotoNav from "./loto-navigation.js";
 
 export function registrationForm() {
   let openFormButtons = document.querySelectorAll(".open-registration");
@@ -173,9 +175,17 @@ export function createLoginForm() {
       username,
       password,
     };
-    let request = await impHttpRequests.login(loginData);
-    if (request.status == 200) {
+    let response = await impHttpRequests.login(loginData);
+    if (response.status == 200) {
       registrationPopup.classList.remove("opened");
+      impInterface.showUserInterface(response.data);
+      window.username = response.data.username;
+      window.userId = response.data.id;
+
+      if (await isAuth()) {
+        let ws = impLotoNav.connectWebsocketFunctions();
+        impNav.addListeners(ws);
+      }
       // show auth interface
     } else {
       // ADD ERROR

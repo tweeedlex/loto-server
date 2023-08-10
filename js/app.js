@@ -11,5 +11,4 @@ impAuth.createLoginForm();
 if (await impAuth.isAuth()) {
   let ws = impLotoNav.connectWebsocketFunctions();
   impNav.addListeners(ws);
-  // impGeneralRoom.connectGenralRoom();
 }

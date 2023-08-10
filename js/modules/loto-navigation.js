@@ -128,102 +128,94 @@ export const connectWebsocketFunctions = () => {
 };
 
 const connectWebsocket = () => {
-  const socket = new WebSocket(`ws://localhost:5001/game`);
+  const socket = new WebSocket(`wss://loto-server.onrender.com/game`);
   return socket;
 };
 
 export async function openLotoRoom(ws, roomId) {
-  let timerStarted = false;
-
   roomId = Number(roomId);
   // проверка началась ли игра
   let isGameStarted = await impHttp.isGameStarted(roomId);
   if (isGameStarted.data == true) {
     impPopup.open("подождите пока игра закончится!", 400);
-    return;
-  }
+    // return;
+  } else {
+    let bet = 0;
+    switch (roomId) {
+      case 1:
+        bet = 20;
+        break;
+      case 2:
+        bet = 100;
+        break;
+      case 3:
+        bet = 300;
+        break;
+    }
 
-  // const room = document.querySelector(`.loto-room-${roomId}`);
-  // room.innerHTML = `<div class="loader"></div>`;
-  // подключение к сокету комнаты
-
-  // const ws = connectWebsocket();
-
-  let bet = 0;
-  switch (roomId) {
-    case 1:
-      bet = 20;
-      break;
-    case 2:
-      bet = 100;
-      break;
-    case 3:
-      bet = 300;
-      break;
-  }
-
-  ws.send(
-    JSON.stringify({
-      roomId,
-      bet: bet,
-      username: window.username,
-      userId: window.userId,
-      method: "connectGame",
-    })
-  );
-
-  // open page
-  let body = document.querySelector("main");
-  body.innerHTML = `<div class="loto-room-page">
-    <div class="loto-room-content">
-      <div class="loto-room-page__timer">00:00</div>
-      <div class="loto-room-page__exit">Выйти</div>
-      <div class="loto-room__gameinfo loto-gameinfo">
-        <p class="loto-gameinfo__bet">Ставка: <span>0р</span></p>
-        <p class="loto-gameinfo__online">Онлайн: <span>0</span></p>
-        <p class="loto-gameinfo__bank">Банк: <span>0р</span></p>
-      </div>
-      <div class="loto-room__main loto-gamemain"></div>
-      <div class="loto-room__controlls loto-gamecontrolls">
-        <div class="loto-gamecontrolls__buy">Купить билеты</div>
-        <div class="loto-gamecontrolls__counter">
-          <div class="loto-gamecontrolls__counter__minus">-</div>
-          <div class="loto-gamecontrolls__counter__value">0</div>
-          <div class="loto-gamecontrolls__counter__plus">+</div>
-        </div>
-      </div>
-    </div>
-  </div>`;
-
-  let ticketData = impLotoGame.generateLotoCard();
-
-  let cells = ticketData.newCard;
-  let ticketId = ticketData.id;
-  createTicket(cells, ticketId);
-  counterTickets();
-  buyTickets(ws, roomId, bet);
-
-  // выход из комнаты и отключение от вебсокета комнаты
-  let exitButton = document.querySelector(".loto-room-page__exit");
-  exitButton.addEventListener("click", async function () {
-    ws.close(
-      1000,
+    ws.send(
       JSON.stringify({
         roomId,
         bet: bet,
-        userId: window.userId,
         username: window.username,
-        method: "disconnectGame",
+        userId: window.userId,
+        method: "connectGame",
       })
     );
-    clearInterval(lotoTimer);
 
-    for (let interval of intervals) {
-      clearInterval(interval);
-    }
+    // open page
+    let body = document.querySelector("main");
+    body.innerHTML = `<div class="loto-room-page">
+      <div class="loto-room-content">
+        <div class="loto-room-page__timer">00:00</div>
+        <div class="loto-room-page__exit">Выйти</div>
+        <div class="loto-room__gameinfo loto-gameinfo">
+          <p class="loto-gameinfo__bet">Ставка: <span>0р</span></p>
+          <p class="loto-gameinfo__online">Онлайн: <span>0</span></p>
+          <p class="loto-gameinfo__bank">Банк: <span>0р</span></p>
+        </div>
+        <div class="loto-room__main loto-gamemain"></div>
+        <div class="loto-room__controlls loto-gamecontrolls">
+          <div class="loto-gamecontrolls__buy">Купить билеты</div>
+          <div class="loto-gamecontrolls__counter">
+            <div class="loto-gamecontrolls__counter__minus">-</div>
+            <div class="loto-gamecontrolls__counter__value">0</div>
+            <div class="loto-gamecontrolls__counter__plus">+</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
 
-    console.log("close");
-  });
+    let ticketData = impLotoGame.generateLotoCard();
+
+    let cells = ticketData.newCard;
+    let ticketId = ticketData.id;
+    createTicket(cells, ticketId);
+    counterTickets();
+    buyTickets(ws, roomId, bet);
+
+    // выход из комнаты и отключение от вебсокета комнаты
+    let exitButton = document.querySelector(".loto-room-page__exit");
+    exitButton.addEventListener("click", async function () {
+      ws.close(
+        1000,
+        JSON.stringify({
+          roomId,
+          bet: bet,
+          userId: window.userId,
+          username: window.username,
+          method: "disconnectGame",
+        })
+      );
+      clearInterval(lotoTimer);
+
+      for (let interval of intervals) {
+        clearInterval(interval);
+      }
+
+      console.log("close");
+    });
+  }
 }
 
 const handleLeftSome = (msg, leftSome) => {
@@ -249,7 +241,7 @@ async function startLotoTimer(strtedAt, ws, roomId, bet) {
     let timerBlock = document.querySelector(".loto-room-page__timer");
     const startedAt = new Date(strtedAt).getTime();
     // const targetTime = startedAt + 5 * 60 * 1000; // 5 minutes in milliseconds
-    const targetTime = startedAt + 10 * 1000; // 5 minutes in milliseconds
+    const targetTime = startedAt + 30 * 1000; // 5 minutes in milliseconds
 
     lotoTimer = setInterval(async () => {
       const now = new Date().getTime();
@@ -408,7 +400,7 @@ function startMenuTimerLobby(timers) {
           lotoRoomTimer.innerHTML = "00:00";
         }
       } else {
-        let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 10000;
+        let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 30000;
         let timer = setInterval(function () {
           let now = new Date().getTime();
           let distance = countDownDate - now;
@@ -426,7 +418,7 @@ function startMenuTimerLobby(timers) {
               lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
             }
           }
-        }, 500);
+        }, 50);
         activeTimers.push(timer);
       }
     }
@@ -464,7 +456,7 @@ function startMenuTimerGame(timers) {
               lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
             }
           }
-        }, 500);
+        }, 50);
         activeFinishTimers.push(timer);
       }
     }

@@ -7,39 +7,35 @@ import * as impNav from "./navigation.js";
 
 export const open = (text, status, showButton = false, ws = null) => {
   const body = document.querySelector("body");
-  body.innerHTML += `
-    <div class="popup">
-      <div class="popup__body">
-        <div class="popup__content ${
-          status === 200 ? "popup__content_won" : ""
-        } ${status === 300 ? "popup__content_lost" : ""}">
-          <button class="popup__close"></button>
-          <div class="popup__text">
-            ${text}
-          </div>
-          ${
-            showButton
-              ? `<button class="popup__button">Продолжить</button>`
-              : ""
-          }
-        </div>
-      </div>
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+  popupElement.innerHTML = `<div class="popup__body">
+  <div class="popup__content ${status === 200 ? "popup__content_won" : ""} ${
+    status === 300 ? "popup__content_lost" : ""
+  }">
+    <button class="popup__close"></button>
+    <div class="popup__text">
+      ${text}
     </div>
-  `;
+    ${showButton ? `<button class="popup__button">Продолжить</button>` : ""}
+  </div>
+</div>`;
+
+  body.appendChild(popupElement);
+
   if (showButton) {
     const button = body.querySelector(".popup__button");
     button.addEventListener("click", () => {
-      close();
+      close(popupElement);
       ws.close();
     });
   }
   const closeButton = document.querySelector(".popup__close");
-  closeButton.addEventListener("click", close);
+  closeButton.addEventListener("click", function () {
+    close(popupElement);
+  });
 };
 
-export const close = () => {
-  const popup = document.querySelector(".popup");
-  const closeButton = document.querySelector(".popup__close");
-  closeButton.removeEventListener("click", close);
-  popup.remove();
-};
+export function close(element) {
+  element.remove();
+}
