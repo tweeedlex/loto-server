@@ -193,6 +193,10 @@ export async function isAuth() {
     let registrationPopup = document.querySelector(".registration");
     registrationPopup.classList.remove("opened");
     impInterface.showUserInterface(response.data);
+
+    window.username = response.data.username;
+    window.userId = response.data.id;
+
     return true;
   } else {
     return false;

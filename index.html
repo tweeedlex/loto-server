@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style/games.css" />
     <link rel="stylesheet" href="style/loto-room.css" />
     <link rel="stylesheet" href="style/loto-game-room.css" />
+    <link rel="stylesheet" href="style/popup.css" />
   </head>
   <body>
     <header>
@@ -77,16 +78,56 @@
         <section class="games">
           <div class="games__container" id="loto">
             <a class="game loto-room loto-room-1" room="1">
-              <p class="game__title">Лото</p>
-              <p>Ставка: <span class="game__bet">20р</span></p>
+              <div class="loto-room__body">
+                <p class="game__title">Лото</p>
+                <p>Онлайн: <span class="game__room-online">0</span></p>
+                <p>Ставка: <span class="game__bet">20</span>p</p>
+                <div class="game__until-start">
+                  <p>До начала:</p>
+                  <span class="game__until-start-timer">00:00</span>
+                </div>
+                <div class="game__until-finish">
+                  <p>До конца:</p>
+                  <span class="game__until-finish-timer">00:00</span>
+                </div>
+                <p class="game__room-bank">
+                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                </p>
+              </div>
             </a>
             <a class="game loto-room loto-room-2" room="2">
-              <p class="game__title">Лото</p>
-              <p>Ставка: <span class="game__bet">100р</span></p>
+              <div class="loto-room__body">
+                <p class="game__title">Лото</p>
+                <p>Онлайн: <span class="game__room-online">0</span></p>
+                <p>Ставка: <span class="game__bet">100</span>p</p>
+                <p class="game__until-start">
+                  До начала: <span class="game__until-start-timer">00:00</span>
+                </p>
+                <div class="game__until-finish">
+                  <p>До конца:</p>
+                  <span class="game__until-finish-timer">00:00</span>
+                </div>
+                <p class="game__room-bank">
+                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                </p>
+              </div>
             </a>
             <a class="game loto-room loto-room-3" room="3">
-              <p class="game__title">Лото</p>
-              <p>Ставка: <span class="game__bet">300р</span></p>
+              <div class="loto-room__body">
+                <p class="game__title">Лото</p>
+                <p>Онлайн: <span class="game__room-online">0</span></p>
+                <p>Ставка: <span class="game__bet">300</span>p</p>
+                <p class="game__until-start">
+                  До начала: <span class="game__until-start-timer">00:00</span>
+                </p>
+                <div class="game__until-finish">
+                  <p>До конца:</p>
+                  <span class="game__until-finish-timer">00:00</span>
+                </div>
+                <p class="game__room-bank">
+                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                </p>
+              </div>
             </a>
           </div>
         </section>

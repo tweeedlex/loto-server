@@ -134,5 +134,5 @@
 }
 
 .ticket-cell.active {
-  background: #63d45f;
+  background-color: #63d45f !important;
 }

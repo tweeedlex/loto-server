@@ -15,7 +15,6 @@
 }
 
 .game {
-  height: 150px;
   width: 500px;
   background-color: #ccc;
   font-size: 24px;
@@ -29,4 +28,27 @@
 .game * {
   text-decoration: none;
   color: #000;
+}
+
+.loto-room__body {
+  /* display: grid; */
+  /* grid-template-columns: repeat(2, 1fr); */
+  /* grid-template-rows: repeat(4, 1fr); */
+}
+
+.game__until-start {
+  display: flex;
+  justify-content: end;
+  gap: 0 10px;
+}
+
+.game__until-finish {
+  display: flex;
+  justify-content: end;
+  gap: 0 10px;
+}
+
+.game__until-start,
+.game__room-bank {
+  text-align: end;
 }

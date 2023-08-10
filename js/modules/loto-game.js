@@ -1,5 +1,6 @@
 import * as impHttp from "./http.js";
 import * as impLoto from "./navigation.js";
+import * as impPopup from "./popup.js";
 
 function generateRandomNumbersWithoutRepeats(min, max, count) {
   if (count > max - min + 1) {
@@ -112,29 +113,71 @@ export function generateLotoCard() {
     }
   }
 
+  // make unique id
+  let id = "";
+  for (let i = 0; i < 27; i++) {
+    if (newCard[i] != " ") {
+      id += newCard[i];
+    }
+  }
+  id += new Date().getTime();
+
   // for (let i = 1; i <= 9; i++) {
   //   if (newCard[i] == " " && newCard[i + 9] == " " && newCard[i + 18] == " ") {
   //     newCard = deleteNumbers(card);
   //   }
   // }
 
-  return newCard;
+  return { newCard, id };
 }
 
-export async function openGamePage(roomId, message, eventSource) {
+export async function openGamePage(online, bet, bank) {
   let body = document.querySelector("main");
   body.innerHTML = `<div class="loto-game-room-page">
   <div class="loto-game-room-page-content">
     <div class="loto-game-room__gameinfo loto-gameinfo">
-      <p class="loto-gameinfo__bet">Ставка: <span>0р</span></p>
-      <p class="loto-gameinfo__online">Игроков: <span>0</span></p>
-      <p class="loto-gameinfo__bank">Банк: <span>0р</span></p>
+      <p class="loto-gameinfo__bet">Ставка: <span>${bet}р</span></p>
+      <p class="loto-gameinfo__online">Игроков: <span>${online}</span></p>
+      <p class="loto-gameinfo__bank">Банк: <span>${bank}р</span></p>
     </div>
-    <div class="loto-game-room__gameprocess">
+    <div class="loto-game-room__gameprocess"></div>
+    <div class="loto-gamemain__body">
+      <div class="col-div empty-left-sidebar"></div>
+      <div class="col-div loto-game-room__main loto-gamemain"></div>
+      <div class="col-div information-sidebar">
+        <div class="information-sidebar__item left1">
+          У <span>0</span> карточек осталось 1 номер
+        </div>
+        <div class="information-sidebar__item left2">
+          У <span>0</span> карточек осталось 2 номера
+        </div>
+        <div class="information-sidebar__item left3">
+          У <span>0</span> карточек осталось 3 номера
+        </div>
+      </div>
     </div>
-    <div class="loto-game-room__main loto-gamemain"></div>
   </div>
 </div>`;
+}
+
+export function showUserTickets(tickets) {
+  tickets.forEach((ticket) => {
+    let cells = JSON.parse(ticket.card);
+    let id = ticket.id;
+    let ticketsBody = document.querySelector(".loto-gamemain");
+    if (ticketsBody) {
+      let ticket = document.createElement("ul");
+      ticket.classList.add("loto-gamemain__ticket", "bought-ticket");
+      ticket.setAttribute("id", id);
+      cells.forEach((cell) => {
+        let ticketCell = document.createElement("li");
+        ticketCell.classList.add("ticket-cell");
+        ticketCell.innerHTML = cell;
+        ticket.appendChild(ticketCell);
+      });
+      ticketsBody.appendChild(ticket);
+    }
+  });
 }
 
 export async function gameInformation(roomId, messageData, eventSource) {
@@ -158,6 +201,71 @@ export async function gameInformation(roomId, messageData, eventSource) {
 }
 
 let isGameEnded = false;
+
+export function createCask(cask) {
+  let gameprocessBlock = document.querySelector(".loto-game-room__gameprocess");
+  let caskBlock = document.createElement("div");
+  caskBlock.classList.add("loto-game-room__cask");
+  caskBlock.innerHTML = cask;
+  if (gameprocessBlock.children.length > 5) {
+    gameprocessBlock.removeChild(gameprocessBlock.children[0]);
+  }
+  gameprocessBlock.querySelectorAll(".loto-game-room__cask").forEach((cask) => {
+    cask.style.background = "#fff";
+  });
+  // Устанавливаем желтый цвет только для последней вставленной бочки
+  caskBlock.style.background = "#cac832";
+  gameprocessBlock.appendChild(caskBlock);
+
+  colorCask(cask);
+}
+
+function colorCask(cask) {
+  let ticketsBody = document.querySelector(".loto-game-room__main");
+  if (ticketsBody) {
+    let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+    tickets.forEach((ticket) => {
+      let ticketCells = ticket.querySelectorAll(".ticket-cell");
+      ticketCells.forEach((cell) => {
+        if (cell.innerHTML == cask) {
+          cell.classList.add("active");
+        }
+      });
+    });
+  }
+}
+
+export function checkWin(winners, bank, ws) {
+  let winnersIds = winners;
+  let ticketsBody = document.querySelector(".loto-game-room__main");
+  if (ticketsBody) {
+    let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+    let winTickets = 0;
+    tickets.forEach((ticket) => {
+      let ticketId = ticket.getAttribute("id");
+      if (winnersIds.includes(ticketId)) {
+        winTickets++;
+      }
+    });
+
+    if (winTickets > 0) {
+      impPopup.open(
+        `Вы победили, поздравляем, ваша сумма выигрыша: ${bank}`,
+        200,
+        true,
+        ws
+      );
+      return;
+    } else {
+      impPopup.open(
+        `К сожалению вы не смогли выиграть попробуйте еще раз.`,
+        300,
+        true,
+        ws
+      );
+    }
+  }
+}
 
 function startCasksDroping(messageData) {
   let gameData = messageData.game;
@@ -290,11 +398,11 @@ function checkLotoWin(winnerTicketsIds) {
     });
 
     if (winner) {
-      alert("Ты победитель!!!");
+      alert("Вы победили, поздравляем!");
       stopGame();
       isGameEnded = true;
     } else {
-      alert("ТЫ проиграл(");
+      alert("К сожалению вы не смогли выиграть попробуйте еще раз.");
       stopGame();
       isGameEnded = true;
     }

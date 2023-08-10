@@ -53,3 +53,26 @@
 .loto-game-room__main {
   flex: 1 1 auto;
 }
+
+.loto-gamemain__body {
+  display: flex;
+  min-height: 400px;
+}
+.empty-left-sidebar {
+  background-color: rgb(11, 129, 7);
+  flex: 0 0 300px;
+  height: unset;
+}
+
+.information-sidebar {
+  padding: 10px 10px;
+  background-color: rgb(11, 129, 7);
+  color: #ffffff;
+  flex: 0 0 300px;
+  height: unset;
+  font-size: 18px;
+}
+
+.loto-game-room__main {
+  flex: 1 1 auto;
+}
