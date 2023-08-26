@@ -1,0 +1,217 @@
+.password-form-header {
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px 20px;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.password-form-header__title {
+  font-weight: 600;
+}
+
+.password-form-main {
+  /* height: 100%; */
+  background: #aaaaaa;
+  max-width: 750px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 25px 25px;
+  border-radius: 10px;
+  display: block;
+}
+
+.profile-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-block__section:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.button .topup-balance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #74f840;
+  width: 25px;
+  height: 25px;
+}
+
+.button.exit {
+  background-color: #ff6a6a;
+}
+
+.profile-block__item {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*  форма смены пароля */
+
+.password-form-header {
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-form-header__back {
+  width: 30px;
+  height: 30px;
+  background-color: #aaaaaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.password-form-header__title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.password-form-main {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.password-form-block {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+}
+
+.password-form-block__section {
+  margin-bottom: 20px;
+}
+
+.password-form-block__item {
+  margin-bottom: 15px;
+}
+
+.password-form-block__item label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.password-form-block__item input {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.password-form-block__item.password-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.password-form-block__item.password-button:hover {
+  background-color: #0056b3;
+}
+
+.password-form-block__item.password-button h4 {
+  margin: 0;
+  font-size: 18px;
+  padding: 10px;
+}
+
+/* ============= история игр */
+
+.user-game-history-header {
+  background-color: #f8f8f8;
+  padding: 20px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.user-game-history-header__back {
+  width: 30px;
+  height: 30px;
+  background-color: #aaaaaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.user-game-history-header__title {
+  margin: 0;
+  font-size: 24px;
+}
+
+.user-game-history__main {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 60px 0;
+}
+
+.user-game-history__main .game-item {
+  background-color: #eeff8e;
+  max-width: 800px;
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.game-item__tickets-block {
+  margin-bottom: 30px;
+}
+
+.game-item__row {
+  margin-bottom: 10px;
+  font-size: 16px;
+}

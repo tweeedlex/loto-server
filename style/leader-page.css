@@ -1,0 +1,134 @@
+/* стили страницы меню */
+
+.leader-menu-page {
+  width: 100%;
+  height: 100%;
+}
+
+.leader-page-main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+.leader-page-menu {
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+}
+
+.leader-page-menu .leader-page-menu__item {
+  width: 100%;
+  background: #808080;
+  min-height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.leader-page-menu .leader-page-menu__item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(60%);
+}
+
+.leader-page-menu .leader-page-menu__item span {
+  position: absolute;
+  z-index: 2;
+  font-size: 26px;
+  font-weight: 700;
+  color: aliceblue;
+}
+
+/* стили страницы лидеров */
+
+.leader-page {
+  width: 100%;
+  height: 100%;
+}
+
+.leader-page__header {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+
+.leader-page__header .leader-page__back {
+  width: 25px;
+  height: 25px;
+  background-color: #b4b4b4;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 100%;
+  cursor: pointer;
+}
+
+.leader-page__main {
+  max-width: 800px;
+  min-height: 600px;
+  background-color: #808080;
+  margin: 0 auto;
+  max-height: 800px;
+  overflow-y: auto;
+  padding: 20px 20px;
+  margin-bottom: 60px;
+}
+.leader-page__main .leader-table {
+  /* background-color: #fff; */
+  min-height: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.leader-page__main .leader-table .leader-item {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 20px 10px;
+  font-size: 18px;
+  column-gap: 15px;
+}
+.leader-item .leader-item__number {
+  font-weight: 400;
+}
+.leader-item .leader-item__username {
+  font-weight: 600;
+}
+.leader-item .leader-item__wonsum {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leader-item .leader-item__wonsum .leader-item__wonsum-body {
+  background-color: #ca91f6;
+  padding: 5px 25px;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.leader-item .leader-item__tokens {
+  margin-left: auto;
+  font-weight: 600;
+}

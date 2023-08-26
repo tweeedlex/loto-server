@@ -204,7 +204,22 @@
   transform: translateY(0);
 }
 
+.auth-form-error {
+  color: red;
+  margin-bottom: 10px;
+  display: block;
+  font-size: 18px;
+}
+
 /* ================================ */
+.d-none {
+  display: none !important;
+}
+
+.main__container {
+  width: 100%;
+  height: 100%;
+}
 
 * {
   padding: 0;
@@ -244,6 +259,13 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 1 auto;
+  display: block;
+  /* overflow: hidden; */
 }
 input,
 button,

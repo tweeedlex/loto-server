@@ -23,6 +23,41 @@
   justify-content: space-between;
   padding: 20px;
   border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.game-started {
+  background-color: #c7a5ff;
+}
+
+.room-loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.room-loader::before {
+  content: "";
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .game * {
@@ -51,4 +86,11 @@
 .game__until-start,
 .game__room-bank {
   text-align: end;
+}
+
+.game__room-jackpot {
+  background-color: #f700ff;
+  display: block;
+  max-width: max-content;
+  padding: 5px 10px;
 }

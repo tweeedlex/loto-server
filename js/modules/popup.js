@@ -14,7 +14,7 @@ export const open = (text, status, showButton = false, ws = null) => {
     status === 300 ? "popup__content_lost" : ""
   }">
     <button class="popup__close"></button>
-    <div class="popup__text">
+    <div class="popup__text ${status === 400 ? "popup__text-red" : ""}">
       ${text}
     </div>
     ${showButton ? `<button class="popup__button">Продолжить</button>` : ""}
@@ -27,7 +27,10 @@ export const open = (text, status, showButton = false, ws = null) => {
     const button = body.querySelector(".popup__button");
     button.addEventListener("click", () => {
       close(popupElement);
-      ws.close();
+      ws.close(
+        1000,
+        JSON.stringify({ method: "exitGame", userId: window.userId })
+      );
     });
   }
   const closeButton = document.querySelector(".popup__close");

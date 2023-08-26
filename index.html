@@ -6,19 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Лото</title>
     <link rel="stylesheet" href="style/style.css" />
-    <link rel="stylesheet" href="style/header.css" />
+    <link rel="stylesheet" href="style/main.css" />
     <link rel="stylesheet" href="style/games.css" />
+    <link rel="stylesheet" href="style/leader-page.css" />
     <link rel="stylesheet" href="style/loto-room.css" />
     <link rel="stylesheet" href="style/loto-game-room.css" />
     <link rel="stylesheet" href="style/popup.css" />
+    <link rel="stylesheet" href="style/admin.css" />
+    <link rel="stylesheet" href="style/settings.css" />
+    <link rel="stylesheet" href="style/profile.css" />
   </head>
   <body>
     <header>
       <div class="header__container">
         <a href="" class="header__logo">Лото</a>
         <div class="header__user">
-          <a class="header__name"> Имя </a>
           <p>Баланс: <span class="header__balance">0р</span></p>
+          <a class="header__name"> Имя </a>
+          <!-- <button class="header__exit">Logout</button> -->
         </div>
       </div>
     </header>
@@ -38,6 +43,7 @@
                   <div class="indicator-form__line"></div>
                 </div>
               </div>
+              <span class="auth-form-error"></span>
               <div class="registration-form__body form-body">
                 <div class="form-body-registration">
                   <input
@@ -73,6 +79,7 @@
         </div>
       </div>
     </div>
+
     <main>
       <div class="main__container">
         <section class="games">
@@ -81,7 +88,7 @@
               <div class="loto-room__body">
                 <p class="game__title">Лото</p>
                 <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">20</span>p</p>
+                <p>Ставка: <span class="game__bet">0.20</span>М</p>
                 <div class="game__until-start">
                   <p>До начала:</p>
                   <span class="game__until-start-timer">00:00</span>
@@ -91,7 +98,13 @@
                   <span class="game__until-finish-timer">00:00</span>
                 </div>
                 <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                  Общий банк: <span class="game__room-bank-sum">0</span>М
+                </p>
+                <p class="game__room-bank">
+                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
+                </p>
+                <p class="game__room-jackpot">
+                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
                 </p>
               </div>
             </a>
@@ -99,7 +112,7 @@
               <div class="loto-room__body">
                 <p class="game__title">Лото</p>
                 <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">100</span>p</p>
+                <p>Ставка: <span class="game__bet">0.50</span>М</p>
                 <p class="game__until-start">
                   До начала: <span class="game__until-start-timer">00:00</span>
                 </p>
@@ -108,7 +121,13 @@
                   <span class="game__until-finish-timer">00:00</span>
                 </div>
                 <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                  Общий банк: <span class="game__room-bank-sum">0</span>М
+                </p>
+                <p class="game__room-bank">
+                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
+                </p>
+                <p class="game__room-jackpot">
+                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
                 </p>
               </div>
             </a>
@@ -116,7 +135,7 @@
               <div class="loto-room__body">
                 <p class="game__title">Лото</p>
                 <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">300</span>p</p>
+                <p>Ставка: <span class="game__bet">1</span>М</p>
                 <p class="game__until-start">
                   До начала: <span class="game__until-start-timer">00:00</span>
                 </p>
@@ -125,14 +144,347 @@
                   <span class="game__until-finish-timer">00:00</span>
                 </div>
                 <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>p
+                  Общий банк: <span class="game__room-bank-sum">0</span>М
+                </p>
+                <p class="game__room-bank">
+                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
+                </p>
+                <p class="game__room-jackpot">
+                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
+                </p>
+              </div>
+            </a>
+            <a class="game loto-room loto-room-4" room="4">
+              <div class="loto-room__body">
+                <p class="game__title">Лото</p>
+                <p>Онлайн: <span class="game__room-online">0</span></p>
+                <p>Ставка: <span class="game__bet">5</span>М</p>
+                <p class="game__until-start">
+                  До начала: <span class="game__until-start-timer">00:00</span>
+                </p>
+                <div class="game__until-finish">
+                  <p>До конца:</p>
+                  <span class="game__until-finish-timer">00:00</span>
+                </div>
+                <p class="game__room-bank">
+                  Общий банк: <span class="game__room-bank-sum">0</span>М
+                </p>
+                <p class="game__room-bank">
+                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
+                </p>
+                <p class="game__room-jackpot">
+                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
+                </p>
+              </div>
+            </a>
+            <a class="game loto-room loto-room-5" room="5">
+              <div class="loto-room__body">
+                <p class="game__title">Лото</p>
+                <p>Онлайн: <span class="game__room-online">0</span></p>
+                <p>Ставка: <span class="game__bet">10</span>М</p>
+                <p class="game__until-start">
+                  До начала: <span class="game__until-start-timer">00:00</span>
+                </p>
+                <div class="game__until-finish">
+                  <p>До конца:</p>
+                  <span class="game__until-finish-timer">00:00</span>
+                </div>
+                <p class="game__room-bank">
+                  Общий банк: <span class="game__room-bank-sum">0</span>М
+                </p>
+                <p class="game__room-bank">
+                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
+                </p>
+                <p class="game__room-jackpot">
+                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
                 </p>
               </div>
             </a>
           </div>
         </section>
       </div>
+
+      <!-- <div class="main__container">
+        <section class="user-game-history">
+          <div class="user-game-history-header">
+            <div class="user-game-history-header__back"><</div>
+            <h3 class="user-game-history-header__title">Статистика игрока</h3>
+          </div>
+          <div class="user-game-history__main">
+            <div class="user-game__item game-item">
+              <div class="game-item__tickets-block">
+              
+              </div>
+              <div class="game-item__row game-item__isWon">
+                Результат: <span>Проиграл</span>
+              </div>
+              <div class="game-item__row game-item__winSum">
+                Сума выигрыша: <span>0</span>M
+              </div>
+              <div class="game-item__row game-item__last-index">
+                Ход: <span class="game-item__last-index-num">56</span>
+              </div>
+              <div class="game-item__row game-item__jackpotWon">
+                Джекпот выигран:
+                <span class="game-item__jackpotWon-status">нет</span>
+              </div>
+              <div class="game-item__row game-item__price">
+                Цена билета: <span class="game-item__price-sum">12</span>M
+              </div>
+              <div class="game-item__row game-item__bet">
+                Ставка: <span class="game-item__bet-sum">43</span>M
+              </div>
+              <div class="game-item__row game-item__bank">
+                Общий банк: <span class="game-item__bank-sum">431</span>M
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> -->
+
+      <!-- <div class="main__container">
+        <section class="leader-menu-page">
+          <div class="leader-page-main">
+            <div class="leader-page-menu">
+              <div class="leader-page-menu__item">
+                <img src="img/loto-img.png" alt="" /><span>Лидеры лото</span>
+              </div>
+              <div class="leader-page-menu__item">
+                <img src="img/loto-img.png" alt="" /><span>Лидеры домино</span>
+              </div>
+              <div class="leader-page-menu__item">
+                <img src="img/loto-img.png" alt="" /><span>Лидеры нардов</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> -->
+
+      <!-- <div class="main__container">
+        <section class="leader-page">
+          <div class="leader-page__header">
+            <div class="leader-page__back"><</div>
+            <div class="leader-page__title">Лидеры лото</div>
+          </div>
+          <div class="leader-page__main">
+            <div class="leader-page__table leader-table">
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+              <div class="leader-table__item leader-item">
+                <div class="leader-item__number">1</div>
+                <div class="leader-item__username">2voby</div>
+                <div class="leader-item__wonsum">
+                  <div class="leader-item__wonsum-body">
+                    <span>1000</span> M
+                  </div>
+                </div>
+                <div class="leader-item__tokens">t: <span>12345</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> -->
+
+      <!-- <div class="main__container">
+        <section class="settings-page">
+          <div class="settings-page-header">
+            <h3 class="settings-page-header__title">Настройки</h3>
+          </div>
+          <div class="settings-page-main">
+            <div class="settings-page-main__block settings-block">
+              <div class="settings-block__item settings-item">
+                <h4 class="settings-item__title">Цвет выпавших боченков</h4>
+                <div class="settings-item__colors">
+                  <div
+                    color="red"
+                    color-code="#FF5F5F"
+                    class="red active"
+                  ></div>
+                  <div color="purple" color-code="#C870FF" class="purple"></div>
+                  <div color="yellow" color-code="#FCFF51" class="yellow"></div>
+                </div>
+              </div>
+
+              <div class="settings-block__item settings-item">
+                <h4 class="settings-item__title">Звуки</h4>
+                <div class="settings-item__sounds">
+                  <div class="settings-item__sounds-item">
+                    <span>Игра</span>
+                    <input type="checkbox" checked="true" />
+                  </div>
+                  <div class="settings-item__sounds-item">
+                    <span>Меню</span>
+                    <input type="checkbox" checked="true" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> -->
+
+      <!-- <div class="main__container">
+        <section class="profile-page">
+          <div class="profile-page-header">
+            <h3 class="profile-page-header__title">Профиль игрока</h3>
+          </div>
+          <div class="profile-page-main">
+            <div class="profile-page-main__block profile-block">
+              <div class="profile-block__section">
+                <div class="profile-block__item button">
+                  <h4>Баланс: <span>10</span></h4>
+                  <div class="topup-balance">+</div>
+                </div>
+              </div>
+              <div class="profile-block__section">
+                <h3 class="profile-block__item title">
+                  Информация об аккаунте
+                </h3>
+                <p class="profile-block__item text">
+                  Имя: <span class="profile-name"></span>
+                </p>
+                <p class="profile-block__item text">
+                  Почта: <span class="profile-email"></span>
+                </p>
+                <p class="profile-block__item text">
+                  Username: <span class="profile-username"></span>
+                </p>
+                <div class="profile-block__item button">
+                  <h4>Изменить пароль</h4>
+                </div>
+              </div>
+              <div class="profile-block__section">
+                <h3 class="profile-block__item title">Другое</h3>
+                <div class="profile-block__item button">
+                  <h4>Статистика игр</h4>
+                </div>
+                <div class="profile-block__item button">
+                  <h4>Транзакции</h4>
+                </div>
+                <div class="profile-block__item button exit">
+                  <h4>Выйти</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div> -->
     </main>
+    <footer id="footer">
+      <!-- <div class="footer__container">
+        <div class="foter__content">
+          <div class="footer__menu menu-footer">
+            <div class="menu-footer__item open-profile">Профиль</div>
+            <div class="menu-footer__item">Чат</div>
+            <div
+              class="menu-footer__item menu-footer__main-item open-games-menu"
+            >
+              Игры
+            </div>
+            <div class="menu-footer__item open-liders-menu">Лидеры</div>
+            <div class="menu-footer__item open-settings">Настройки</div>
+          </div>
+        </div>
+      </div> -->
+    </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="libs/eventSource/eventsource-polyfill.js"></script>
     <script src="js/app.js" type="module"></script>

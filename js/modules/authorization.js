@@ -2,6 +2,7 @@ import * as impHttpRequests from "./http.js";
 import * as impInterface from "./authinterface.js";
 import * as impNav from "./navigation.js";
 import * as impLotoNav from "./loto-navigation.js";
+import * as impAdminNav from "./admin-navigation.js";
 
 export function registrationForm() {
   let openFormButtons = document.querySelectorAll(".open-registration");
@@ -111,13 +112,15 @@ export function createRegistrationForm() {
       name,
     };
 
-    let request = await impHttpRequests.registration(registerData);
-    if (request.status == 200) {
+    let response = await impHttpRequests.registration(registerData);
+    if (response.status == 200) {
       // registrationPopup.classList.remove("opened");
       alert("Аккаунт создан, войдите в него");
       createLoginForm();
     } else {
-      // ADD ERROR
+      const errorBlock = document.querySelector(".auth-form-error");
+      console.log(response.data);
+      errorBlock.innerHTML = response.data.message;
     }
   });
   // append
@@ -176,25 +179,51 @@ export function createLoginForm() {
       password,
     };
     let response = await impHttpRequests.login(loginData);
+
     if (response.status == 200) {
+      // show auth interface
       registrationPopup.classList.remove("opened");
-      impInterface.showUserInterface(response.data);
+      impInterface.showUserInterface(response.data.user);
       window.username = response.data.username;
       window.userId = response.data.id;
 
       if (await isAuth()) {
         let ws = impLotoNav.connectWebsocketFunctions();
         impNav.addListeners(ws);
+        impNav.pageNavigation(ws);
       }
-      // show auth interface
+
+      if (response.data.user.isAdmin) {
+        impAdminNav.createAdminButton();
+      }
     } else {
-      // ADD ERROR
+      const errorBlock = document.querySelector(".auth-form-error");
+      console.log(response);
+      errorBlock.innerHTML = response.data.message;
     }
   });
 
   formBody.appendChild(usernameInput);
   formBody.appendChild(passwordInput);
   formBody.appendChild(submitButton);
+}
+
+export async function isAdmin() {
+  let response = await impHttpRequests.getUser();
+  if (response.status == 200) {
+    if (response.data.isAdmin == true) {
+      return true;
+    } else return false;
+  }
+}
+
+export async function getUser() {
+  let response = await impHttpRequests.getUser();
+  if (response.status == 200) {
+    return response.data;
+  } else {
+    return false;
+  }
 }
 
 export async function isAuth() {
@@ -220,3 +249,9 @@ function resetActiveBtn(buttonsArr) {
     }
   });
 }
+
+// const headerExitButton = document.querySelector(".header__exit");
+// headerExitButton.addEventListener("click", async function () {
+//   localStorage.removeItem("token");
+//   location.reload();
+// });

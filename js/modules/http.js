@@ -1,4 +1,4 @@
-export const API_URL = "https://loto-server.onrender.com/api";
+export const API_URL = "https://loto-server-new.onrender.com/api";
 
 const $api = axios.create({
   withCredentials: true,
@@ -36,7 +36,7 @@ export async function registration(registrationData) {
     return await response;
   } catch (error) {
     console.log(error.response?.data?.message);
-    return await error;
+    return await error.response;
   }
 }
 
@@ -49,7 +49,7 @@ export async function login(loginData) {
     return await response;
   } catch (error) {
     console.log(error.response?.data?.message);
-    return await error;
+    return await error.response;
   }
 }
 
@@ -61,8 +61,9 @@ export async function updateAuth() {
 
     localStorage.setItem("token", response.data.accessToken);
     return await response;
-  } catch (e) {
+  } catch (error) {
     console.log(e.response?.data?.message);
+    return await error.response;
   } finally {
   }
 }
@@ -72,7 +73,7 @@ export async function checkAuth() {
     let response = await $api.get("/checkAuth");
     return await response;
   } catch (error) {
-    return await error;
+    return await error.response;
   }
 }
 
@@ -81,8 +82,29 @@ export async function logout() {
     const response = await $api.post("/logout");
     localStorage.removeItem("token");
     return await response;
-  } catch (e) {
-    console.log(e.response?.data?.message);
+  } catch (error) {
+    console.log(error.response?.data?.message);
+    return error.response;
+  }
+}
+
+export async function changePassword(data) {
+  try {
+    const response = await $api.put("/change-password", data);
+    return await response;
+  } catch (error) {
+    console.log(error.response?.data?.message);
+    return error.response;
+  }
+}
+
+export async function getUser() {
+  try {
+    const response = await $api.get(`/get-user`);
+    return await response;
+  } catch (error) {
+    console.log(e.response);
+    return await error.response;
   }
 }
 
@@ -90,8 +112,9 @@ export async function disconnectRoom(roomId) {
   try {
     const response = await $api.delete(`/game/disconnect-loto-room/${roomId}`);
     return await response;
-  } catch (e) {
+  } catch (error) {
     console.log(e.response);
+    return await error.response;
   }
 }
 
@@ -101,6 +124,7 @@ export async function finishWaiting(roomId) {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -110,6 +134,7 @@ export async function connectRoom(roomId) {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -119,6 +144,7 @@ export async function getTicket() {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -128,6 +154,7 @@ export async function deleteTicket(cardId) {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -139,6 +166,7 @@ export async function buyTickets(cards) {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -148,6 +176,7 @@ export async function getTickets() {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -157,6 +186,17 @@ export async function isGameStarted(roomId) {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function isPlayerInRoom(roomId) {
+  try {
+    const response = await $api.get(`/game/is-user-in-game/${roomId}`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
   }
 }
 
@@ -166,5 +206,91 @@ export async function clearAllConnectons() {
     return await response;
   } catch (e) {
     console.log(e.response);
+    return await e.response;
+  }
+}
+
+//admin
+
+export async function getLotoSettings() {
+  try {
+    const response = await $api.get(`/loto-settings`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getBotWins() {
+  try {
+    const response = await $api.get(`/bot-wins`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getUserGames() {
+  try {
+    const response = await $api.get(`/get-games`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function setLotoSettings(roomId, body) {
+  try {
+    const response = await $api.put(`/loto-settings/${roomId}`, body);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+// leaders page
+
+export async function getGameLeaders(gameType) {
+  try {
+    const response = await $api.get(`/leaders/${gameType}`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getBotStats(gameType) {
+  try {
+    const response = await $api.get(`/botsStat/${gameType}`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getAllUsersAdminStats() {
+  try {
+    const response = await $api.get(`/allUsersStats`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getAdminBotWins() {
+  // можна передавать игру чтоб получать игру для статистики
+  try {
+    const response = await $api.get(`/bot-wins`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
   }
 }
