@@ -536,6 +536,7 @@ export function createTicket(cells, ticketId) {
         const tickets = document.querySelectorAll(".loto-gamemain__ticket");
         if (tickets.length > 1) {
           ticketContainer.remove();
+          impAudio.playTicket();
           const counter = document.querySelector(
             ".loto-gamecontrolls__counter__value"
           );
