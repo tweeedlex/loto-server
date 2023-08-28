@@ -2,15 +2,35 @@ import * as impHttp from "./http.js";
 import * as impPopup from "./popup.js";
 
 export function createAdminButton() {
-  // create button in header
-  const headerBlock = document.querySelector(".header__user");
-  const adminButton = document.createElement("button");
-  adminButton.classList.add("admin-button");
-  adminButton.textContent = "Admin";
-  headerBlock.appendChild(adminButton);
-  adminButton.addEventListener("click", () => {
-    redirectToAdminPage();
-  });
+  // // create button in header
+  // const headerBlock = document.querySelector(".header__user");
+  // const adminButton = document.createElement("button");
+  // adminButton.classList.add("admin-button");
+  // adminButton.textContent = "Admin";
+  // headerBlock.appendChild(adminButton);
+  // adminButton.addEventListener("click", () => {
+  //   redirectToAdminPage();
+  // });
+
+  // create button in profile
+  const profilePage = document.querySelector(".profile-page");
+  if (profilePage) {
+    const profileButtons = profilePage.querySelector(".profile__buttons.m20");
+    const exitButton = profilePage.querySelector(".profile-page__footer");
+    const adminButton = document.createElement("a");
+    adminButton.classList.add("profile__button", "curpointer");
+    adminButton.innerHTML = ` <img src="img/profile icons/profile.png" />
+    <p>АДМИН-ПАНЕЛЬ</p>
+    <img
+      src="img/profile icons/chevron-right.png"
+      alt="АДМИН-ПАНЕЛЬ"
+    />`;
+
+    profileButtons.appendChild(adminButton);
+    adminButton.addEventListener("click", () => {
+      redirectToAdminPage();
+    });
+  }
 }
 
 function addAdminFunctions() {

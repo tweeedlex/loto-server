@@ -1,18 +1,180 @@
 .loto-room-page {
-  background-color: #982447;
+  background: url("../img/bg.png") no-repeat 0 0 / cover;
+  min-height: 100vh;
+}
+
+.loto-room-page .loto-gameinfo__jackpot-block-wrapper .room-jackpot {
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
 .loto-room-page .room-jackpot {
   position: absolute;
-  left: 100px;
-  top: 10px;
-  background-color: #b791ff;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: 700;
-  max-width: max-content;
-  display: block;
+  left: 160px;
+  top: 15px;
+  display: flex;
+  align-items: center;
 }
+.loto-room-page .room-jackpot .room-jackpot-sum {
+  display: block;
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: var(--linear, linear-gradient(180deg, #a27114 0%, #f0e274 100%));
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 94%;
+  padding: 8px 10px;
+  margin-right: 7px;
+  margin-left: 32px;
+}
+.loto-room-page .room-jackpot .room-jackpot-sum img {
+  position: absolute;
+  width: 32px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transform: translatex(-100%);
+}
+
+.loto-room-page .room-jackpot .room-jackpot-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: var(--linear, linear-gradient(180deg, #78010b 0%, #d32433 100%));
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  /* flex: 0 0 45px; */
+  width: 37px;
+  height: 37px;
+  cursor: pointer;
+}
+.loto-room-page .room-jackpot .room-jackpot-question img {
+  /* flex: 0 0 50%; */
+  width: auto;
+  height: 50%;
+}
+
+@media (max-width: 1240px) {
+  .loto-room-page .room-jackpot {
+    left: 110px;
+    top: 10px;
+  }
+  .loto-room-page .room-jackpot .room-jackpot-sum {
+    font-size: 16px;
+  }
+  .loto-room-page .room-jackpot .room-jackpot-question {
+    width: 33px;
+    height: 33px;
+  }
+  .loto-room-page .room-jackpot .room-jackpot-sum img {
+    width: 26px;
+  }
+}
+
+/* exit button */
+.loto-room-page__exit-wrapper .loto-room-page__exit {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.loto-room-page__exit {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 117%;
+  letter-spacing: 1.76px;
+}
+.loto-room-page__exit img {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 35px;
+}
+
+@media (max-width: 998px) {
+  .loto-room-page__exit-wrapper .loto-room-page__exit {
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: #670505;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .loto-room-page__exit-wrapper .loto-room-page__exit img {
+    flex: 0 0 25px;
+    width: 25px;
+    height: 20px;
+  }
+
+  .loto-room-page__exit-wrapper .loto-room-page__exit span {
+    display: none;
+  }
+}
+
+/* timer */
+
+.loto-gameinfo__timer-wrapper .loto-room-page__timer {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.loto-room-page__timer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: var(
+    --linear,
+    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)
+  );
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 80%;
+}
+.loto-room-page__timer img {
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+}
+
+@media (max-width: 1240px) {
+  .loto-room-page__timer {
+    font-size: 16px;
+    padding: 7px 10px;
+  }
+  .loto-room-page__timer img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
+
+/* ================ room content =================== */
 
 .loto-room-content {
   min-height: calc(100vh - 70px);
@@ -22,77 +184,261 @@
   position: relative;
 }
 
-.loto-room-page__exit {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  background-color: red;
-  padding: 10px 10px;
-  font-size: 18px;
-}
-
-.loto-room-page__timer {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  background-color: #fff;
-  padding: 10px 10px;
-  font-size: 18px;
-}
+/* game information block */
 
 .loto-room__gameinfo {
-  background-color: #8e8e8f;
-  display: flex;
-  align-items: center;
-  padding: 20px 20px;
-  font-size: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.loto-room__main {
-  flex: 1 1 auto;
-}
-
-.loto-room__controlls {
-  background-color: #8e8e8f;
+  border-radius: 10px;
+  border: 1px solid #777;
+  background: linear-gradient(180deg, #88143f 0%, #780d35 100%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  padding: 15px 15px;
+  color: #fff;
+}
+
+.loto-room__gameinfo .loto-gameinfo__top-row {
+  display: flex;
   align-items: center;
-  padding: 10px 10px;
   justify-content: space-between;
+  margin-bottom: 20px;
+}
+.loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  letter-spacing: 1.98px;
+}
+.loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item span {
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+.loto-room__gameinfo .loto-gameinfo__bottom-row {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  justify-content: center;
+  column-gap: 30px;
+}
+.loto-gameinfo__online {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  border: 0.992px solid #777;
+  background: var(
+    --linear,
+    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)
+  );
+  box-shadow: 0px 3.968510866165161px 3.968510866165161px 0px
+      rgba(0, 0, 0, 0.25),
+    0px 3.968510866165161px 3.968510866165161px 0px rgba(0, 0, 0, 0.25);
+  padding: 6px 10px 6px 6px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+  max-width: 70px;
+}
+
+.loto-gameinfo__online img {
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+}
+
+.loto-gameinfo__auto-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: #777;
+
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 6px 10px 6px 6px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+}
+.loto-gameinfo__auto-button.active {
+  background: linear-gradient(180deg, #3bd051 0%, #0c851e 100%);
+}
+.loto-gameinfo__auto-button img {
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+}
+.loto-gameinfo__sounds-button {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 0.992px solid #777;
+  background: #777;
+  box-shadow: 0px 3.968510866165161px 3.968510866165161px 0px
+      rgba(0, 0, 0, 0.25),
+    0px 3.968510866165161px 3.968510866165161px 0px rgba(0, 0, 0, 0.25);
+  padding: 6px 6px;
+  max-width: 36px;
+  user-select: none;
+}
+.loto-gameinfo__sounds-button.active {
+  background: linear-gradient(180deg, #37d34e 0%, #0c851e 100%);
+}
+.loto-gameinfo__sounds-button img {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1240px) {
+  .loto-room__gameinfo {
+    max-width: 350px;
+  }
+  .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
+    font-size: 20px;
+  }
+
+  .loto-room__gameinfo
+    .loto-gameinfo__top-row
+    .loto-gameinfo__top-row-item
+    span {
+    font-size: 16px;
+  }
+
+  .loto-gameinfo__online,
+  .loto-gameinfo__auto-button {
+    font-size: 14px;
+  }
+  .loto-gameinfo__online img,
+  .loto-gameinfo__auto-button img {
+    width: 18px;
+    height: 18px;
+    margin-right: 7px;
+  }
+  .loto-gameinfo__sounds-button img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 998px) {
+  .loto-room__gameinfo {
+    max-width: 350px;
+  }
+  .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
+    font-size: 20px;
+  }
+  .loto-room__gameinfo .loto-gameinfo__bottom-row {
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 10px;
+  }
+  .loto-room__gameinfo
+    .loto-gameinfo__top-row
+    .loto-gameinfo__top-row-item
+    span {
+    font-size: 16px;
+  }
+
+  .loto-gameinfo__online,
+  .loto-gameinfo__auto-button {
+    font-size: 14px;
+  }
+  .loto-gameinfo__online img,
+  .loto-gameinfo__auto-button img {
+    width: 18px;
+    height: 18px;
+    margin-right: 7px;
+  }
+  .loto-gameinfo__sounds-button img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
+    font-size: 16px;
+  }
+  .loto-room__gameinfo
+    .loto-gameinfo__top-row
+    .loto-gameinfo__top-row-item
+    span {
+    line-height: 14px;
+  }
+}
+
+/* maim tickets block */
+.loto-room__main {
+  padding: 20px 0;
+  flex: 1 1 auto;
+}
+
+.loto-room__controlls {
+  border-radius: 10px;
+  border: 1px solid #777;
+  background: linear-gradient(180deg, #88143f 0%, #780d35 100%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  justify-content: space-between;
+  max-width: 400px;
+  width: 100%;
 }
 
 .loto-room__controlls .loto-gamecontrolls__buy {
-  padding: 40px 20px;
-  background-color: #9ecf17;
-  flex: 1 1 50%;
-  display: block;
-  font-size: 20px;
-  text-align: center;
-  text-transform: uppercase;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: var(--linear, linear-gradient(180deg, #a27114 0%, #f0e274 100%));
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  padding: 16px 25px;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: 2px;
+  margin-right: 15px;
 }
 
 .loto-room__controlls .loto-gamecontrolls__counter {
   flex: 1 1 50%;
   display: flex;
-
   justify-content: center;
   text-align: center;
   align-items: center;
+  border-radius: 10px;
+  border: 1px solid #777;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #000;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18.808px; /* 78.368% */
+  letter-spacing: 2.64px;
+  max-width: 110px;
 }
 
 .loto-room__controlls
   .loto-gamecontrolls__counter
   .loto-gamecontrolls__counter__minus {
   padding: 10px 10px;
-  background: rgb(253, 253, 253);
+  /* background: rgb(253, 253, 253); */
   color: red;
   font-size: 20px;
   user-select: none;
@@ -102,7 +448,7 @@
   .loto-gamecontrolls__counter
   .loto-gamecontrolls__counter__plus {
   padding: 10px 10px;
-  background: rgb(253, 253, 253);
+  /* background: rgb(253, 253, 253); */
   color: green;
   font-size: 20px;
   user-select: none;
@@ -112,7 +458,7 @@
   .loto-gamecontrolls__counter
   .loto-gamecontrolls__counter__value {
   padding: 10px 10px;
-  background: rgb(253, 253, 253);
+  /* background: rgb(253, 253, 253); */
   font-size: 20px;
   user-select: none;
 }
@@ -136,6 +482,8 @@
   /* background-color: #78010b; */
   background: #ddcac9;
   border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
 }
 
 .ticket-buttons button {
@@ -144,6 +492,21 @@
   border-radius: 10px;
   background: linear-gradient(180deg, #78010b 0%, #d32433 100%);
   color: #fff;
+  display: flex;
+  align-items: center;
+
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+.ticket-buttons button img {
+  flex: 0 0 10px;
+  height: 10px;
+  margin-right: 7px;
 }
 
 .ticket-buttons button:not(:last-child) {
@@ -174,13 +537,25 @@
 
 .loto-gamemain__ticket.bought-ticket .ticket-cell {
   /* background-color: #e3f8a9; */
+  position: relative;
 }
 
-.loto-gamemain__ticket.bought-ticket .ticket-cell.active {
-  /* background-color: #63d45f; */
-  background: #f6ba9e;
-  border: 7px solid #78010b;
+.loto-gamemain__ticket.bought-ticket .ticket-cell .ticket-cell-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
+}
+
+.loto-gamemain__ticket.bought-ticket .ticket-cell.active .ticket-cell-number {
+  background: #f6ba9e;
+  border: 6px solid #78010b;
 }
 
 .loto-gamemain__ticket.bought-ticket button {
@@ -199,6 +574,30 @@
   justify-content: center;
   font-size: 20px;
   color: #670505;
+}
+
+@media (max-width: 768px) {
+  .loto-gamemain__ticket {
+    grid-template-columns: repeat(9, 40px);
+  }
+
+  .ticket-cell {
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 425px) {
+  .loto-gamemain__ticket {
+    grid-template-columns: repeat(9, 32px);
+  }
+
+  .ticket-cell {
+    font-size: 16px;
+    width: 32px;
+    height: 32px;
+  }
 }
 
 /* .ticket-cell.active {

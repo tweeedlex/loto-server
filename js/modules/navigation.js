@@ -5,10 +5,18 @@ import * as impLeadersFunc from "./leaders.js";
 import * as impSettingsFunc from "./settings.js";
 import * as impProfileFunc from "./profile.js";
 import * as impLotoNav from "./loto-navigation.js";
+import * as impPopup from "./popup.js";
+import * as impMoveElement from "./move-element.js";
+import * as impAudio from "./audio.js";
 
 // let game = document.querySelector(".games");
 // let lotoRooms = game.querySelectorAll(".loto-room");
 // event listeners
+
+export function hideAuthorization() {
+  const auth = document.querySelector(".registration");
+  auth.classList.remove("opened");
+}
 
 export function addListeners(ws) {
   let game = document.querySelector(".games");
@@ -22,9 +30,34 @@ export function addListeners(ws) {
   });
 }
 
-export function addHashListeners() {
+export async function addHashListeners() {
+  location.hash = "#";
+  // проверяем или есть у нас тикеты и кидаем куда надо
+  const ticketsResponce = await impHttp.getTickets();
+  if (ticketsResponce.status == 200) {
+    let userTickets = ticketsResponce.data;
+    if (
+      userTickets.length > 0 &&
+      !location.hash.includes("loto-game") &&
+      !location.hash.includes("loto-room")
+    ) {
+      const roomId = userTickets[0].gameLevel;
+      const isGameStartedRes = await impHttp.isGameStarted(roomId);
+      if (isGameStartedRes.status == 200) {
+        let isGameStarted = isGameStartedRes.data;
+        if (JSON.parse(isGameStarted) == true) {
+          location.hash = `#loto-game-${roomId}`;
+        } else {
+          location.hash = `#loto-room-${roomId}`;
+        }
+      }
+    }
+  }
+
+  // на изменение хеша
   window.addEventListener("hashchange", async function () {
     let hash = location.hash;
+
     if (!hash || hash == "" || hash == "#") {
       window.ws.close(
         3001,
@@ -36,17 +69,52 @@ export function addHashListeners() {
           method: "disconnectGame",
         })
       );
-      // clearInterval(lotoTimer);
       redirectToMainPage();
+
+      const ticketsResponce = await impHttp.getTickets();
+      if (ticketsResponce.status == 200) {
+        let userTickets = ticketsResponce.data;
+        if (
+          userTickets.length > 0 &&
+          !location.hash.includes("loto-game") &&
+          !location.hash.includes("loto-room")
+        ) {
+          const roomId = userTickets[0].gameLevel;
+          const isGameStartedRes = await impHttp.isGameStarted(roomId);
+          if (isGameStartedRes.status == 200) {
+            let isGameStarted = isGameStartedRes.data;
+            if (JSON.parse(isGameStarted) == true) {
+              location.hash = `#loto-game-${roomId}`;
+            } else {
+              location.hash = `#loto-room-${roomId}`;
+            }
+          }
+          // location.hash = `#loto-room-${roomId}`;
+        }
+      }
     } else if (hash.includes("loto-room")) {
       // open loto room waiting page if game is not started
       const roomId = Number(hash.split("-")[2][0]);
-      const { data: isGameStarted } = await impHttp.isGameStarted(roomId);
-      if (isGameStarted) {
-        location.hash = "";
-        return;
+
+      const ticketsResponce = await impHttp.getTickets();
+      const isGameStartedRes = await impHttp.isGameStarted(roomId);
+      if (ticketsResponce.status == 200 && isGameStartedRes.status == 200) {
+        let userTickets = ticketsResponce.data;
+        let isGameStarted = isGameStartedRes.data;
+        if (userTickets.length > 0 && isGameStarted == true) {
+          let userTicketsRoomId = userTickets[0].gameLevel;
+          location.hash = `#loto-game-${userTicketsRoomId}`;
+        } else if (userTickets.length > 0 && isGameStarted == false) {
+          let userTicketsRoomId = userTickets[0].gameLevel;
+
+          if (roomId != userTicketsRoomId) {
+            location.hash = `#loto-room-${userTicketsRoomId}`;
+          }
+        } else if (isGameStarted == true && userTickets == 0) {
+          location.hash = "";
+        }
       }
-      openRoomByHash(hash);
+
       const bet = impLotoGame.getBetByRoomId(roomId);
       ws.send(
         JSON.stringify({
@@ -57,20 +125,37 @@ export function addHashListeners() {
           method: "connectGame",
         })
       );
+      openRoomByHash(hash);
     } else if (hash.includes("loto-game")) {
       const query = new URLSearchParams(hash.split("?")[1]);
       const roomId = Number(hash.split("-")[2].split("?")[0]);
+
+      // проверка на хеш и билеты
+
+      const ticketsResponce = await impHttp.getTickets();
+      const isGameStartedRes = await impHttp.isGameStarted(roomId);
+      if (ticketsResponce.status == 200 && isGameStartedRes.status == 200) {
+        let userTickets = ticketsResponce.data;
+        let isGameStarted = isGameStartedRes.data;
+        if (userTickets.length > 0 && isGameStarted == true) {
+          let userTicketsRoomId = userTickets[0].gameLevel;
+          if (roomId != userTicketsRoomId) {
+            location.hash = `#loto-game-${userTicketsRoomId}`;
+          }
+        } else if (userTickets.length > 0 && isGameStarted == false) {
+          let userTicketsRoomId = userTickets[0].gameLevel;
+          location.hash = `#loto-room-${userTicketsRoomId}`;
+        } else if (isGameStarted == true && userTickets == 0) {
+          location.hash = "";
+        }
+      }
+
+      // даные об игре
       const bet = impLotoGame.getBetByRoomId(roomId);
       const bank = Number(query.get("bank")).toFixed(2);
       const jackpot = Number(query.get("jackpot")).toFixed(2);
       const online = Number(query.get("online"));
-      impLotoGame.openGamePage(
-        +online || null,
-        +bet || null,
-        +bank || null,
-        +roomId,
-        +jackpot || null
-      );
+
       ws.send(
         JSON.stringify({
           roomId,
@@ -79,6 +164,14 @@ export function addHashListeners() {
           userId: window.userId,
           method: "connectGame",
         })
+      );
+
+      impLotoGame.openGamePage(
+        +online || null,
+        +bet || null,
+        +bank || null,
+        +roomId,
+        +jackpot || null
       );
     }
     switch (hash) {
@@ -100,28 +193,130 @@ async function openRoomByHash(hash) {
 
   body.innerHTML = `
   <div class="loto-room-page">
-    <div class="loto-room-content">
-      <div class="loto-room-page__timer">00:00</div>
-      <div class="loto-room-page__exit">Выйти</div>
-      <div class="loto-room__gameinfo loto-gameinfo">
-        <p class="loto-gameinfo__bet">Ставка: <span>0</span>M</p>
-        <p class="loto-gameinfo__online">Онлайн: <span>0</span></p>
-        <p class="loto-gameinfo__bank">Банк: <span>0</span>M</p>
+  <div class="loto-room-content">
+    <div class="loto-room-page__timer">
+      <img src="img/timer-icon.png" alt="" /><span>00:00</span>
+    </div>
+    <div class="room-jackpot">
+      <div class="room-jackpot-sum">
+        <img src="img/jackpot-icon.png" alt="" /><span>0</span> ₼
       </div>
-      <div class="room-jackpot">
-      Джекпот: <span class="room-jackpot-sum">0</span>M
-      </div>
-      <div class="loto-room__main loto-gamemain"></div>
-      <div class="loto-room__controlls loto-gamecontrolls">
-        <div class="loto-gamecontrolls__buy">Купить билеты</div>
-        <div class="loto-gamecontrolls__counter">
-          <div class="loto-gamecontrolls__counter__minus">-</div>
-          <div class="loto-gamecontrolls__counter__value">1</div>
-          <div class="loto-gamecontrolls__counter__plus">+</div>
-        </div>
+      <div class="room-jackpot-question">
+        <img src="img/question-tag.png" alt="" />
       </div>
     </div>
-  </div>`;
+    <div class="loto-room-page__exit">
+      <span>Выйти</span> <img src="img/logout.png" alt="" />
+    </div>
+    <div class="loto-room__gameinfo loto-gameinfo">
+      <div class="loto-gameinfo__top-row">
+        <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
+          Ставка: <span>0</span> ₼
+        </p>
+        <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
+          Банк: <span>0</span> ₼
+        </p>
+        <div class="loto-room-page__exit-wrapper"></div>
+      </div>
+      <div class="loto-gameinfo__bottom-row">
+        <p class="loto-gameinfo__online">
+          <img src="img/online-icon.png" alt="" /> <span>0</span>
+        </p>
+        <p class="loto-gameinfo__timer-wrapper"></p>
+        <p class="loto-gameinfo__auto-button active">
+          <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
+        </p>
+        <p class="loto-gameinfo__jackpot-block-wrapper"></p>
+        <p class="loto-gameinfo__sounds-button active">
+          <img src="img/profile icons/sound.png" alt="" />
+        </p>
+      </div>
+    </div>
+    <div class="loto-room__main loto-gamemain"></div>
+    <div class="loto-room__controlls loto-gamecontrolls">
+      <div class="loto-gamecontrolls__buy">Купить билет</div>
+      <div class="loto-gamecontrolls__counter">
+        <div class="loto-gamecontrolls__counter__minus">-</div>
+        <div class="loto-gamecontrolls__counter__value">1</div>
+        <div class="loto-gamecontrolls__counter__plus">+</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+  impMoveElement.moveElement(
+    "loto-room-content",
+    "loto-room-page__timer",
+    "loto-gameinfo",
+    "loto-gameinfo__timer-wrapper",
+    998
+  );
+
+  impMoveElement.moveElement(
+    "loto-room-content",
+    "room-jackpot",
+    "loto-gameinfo",
+    "loto-gameinfo__jackpot-block-wrapper",
+    998
+  );
+
+  impMoveElement.moveElement(
+    "loto-room-content",
+    "loto-room-page__exit",
+    "loto-gameinfo",
+    "loto-room-page__exit-wrapper",
+    768
+  );
+
+  const autoButton = document.querySelector(".loto-gameinfo__auto-button");
+
+  autoButton.addEventListener("click", () => {
+    if (autoButton.classList.contains("active")) {
+      autoButton.classList.remove("active");
+      localStorage.setItem("auto-play", false);
+    } else {
+      autoButton.classList.add("active");
+      localStorage.setItem("auto-play", true);
+    }
+  });
+
+  let autoPlay = localStorage.getItem("auto-play");
+  if (autoPlay == "true") {
+    autoButton.classList.add("active");
+  } else {
+    autoButton.classList.remove("active");
+  }
+
+  const soundButton = document.querySelector(".loto-gameinfo__sounds-button");
+
+  let menuSoundsAllowed = localStorage.getItem("sounds-menu");
+  let gameSoundsAllowed = localStorage.getItem("sounds-game");
+
+  if (menuSoundsAllowed == "true" || gameSoundsAllowed == "true") {
+    soundButton.classList.add("active");
+  } else {
+    soundButton.classList.remove("active");
+  }
+
+  soundButton.addEventListener("click", () => {
+    toggleSound();
+  });
+
+  const toggleSound = () => {
+    if (soundButton.classList.contains("active")) {
+      soundButton.classList.remove("active");
+      localStorage.setItem("sounds-game", false);
+      localStorage.setItem("sounds-menu", false);
+      impAudio.setGameSoundsAllowed(false);
+      impAudio.setMenuSoundsAllowed(false);
+    } else {
+      soundButton.classList.add("active");
+      localStorage.setItem("sounds-game", true);
+      localStorage.setItem("sounds-menu", true);
+      impAudio.setGameSoundsAllowed(true);
+      impAudio.setMenuSoundsAllowed(true);
+    }
+  };
 
   const roomId = +hash.split("-")[2];
   const bet = impLotoGame.getBetByRoomId(Number(roomId));
@@ -141,9 +336,22 @@ async function openRoomByHash(hash) {
 
   // выход из комнаты и отключение от вебсокета комнаты
   let exitButton = document.querySelector(".loto-room-page__exit");
-  exitButton.addEventListener("click", async function () {
-    location.hash = "";
-  });
+  if (exitButton) {
+    exitButton.addEventListener("click", async function () {
+      const boughtTickets = document.querySelectorAll(
+        ".loto-gamemain__ticket.bought-ticket"
+      );
+      if (boughtTickets.length > 0) {
+        impPopup.openExitPopup(
+          "Ваша ставка будет анулирована. Вы точно хотите выйти?",
+          Number(roomId),
+          bet
+        );
+      } else {
+        location.hash = "";
+      }
+    });
+  }
 }
 
 // use location.hash = ""
@@ -334,21 +542,23 @@ export function pageNavigation(ws) {
 export function createPageNavBlock() {
   let footer = document.querySelector("#footer");
   if (footer) {
-    footer.innerHTML = `<div class="footer__container">
-    <div class="foter__content">
-      <div class="footer__menu menu-footer">
-        <div class="menu-footer__item open-profile">Профиль</div>
-        <div class="menu-footer__item">Чат</div>
-        <div
-          class="menu-footer__item menu-footer__main-item open-games-menu"
-        >
-          Игры
-        </div>
-        <div class="menu-footer__item open-liders-menu">Лидеры</div>
-        <div class="menu-footer__item open-settings">Настройки</div>
-      </div>
-    </div>
-  </div>`;
+    footer.innerHTML = `<footer id="footer"> 
+    <div class="footer__container">
+     <div class="foter__content">
+       <div class="footer__menu menu-footer">
+         <div class="menu-footer__item open-profile"><img src="img/profile-button.png" alt=""></div>
+         <div class="menu-footer__item"><img src="img/chat.png" alt=""></div>
+         <div
+           class="menu-footer__item menu-footer__main-item open-games-menu"
+         >
+         <img src="img/games.png" alt="">
+         </div>
+         <div class="menu-footer__item open-liders-menu"><img src="img/leaders.png" alt=""></div>
+         <div class="menu-footer__item open-settings"><img src="img/deposit.png" alt=""></div>
+       </div>
+     </div>
+   </div>
+ </footer>`;
   }
 }
 

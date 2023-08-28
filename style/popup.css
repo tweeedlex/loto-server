@@ -50,6 +50,14 @@
   cursor: pointer;
 }
 
+.popup__button.green {
+  background-color: rgba(3, 134, 34, 0);
+}
+
+.popup__button.red {
+  background-color: rgb(154, 0, 0);
+}
+
 .popup__text {
   width: 100%;
   font-size: 18px;
@@ -83,4 +91,227 @@
 
 .popup__text-red {
   color: red;
+}
+
+/* end game popup */
+
+.end-game-popup {
+}
+
+.end-game-popup__content {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+}
+
+.close-popup-timer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: aquamarine;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.end-game-popup__title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  align-self: baseline;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.end-game-popup__text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.end-game-popup__winners-wrapper {
+  background: #afafaf;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.end-game-winners {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+}
+
+.end-game-winners .end-game-winners__item {
+  width: 100%;
+  background-color: #f8f8f8;
+
+  padding: 15px 10px;
+}
+
+.end-game-winners .end-game-winners__item .end-game-winners__item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.end-game-winners .end-game-winners__item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.end-game-winners .end-game-winners__item .end-game-winners__item-name {
+  font-size: 18px;
+}
+
+.end-game-winners .end-game-winners__item .end-game-winners__item-won {
+  font-size: 16px;
+}
+
+.end-game-winners .end-game-winners__item .end-game-winners__item-ticket {
+  display: grid;
+  grid-template-columns: repeat(9, 40px);
+  grid-template-rows: repeat(3, 40px);
+  max-width: max-content;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
+}
+
+.end-game-winners
+  .end-game-winners__item
+  .end-game-winners__item-ticket
+  .end-game-winners__item-ticket-cell {
+  border: 1px solid #b9b9b9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.end-game-winners__item-ticket-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.end-game-winners
+  .end-game-winners__item
+  .end-game-winners__item-ticket
+  .end-game-winners__item-ticket-cell.active
+  .end-game-winners__item-ticket-number {
+  background: #f6ba9e;
+  border: 6px solid #78010b;
+}
+
+@media (max-width: 499px) {
+  .end-game-popup__body {
+    padding: 15px;
+  }
+
+  .end-game-popup__content {
+    padding: 5px;
+  }
+
+  .end-game-popup__title {
+    font-size: 16px;
+    padding-right: 57px;
+  }
+
+  .end-game-popup__text {
+    font-size: 14px;
+  }
+
+  .end-game-winners .end-game-winners__item .end-game-winners__item-name {
+    font-size: 14px;
+  }
+
+  .end-game-winners .end-game-winners__item .end-game-winners__item-won {
+    font-size: 12px;
+  }
+
+  .end-game-winners__item-ticket {
+    width: 280px;
+  }
+
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell {
+    width: 25px;
+    height: 25px;
+  }
+
+  .end-game-winners__item-ticket-number {
+    width: 70%;
+    height: 70%;
+  }
+
+  .end-game-winners .end-game-winners__item .end-game-winners__item-ticket {
+    grid-template-columns: repeat(9, 25px);
+    grid-template-rows: repeat(3, 25px);
+    max-width: max-content;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
+  }
+}
+
+/* jackpot popup */
+
+.jackpot-popup__content {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  position: relative;
+}
+
+.jackpot-popup__jackpot {
+  background-color: #f8fc2e;
+  padding: 10px 40px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  /* position: absolute; */
+}
+
+.jackpot-popup__jackpot.animation {
+  animation: infinite jackpotAnimation 3s;
+  transform: scale(0);
+}
+
+@keyframes jackpotAnimation {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.6);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.jackpot-popup__title {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+
+.jackpot-popup__title.visible {
+  opacity: 1;
+  visibility: visible;
 }

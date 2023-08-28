@@ -158,6 +158,28 @@ export async function deleteTicket(cardId) {
   }
 }
 
+export async function deleteTickets(roomId) {
+  try {
+    const response = await $api.delete(`/game/delete-cards?roomId=${roomId}`);
+    return await response;
+  } catch (error) {
+    console.log(e.response);
+    return await error.response;
+  }
+}
+
+export async function deleteTicketsReturnBalance(roomId, bet) {
+  try {
+    const response = await $api.delete(
+      `/game/delete-cards-balance?roomId=${roomId}&bet=${bet}`
+    );
+    return await response;
+  } catch (error) {
+    console.log(e.response);
+    return await error.response;
+  }
+}
+
 export async function buyTickets(cards) {
   try {
     const response = await $api.post(`/game/create-card`, {

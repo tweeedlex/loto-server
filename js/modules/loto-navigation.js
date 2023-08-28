@@ -70,12 +70,16 @@ export const connectWebsocketFunctions = () => {
         impNav.updateBalance(msg.balance);
         break;
       case "connectGame":
+        timerStarted = false;
+
+        console.log(msg);
         // проверка есть ли юзер в комнате
         checkUserBeforeEnterRoom(msg);
         // добавление информации о комнате
         setBet(msg);
         updateOnline(msg.online);
         if (msg.startedAt != null) {
+          deleteExitButton();
           if (!timerStarted) {
             startLotoTimer(msg.startedAt);
             timerStarted = true;
@@ -106,12 +110,19 @@ export const connectWebsocketFunctions = () => {
         break;
       case "buyTickets":
         if (msg.isBought == false) {
-          impPopup.open("Недостаточно средств!", 400);
+          impPopup.open("Произошла ошибка!", 400);
           return;
         }
         deleteTickets();
         createTickets(msg);
-        deleteExitButton();
+        // update counter
+        const counter = document.querySelector(
+          ".loto-gamecontrolls__counter__value"
+        );
+        counter.innerHTML = document.querySelectorAll(
+          ".loto-gamemain__ticket"
+        ).length;
+        // deleteExitButton();
         // updateBank(msg);
         break;
 
@@ -148,8 +159,11 @@ export const connectWebsocketFunctions = () => {
         impPopup.open("Вы не купили билеты для игры!", 400);
         break;
       case "updateRoomTimer":
+        console.log(msg);
+
         if (msg.startedAt != null) {
           if (!timerStarted) {
+            deleteExitButton();
             startLotoTimer(msg.startedAt);
             timerStarted = true;
           }
@@ -169,6 +183,8 @@ export const connectWebsocketFunctions = () => {
         updateOnline(msg.online);
         break;
       case "openGame":
+        console.log(msg);
+
         location.hash = `#loto-game-${msg.roomId}?bet=${msg.bet}&bank=${msg.bank}&jackpot=${msg.jackpot}&online=${msg.online}`;
         // updateBank(msg.bank);
         break;
@@ -181,12 +197,14 @@ export const connectWebsocketFunctions = () => {
         break;
 
       case "winGame":
+        console.log(msg);
         impLotoGame.checkWin(
           msg.winners,
           msg.bank,
           msg.winnersAmount,
-          ws,
-          msg.isJackpotWon
+          msg.isJackpotWon,
+          msg.jackpotData,
+          msg.winnersData
         );
         break;
 
@@ -264,9 +282,10 @@ export async function openLotoRoom(ws, roomId) {
 }
 
 const handleLeftSome = (msg, leftSome) => {
-  const sidebar = document.querySelector(".information-sidebar");
   let block1, block2, block3;
 
+  const gameContent = document.querySelector(".loto-game-room-page-content");
+  const gameProcess = document.querySelector(".loto-game-room__gameprocess");
   block3 = document.querySelector(".left3 span");
   switch (leftSome) {
     case "left1":
@@ -283,9 +302,9 @@ const handleLeftSome = (msg, leftSome) => {
 
         if (!block1) {
           let block = document.createElement("div");
-          block.classList.add("information-sidebar__item", "left1");
+          block.classList.add("loto-gameinfo__information-left", "left1");
           block.innerHTML = `У <span>0</span> карточек осталось 1 номер`;
-          sidebar.appendChild(block);
+          gameContent.insertBefore(block, gameProcess);
         }
         block1 = document.querySelector(".left1 span");
         block1.innerHTML = msg.left1;
@@ -302,9 +321,9 @@ const handleLeftSome = (msg, leftSome) => {
 
         if (!block2) {
           let block = document.createElement("div");
-          block.classList.add("information-sidebar__item", "left2");
+          block.classList.add("loto-gameinfo__information-left", "left2");
           block.innerHTML = `У <span>0</span> карточек осталось 2 номерa`;
-          sidebar.appendChild(block);
+          gameContent.insertBefore(block, gameProcess);
         }
         block2 = document.querySelector(".left2 span");
         block2.innerHTML = msg.left2;
@@ -321,9 +340,10 @@ const handleLeftSome = (msg, leftSome) => {
 };
 
 async function startLotoTimer(strtedAt) {
+  // стартуем таймер
   let lobbyPage = document.querySelector(".loto-room-page");
   if (lobbyPage) {
-    let timerBlock = document.querySelector(".loto-room-page__timer");
+    let timerBlock = document.querySelector(".loto-room-page__timer span");
     const startedAt = new Date(strtedAt).getTime();
     // const targetTime = startedAt + 5 * 60 * 1000; // 5 minutes in milliseconds
     const targetTime = startedAt + 30 * 1000; // 5 minutes in milliseconds
@@ -446,53 +466,60 @@ function checkUserBeforeEnterRoom(msg) {
 
 export function buyTickets(ws, roomId, bet) {
   let buyButton = document.querySelector(".loto-gamecontrolls__buy");
-  buyButton.addEventListener("click", async function () {
-    let ticketsCount = document.querySelector(
-      ".loto-gamecontrolls__counter__value"
-    );
+  if (buyButton) {
+    buyButton.addEventListener("click", async function () {
+      let ticketsCount = document.querySelector(
+        ".loto-gamecontrolls__counter__value"
+      );
 
-    if (ticketsCount && ticketsCount.innerHTML == 0) {
-      return;
-    }
-
-    let ticketsBody = document.querySelector(".loto-gamemain");
-    let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-    let ticketsArray = [];
-
-    const balance = +document.querySelector(".header__balance").innerHTML;
-    const ticketsPrice = +ticketsCount.innerHTML * bet;
-    if (balance < ticketsPrice) {
-      impPopup.open("Недостаточно средств!", 400);
-      return;
-    }
-
-    tickets.forEach((ticket) => {
-      if (!ticket.classList.contains("bought-ticket")) {
-        let ticketCells = ticket.querySelectorAll(".ticket-cell");
-        let ticketId = ticket.getAttribute("id");
-        let ticketInfo = {};
-        let ticketCellsArray = [];
-        ticketCells.forEach((cell) => {
-          let number = cell.innerHTML;
-          ticketCellsArray.push(number);
-        });
-        ticketInfo.ticketCells = ticketCellsArray;
-        ticketInfo.ticketId = ticketId;
-        ticketsArray.push(ticketInfo);
+      if (ticketsCount && ticketsCount.innerHTML == 0) {
+        return;
       }
+
+      let ticketsBody = document.querySelector(".loto-gamemain");
+      let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+      const boughtTickets = ticketsBody.querySelectorAll(".bought-ticket");
+      if (boughtTickets.length == tickets.length) {
+        return;
+      }
+      let ticketsArray = [];
+
+      const balance = +document.querySelector(".header__balance").innerHTML;
+      const ticketsPrice = +ticketsCount.innerHTML * bet;
+      if (balance < ticketsPrice) {
+        impPopup.open("Недостаточно средств!", 400);
+        return;
+      }
+
+      tickets.forEach((ticket) => {
+        if (!ticket.classList.contains("bought-ticket")) {
+          let ticketCells = ticket.querySelectorAll(".ticket-cell");
+          let ticketId = ticket.getAttribute("id");
+          let ticketInfo = {};
+          let ticketCellsArray = [];
+          ticketCells.forEach((cell) => {
+            let cellNumber = cell.querySelector(".ticket-cell-number");
+            let number = cellNumber.innerHTML;
+            ticketCellsArray.push(number);
+          });
+          ticketInfo.ticketCells = ticketCellsArray;
+          ticketInfo.ticketId = ticketId;
+          ticketsArray.push(ticketInfo);
+        }
+      });
+
+      let msg = {
+        bet,
+        roomId,
+        tickets: ticketsArray,
+        user: window.username,
+        userId: window.userId,
+        method: "buyTickets",
+      };
+
+      ws.send(JSON.stringify(msg));
     });
-
-    let msg = {
-      bet,
-      roomId,
-      tickets: ticketsArray,
-      user: window.username,
-      userId: window.userId,
-      method: "buyTickets",
-    };
-
-    ws.send(JSON.stringify(msg));
-  });
+  }
 }
 
 export function createTicket(cells, ticketId) {
@@ -508,12 +535,16 @@ export function createTicket(cells, ticketId) {
     cells.forEach((cell) => {
       let ticketCell = document.createElement("li");
       ticketCell.classList.add("ticket-cell");
-      ticketCell.innerHTML = cell;
+      let ticketCellNumber = document.createElement("div");
+      ticketCellNumber.classList.add("ticket-cell-number");
+      ticketCellNumber.innerHTML = cell;
+      ticketCell.appendChild(ticketCellNumber);
       ticket.appendChild(ticketCell);
     });
     let refreshButton = document.createElement("button");
     refreshButton.classList.add("loto-gamemain__ticket__refresh");
-    refreshButton.innerHTML = "Обновить";
+
+    refreshButton.innerHTML = `<img src="img/refresh-ticket.png" alt="" /> Обновить`;
     refreshButton.addEventListener("click", async function () {
       let ticketData = impLotoGame.generateLotoCard();
       let cells = ticketData.newCard;
@@ -522,14 +553,17 @@ export function createTicket(cells, ticketId) {
       cells.forEach((cell) => {
         let ticketCell = document.createElement("li");
         ticketCell.classList.add("ticket-cell");
-        ticketCell.innerHTML = cell;
+        let ticketCellNumber = document.createElement("div");
+        ticketCellNumber.classList.add("ticket-cell-number");
+        ticketCellNumber.innerHTML = cell;
+        ticketCell.appendChild(ticketCellNumber);
         ticket.appendChild(ticketCell);
       });
       ticket.setAttribute("id", ticketId);
     });
     let deleteButton = document.createElement("button");
     deleteButton.classList.add("loto-gamemain__ticket__delete");
-    deleteButton.innerHTML = "Удалить";
+    deleteButton.innerHTML = `<img src="img/remove-ticket.png" alt="" /> Удалить`;
     deleteButton.addEventListener("click", async function () {
       if (!ticket.classList.contains("bought-ticket")) {
         // check if tickets > 1, then delete
@@ -552,44 +586,6 @@ export function createTicket(cells, ticketId) {
     ticketContainer.appendChild(ticket);
     ticketsBody.appendChild(ticketContainer);
   }
-
-  // let tickets = msg.tickets;
-  // tickets.forEach((ticket) => {
-  //   let cells = ticket.ticketCells;
-  //   let id = ticket.ticketId;
-  //   let ticketsBody = document.querySelector(".loto-gamemain");
-  //   if (ticketsBody) {
-  //     let ticketContainer = document.createElement("div");
-  //     let ticket = document.createElement("ul");
-  //     ticket.classList.add("loto-gamemain__ticket", "bought-ticket");
-  //     ticket.setAttribute("id", id);
-  //     cells.forEach((cell) => {
-  //       let ticketCell = document.createElement("li");
-  //       ticketCell.classList.add("ticket-cell");
-  //       ticketCell.innerHTML = cell;
-  //       ticket.appendChild(ticketCell);
-  //     });
-  //     let refreshButton = document.createElement("button");
-  //     refreshButton.classList.add("loto-gamemain__ticket__refresh");
-  //     refreshButton.innerHTML = "Сменить билет";
-  //     refreshButton.addEventListener("click", async function () {
-  //       let ticketData = impLotoGame.generateLotoCard();
-  //       let cells = ticketData.newCard;
-  //       let ticketId = ticketData.id;
-  //       ticket.innerHTML = "";
-  //       cells.forEach((cell) => {
-  //         let ticketCell = document.createElement("li");
-  //         ticketCell.classList.add("ticket-cell");
-  //         ticketCell.innerHTML = cell;
-  //         ticket.appendChild(ticketCell);
-  //       });
-  //       ticket.setAttribute("id", ticketId);
-  //     });
-  //     ticketContainer.appendChild(ticket);
-  //     ticketContainer.appendChild(refreshButton);
-  //     ticketsBody.appendChild(ticketContainer);
-  //   }
-  // });
 }
 
 function startMenuTimerLobby(timers) {
@@ -690,56 +686,20 @@ async function createTickets(msg) {
       cells.forEach((cell) => {
         let ticketCell = document.createElement("li");
         ticketCell.classList.add("ticket-cell");
-        ticketCell.innerHTML = cell;
+        let ticketCellNumber = document.createElement("div");
+        ticketCellNumber.classList.add("ticket-cell-number");
+        ticketCellNumber.innerHTML = cell;
+        ticketCell.appendChild(ticketCellNumber);
         ticket.appendChild(ticketCell);
       });
       ticketsBody.appendChild(ticket);
     }
   });
-
-  // let tickets = msg.tickets;
-  // tickets.forEach((ticket) => {
-  //   let cells = ticket.ticketCells;
-  //   let id = ticket.ticketId;
-  //   let ticketsBody = document.querySelector(".loto-gamemain");
-  //   if (ticketsBody) {
-  //     let ticketContainer = document.createElement("div");
-  //     let ticket = document.createElement("ul");
-  //     ticket.classList.add("loto-gamemain__ticket", "bought-ticket");
-  //     ticket.setAttribute("id", id);
-  //     cells.forEach((cell) => {
-  //       let ticketCell = document.createElement("li");
-  //       ticketCell.classList.add("ticket-cell");
-  //       ticketCell.innerHTML = cell;
-  //       ticket.appendChild(ticketCell);
-  //     });
-  //     let refreshButton = document.createElement("button");
-  //     refreshButton.classList.add("loto-gamemain__ticket__refresh");
-  //     refreshButton.innerHTML = "Сменить билет";
-  //     refreshButton.addEventListener("click", async function () {
-  //       let ticketData = impLotoGame.generateLotoCard();
-  //       let cells = ticketData.newCard;
-  //       let ticketId = ticketData.id;
-  //       ticket.innerHTML = "";
-  //       cells.forEach((cell) => {
-  //         let ticketCell = document.createElement("li");
-  //         ticketCell.classList.add("ticket-cell");
-  //         ticketCell.innerHTML = cell;
-  //         ticket.appendChild(ticketCell);
-  //       });
-  //       ticket.setAttribute("id", ticketId);
-  //     });
-  //     ticketContainer.appendChild(ticket);
-  //     ticketContainer.appendChild(refreshButton);
-  //     ticketsBody.appendChild(ticketContainer);
-  //   }
-  // });
 }
 
 function deleteTickets() {
   let ticketsBody = document.querySelector(".loto-gamemain");
   let ticketContainers = ticketsBody.querySelectorAll(".ticket-container");
-  // let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
 
   ticketContainers.forEach((container) => {
     let ticket = container.querySelector(".loto-gamemain__ticket");
@@ -779,12 +739,11 @@ function updateOnline(online) {
   }
 }
 function updateBank(bank) {
-  let lotoGameInfo = document.querySelector(".loto-gameinfo");
+  let lotoGameInfo = document.querySelector(".loto-room-page");
   if (lotoGameInfo) {
     let lotoBank = lotoGameInfo.querySelector(".loto-gameinfo__bank");
     const targetBank = bank;
     const currentBank = parseFloat(lotoBank.querySelector("span").innerHTML);
-
     if (targetBank !== currentBank) {
       animateNumberChange(
         lotoBank.querySelector("span"),
@@ -796,7 +755,7 @@ function updateBank(bank) {
 }
 
 function updateJackpot(jackpot) {
-  let lotoJackpot = document.querySelector(".room-jackpot-sum");
+  let lotoJackpot = document.querySelector(".room-jackpot-sum span");
   if (lotoJackpot) {
     const targetJackpot = jackpot;
     const currentJackpot = parseFloat(lotoJackpot.innerHTML);

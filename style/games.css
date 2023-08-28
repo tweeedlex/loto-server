@@ -65,6 +65,34 @@
   color: #000;
 }
 
+@media (max-width: 767px) {
+  .game {
+    width: 400px;
+    font-size: 20px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 479px) {
+  .game {
+    width: 320px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .games__container {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 359px) {
+  .game {
+    width: 280px;
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
 .loto-room__body {
   /* display: grid; */
   /* grid-template-columns: repeat(2, 1fr); */

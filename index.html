@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Лото</title>
+
     <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/header.css" />
     <link rel="stylesheet" href="style/main.css" />
     <link rel="stylesheet" href="style/games.css" />
     <link rel="stylesheet" href="style/leader-page.css" />
@@ -16,63 +18,107 @@
     <link rel="stylesheet" href="style/settings.css" />
     <link rel="stylesheet" href="style/profile.css" />
   </head>
-  <body>
-    <header>
-      <div class="header__container">
-        <a href="" class="header__logo">Лото</a>
-        <div class="header__user">
-          <p>Баланс: <span class="header__balance">0р</span></p>
-          <a class="header__name"> Имя </a>
-          <!-- <button class="header__exit">Logout</button> -->
-        </div>
+
+  <header>
+    <div class="header__container">
+      <a href="" class="header__logo">Лото</a>
+      <div class="header__user">
+        <p>Баланс: <span class="header__balance">0р</span></p>
+        <!-- <a class="header__name"> Имя </a> -->
+        <!-- <button class="header__exit">Logout</button> -->
       </div>
-    </header>
+    </div>
+  </header>
+  <body>
     <div class="registration opened">
       <div class="registration__container">
         <div class="registration__content">
           <div class="registration__body">
+            <img src="./img/logo.png" alt="logo" class="registration__logo" />
+            <div class="select-language">
+              <img src="./img/AZ.png" alt="AZ" />
+              <div class="select-language__text">
+                <p>Выберите язык</p>
+                <p><span>Azərbaycan Dili</span></p>
+              </div>
+              <span class="select-language__chevron"></span>
+            </div>
             <form action="" class="registration-form">
               <div class="registration-form__header form-header">
-                <div class="form-header__buttons">
+                <!-- <div class="form-header__buttons">
                   <div class="form-header__button registration-button active">
                     Регистрация
                   </div>
                   <div class="form-header__button login-button">Вход</div>
-                </div>
-                <div class="form-header__indicator indicator-form">
+                </div> -->
+                <h2 class="form-header__heading">Авторизация</h2>
+                <!-- <div class="form-header__indicator indicator-form">
                   <div class="indicator-form__line"></div>
-                </div>
+                </div> -->
               </div>
               <span class="auth-form-error"></span>
               <div class="registration-form__body form-body">
-                <div class="form-body-registration">
+                <!-- <div class="form-body-registration">
+                  <input
+                    type="text"
+                    placeholder="Имя"
+                    class="form-body__input name-input"
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="username"
+                    class="form-body__input username-input"
+                  />
+
                   <input
                     type="text"
                     placeholder="Ваш email"
                     class="form-body__input email-input"
                   />
+
                   <input
                     type="text"
                     placeholder="Ваш пароль"
                     class="form-body__input password-input"
                   />
+                  <input
+                    type="text"
+                    placeholder="Повтор пароля"
+                    class="form-body__input repeat-password-input"
+                  />
                   <button class="form-body__button registration-button">
                     ЗАРЕГИСТРИРОВАТЬСЯ
                   </button>
-                </div>
-                <div class="form-body-login hidden">
+
+                  <div class="form-body__no-account">
+                    <a>Есть аккаунт?</a>
+                    <button class="form-body__registration open-login">
+                      Войти
+                    </button>
+                  </div>
+                </div> -->
+                <!-- <div class="form-body-login">
+                  <p>Имя пользователя</p>
                   <input
                     type="text"
-                    placeholder="Ваш email"
-                    class="form-body__input email-input"
+                    placeholder="Ваш username"
+                    class="form-body__input username-input"
                   />
+                  <p>Пароль</p>
                   <input
                     type="text"
                     placeholder="Ваш пароль"
                     class="form-body__input password-input"
                   />
                   <button class="form-body__button login-button">Войти</button>
-                </div>
+                  <div class="form-body__no-account">
+                    <a>Нет аккаунта?</a>
+                    <button class="form-body__registration open-registration">
+                      Регистрация
+                    </button>
+                  </div>
+                </div> -->
               </div>
             </form>
           </div>
@@ -202,6 +248,59 @@
             </a>
           </div>
         </section>
+        <!-- <div class="loto-game-room-page">
+          <div class="loto-game-room-page-content">
+            <div class="room-jackpot">
+              <div class="room-jackpot-sum">
+                <img src="img/jackpot-icon.png" alt="" /><span>0</span> ₼
+              </div>
+              <div class="room-jackpot-question">
+                <img src="img/question-tag.png" alt="" />
+              </div>
+            </div>
+            <div class="loto-room__gameinfo loto-gameinfo">
+              <div class="loto-gameinfo__top-row">
+                <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
+                  Ставка: <span>0</span> ₼
+                </p>
+                <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
+                  Банк: <span>0</span> ₼
+                </p>
+                <div class="loto-room-page__exit-wrapper"></div>
+              </div>
+              <div
+                class="loto-gameinfo__bottom-row loto-game-gameinfo__bottom-row"
+              >
+                <p class="loto-gameinfo__online">
+                  <img src="img/online-icon.png" alt="" /> <span>0</span>
+                </p>
+                <p class="loto-gameinfo__jackpot-block-wrapper"></p>
+                <p class="loto-gameinfo__auto-button active">
+                  <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
+                </p>
+                <p class="loto-gameinfo__sounds-button active">
+                  <img src="img/profile icons/sound.png" alt="" />
+                </p>
+              </div>
+            </div>
+            <div class="loto-gameinfo__information-left left3">
+              У <span>0</span> карточек осталось 3 номера
+            </div>
+
+            <div class="loto-game-room__gameprocess">
+              <div class="loto-game-room__cask">12</div>
+              <div class="loto-game-room__cask">12</div>
+              <div class="loto-game-room__cask">12</div>
+              <div class="loto-game-room__cask">12</div>
+              <div class="loto-game-room__cask">12</div>
+
+              <div class="loto-game-room__cask active">12</div>
+            </div>
+            <div class="loto-gamemain__body">
+              <div class="col-div loto-game-room__main loto-gamemain"></div>
+            </div>
+          </div>
+        </div> -->
       </div>
 
       <!-- <div class="main__container">
@@ -468,22 +567,208 @@
         </section>
       </div> -->
     </main>
+    <!-- <div class="popup end-game-popup">
+      <div class="popup__body end-game-popup__body">
+        <div class="popup__content end-game-popup__content">
+          <button class="popup__close-timer close-popup-timer">00</button>
+          <div class="popup__title end-game-popup__title">
+            Поздравляем, вы победили!
+          </div>
+          <div class="popup__text end-game-popup__text">
+            Список победителей:
+          </div>
+          <div class="end-game-popup__winners-wrapper">
+            <div class="end-game-popup__winners end-game-winners">
+              <div class="end-game-winners__item">
+                <div class="end-game-winners__item-header">
+                  <div class="end-game-winners__item-name">2voby</div>
+                  <div class="end-game-winners__item-won">
+                    <span>34.2</span>
+                  </div>
+                </div>
+                <div class="end-game-winners__item-ticket">
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                </div>
+              </div>
+              <div class="end-game-winners__item">
+                <div class="end-game-winners__item-name">2voby</div>
+                <div class="end-game-winners__item-ticket">
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                </div>
+              </div>
+              <div class="end-game-winners__item">
+                <div class="end-game-winners__item-name">2voby</div>
+                <div class="end-game-winners__item-ticket">
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                  <div class="end-game-winners__item-ticket-cell">
+                    <div class="end-game-winners__item-ticket-number">12</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- 
+    <div class="popup jackpot-popup">
+      <div class="popup__body jackpot-popup__body">
+        <div class="popup__content jackpot-popup__content">
+          <div class="jackpot-popup__jackpot animation">657</div>
+          <div class="popup__title jackpot-popup__title visible">
+            Джекпот был выигран игроком 2voby!
+          </div>
+        </div>
+      </div>
+    </div> -->
+
     <footer id="footer">
-      <!-- <div class="footer__container">
+      <div class="footer__container">
         <div class="foter__content">
           <div class="footer__menu menu-footer">
-            <div class="menu-footer__item open-profile">Профиль</div>
-            <div class="menu-footer__item">Чат</div>
+            <div class="menu-footer__item open-profile">
+              <img src="img/profile-button.png" alt="" />
+            </div>
+            <div class="menu-footer__item">
+              <img src="img/chat.png" alt="" />
+            </div>
             <div
               class="menu-footer__item menu-footer__main-item open-games-menu"
             >
-              Игры
+              <img src="img/games.png" alt="" />
             </div>
-            <div class="menu-footer__item open-liders-menu">Лидеры</div>
-            <div class="menu-footer__item open-settings">Настройки</div>
+            <div class="menu-footer__item open-liders-menu">
+              <img src="img/leaders.png" alt="" />
+            </div>
+            <div class="menu-footer__item open-settings">
+              <img src="img/deposit.png" alt="" />
+            </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </footer>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="libs/eventSource/eventsource-polyfill.js"></script>

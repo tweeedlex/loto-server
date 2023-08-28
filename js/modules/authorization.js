@@ -5,105 +5,135 @@ import * as impLotoNav from "./loto-navigation.js";
 import * as impAdminNav from "./admin-navigation.js";
 
 export function registrationForm() {
-  let openFormButtons = document.querySelectorAll(".open-registration");
+  // let openFormButtons = document.querySelectorAll(".open-registration");
   let registrationPopup = document.querySelector(".registration");
 
-  openFormButtons.forEach((openRegistration) => {
-    openRegistration.addEventListener("click", function () {
-      if (openRegistration.classList.contains("registration-button")) {
-        createRegistrationForm();
-      } else if (openRegistration.classList.contains("login-button")) {
-        createLoginForm();
-      }
+  // openFormButtons.forEach((openRegistration) => {
+  //   openRegistration.addEventListener("click", function () {
+  //     if (openRegistration.classList.contains("registration-button")) {
+  //       createRegistrationForm();
+  //     } else if (openRegistration.classList.contains("login-button")) {
+  //       createLoginForm();
+  //     }
 
-      if (!registrationPopup.classList.contains("opened")) {
-        registrationPopup.classList.add("opened");
-      }
-      if (registrationPopup.classList.contains("opened")) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "auto";
-      }
-    });
-  });
+  //     if (!registrationPopup.classList.contains("opened")) {
+  //       registrationPopup.classList.add("opened");
+  //     }
+  //     if (registrationPopup.classList.contains("opened")) {
+  //       document.body.style.overflow = "hidden";
+  //     } else {
+  //       document.body.style.overflow = "auto";
+  //     }
+  //   });
+  // });
 
   // form functions
-  let formButtons = registrationPopup.querySelectorAll(".form-header__button");
-  formButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      if (button.classList.contains("registration-button")) {
-        if (!button.classList.contains("active")) {
-          createRegistrationForm();
-        }
-      } else if (button.classList.contains("login-button")) {
-        if (!button.classList.contains("active")) {
-          createLoginForm();
-        }
-      }
+
+  let openLoginButton = registrationPopup.querySelector(".open-login");
+  if (openLoginButton) {
+    openLoginButton.addEventListener("click", function () {
+      createLoginForm();
     });
-  });
+  }
+
+  let openRegistrationButton =
+    registrationPopup.querySelector(".open-registration");
+  if (openRegistrationButton) {
+    openRegistrationButton.addEventListener("click", function () {
+      createRegistrationForm();
+    });
+  }
+
+  // button.addEventListener("click", function () {
+  //   if (button.classList.contains("registration-button")) {
+  //     if (!button.classList.contains("active")) {
+  //       createRegistrationForm();
+  //     }
+  //   } else if (button.classList.contains("login-button")) {
+  //     if (!button.classList.contains("active")) {
+  //       createLoginForm();
+  //     }
+  //   }
+  // });
 }
 
 export function createRegistrationForm() {
   // toggler position
   let registrationPopup = document.querySelector(".registration");
   let form = registrationPopup.querySelector(".registration-form");
-  let formButtons = form.querySelectorAll(".form-header__button");
+  let formHeaderText = form.querySelector(".form-header__heading");
+  formHeaderText.innerHTML = "Регистрация";
+
   let formBody = form.querySelector(".form-body");
-  resetActiveBtn(formButtons);
-  let button = form.querySelector(".registration-button");
-  button.classList.add("active");
-  let indicator = form.querySelector(".form-header__indicator");
-  indicator.innerHTML = "";
-  let indicatorLine = document.createElement("div");
-  indicatorLine.classList.add("indicator-form__line");
-  indicatorLine.style.left = "0";
-  indicator.appendChild(indicatorLine);
-  // clear
-  formBody.innerHTML = "";
 
-  // create lines
+  formBody.innerHTML = `<div class="form-body-registration">
+  <input
+    type="text"
+    placeholder="Имя"
+    class="form-body__input name-input"
+  />
 
-  let usernameInput = document.createElement("input");
-  usernameInput.classList.add("form-body__input", "email-input");
-  usernameInput.type = "text";
+  <input
+    type="text"
+    placeholder="username"
+    class="form-body__input username-input"
+  />
 
-  usernameInput.placeholder = "Ваш никнейм";
+  <input
+    type="text"
+    placeholder="Ваш email"
+    class="form-body__input email-input"
+  />
 
-  let emailInput = document.createElement("input");
-  emailInput.classList.add("form-body__input", "email-input");
-  emailInput.type = "text";
+  <input
+    type="password"
+    placeholder="Ваш пароль"
+    class="form-body__input password-input"
+  />
+  <input
+    type="password"
+    placeholder="Повтор пароля"
+    class="form-body__input repeat-password-input"
+  />
+  <button class="form-body__button registration-button">
+    ЗАРЕГИСТРИРОВАТЬСЯ
+  </button>
 
-  emailInput.placeholder = "Ваш Email";
+  <div class="form-body__no-account">
+    <a>Есть аккаунт?</a>
+    <button class="form-body__registration open-login">
+      Войти
+    </button>
+  </div>
+</div>`;
 
-  let nameInput = document.createElement("input");
-  nameInput.classList.add("form-body__input", "email-input");
-  nameInput.type = "text";
+  let openLoginButton = registrationPopup.querySelector(".open-login");
+  if (openLoginButton) {
+    openLoginButton.addEventListener("click", function () {
+      createLoginForm();
+    });
+  }
 
-  nameInput.placeholder = "Ваше имя";
+  let submitButton = registrationPopup.querySelector(".registration-button");
+  submitButton.addEventListener("click", async function (e) {
+    e.preventDefault();
+    let errorBlock = document.querySelector(".auth-form-error");
+    errorBlock.innerHTML = "";
+    let passwordValue =
+      registrationPopup.querySelector(".password-input").value;
+    let repeatPasswordValue = registrationPopup.querySelector(
+      ".repeat-password-input"
+    ).value;
 
-  let passwordInput = document.createElement("input");
-  passwordInput.classList.add("form-body__input", "password-input");
-  passwordInput.type = "password";
+    if (passwordValue != repeatPasswordValue) {
+      errorBlock.innerHTML = "Пароли не совпадают";
+      return;
+    }
 
-  passwordInput.placeholder = "Ваш пароль";
-
-  let repeatPasswordInput = document.createElement("input");
-  repeatPasswordInput.classList.add("form-body__input", "password-input");
-  repeatPasswordInput.type = "password";
-
-  repeatPasswordInput.placeholder = "Повторите пароль";
-
-  let submitButton = document.createElement("a");
-  submitButton.classList.add("form-body__button", "registration-button");
-
-  submitButton.innerHTML = "Зарегистрироватся";
-
-  submitButton.addEventListener("click", async function () {
-    let email = emailInput.value;
-    let password = passwordInput.value;
-    let username = usernameInput.value;
-    let name = nameInput.value;
+    let email = registrationPopup.querySelector(".email-input").value;
+    let password = registrationPopup.querySelector(".password-input").value;
+    let username = registrationPopup.querySelector(".username-input").value;
+    let name = registrationPopup.querySelector(".name-input").value;
 
     const registerData = {
       username,
@@ -115,97 +145,84 @@ export function createRegistrationForm() {
     let response = await impHttpRequests.registration(registerData);
     if (response.status == 200) {
       // registrationPopup.classList.remove("opened");
-      alert("Аккаунт создан, войдите в него");
+      // alert("Аккаунт создан, войдите в него");
       createLoginForm();
     } else {
-      const errorBlock = document.querySelector(".auth-form-error");
-      console.log(response.data);
       errorBlock.innerHTML = response.data.message;
     }
   });
-  // append
-
-  formBody.appendChild(usernameInput);
-  formBody.appendChild(nameInput);
-  formBody.appendChild(emailInput);
-  formBody.appendChild(passwordInput);
-  formBody.appendChild(repeatPasswordInput);
-  formBody.appendChild(submitButton);
 }
 
 export function createLoginForm() {
   // toggler position
   let registrationPopup = document.querySelector(".registration");
   let form = registrationPopup.querySelector(".registration-form");
-  let formButtons = form.querySelectorAll(".form-header__button");
+  let formHeaderText = form.querySelector(".form-header__heading");
+  formHeaderText.innerHTML = "Авторизация";
+
   let formBody = form.querySelector(".form-body");
-  resetActiveBtn(formButtons);
-  let button = form.querySelector(".login-button");
-  button.classList.add("active");
-  let indicator = form.querySelector(".form-header__indicator");
-  indicator.innerHTML = "";
-  let indicatorLine = document.createElement("div");
-  indicatorLine.classList.add("indicator-form__line");
-  indicatorLine.style.right = "0";
-  indicator.appendChild(indicatorLine);
-  // clear
-  formBody.innerHTML = "";
 
-  // create lines
+  formBody.innerHTML = `<div class="form-body-login">
+  <p>Имя пользователя</p>
+  <input
+    type="text"
+    placeholder="Ваш username"
+    class="form-body__input username-input"
+  />
+  <p>Пароль</p>
+  <input
+    type="password"
+    placeholder="Ваш пароль"
+    class="form-body__input password-input"
+  />
+  <button class="form-body__button login-button">Войти</button>
+  <div class="form-body__no-account">
+    <a>Нет аккаунта?</a>
+    <button class="form-body__registration open-registration">
+      Регистрация
+    </button>
+  </div>
+</div>`;
 
-  let usernameInput = document.createElement("input");
-  usernameInput.classList.add("form-body__input", "email-input");
-  usernameInput.type = "text";
+  let openRegistrationButton =
+    registrationPopup.querySelector(".open-registration");
+  if (openRegistrationButton) {
+    openRegistrationButton.addEventListener("click", function () {
+      createRegistrationForm();
+    });
+  }
 
-  usernameInput.placeholder = "Ваш никнейм";
+  let submitButton = registrationPopup.querySelector(".login-button");
 
-  let passwordInput = document.createElement("input");
-  passwordInput.classList.add("form-body__input", "password-input");
-  passwordInput.type = "password";
-
-  passwordInput.placeholder = "Ваш пароль";
-
-  let submitButton = document.createElement("a");
-  submitButton.classList.add("form-body__button", "registration-button");
-
-  submitButton.innerHTML = "Войти";
-
-  submitButton.addEventListener("click", async function () {
-    let username = usernameInput.value;
-    let password = passwordInput.value;
-
+  submitButton.addEventListener("click", async function (e) {
+    e.preventDefault();
+    let username = registrationPopup.querySelector(".username-input").value;
+    let password = registrationPopup.querySelector(".password-input").value;
     let loginData = {
       username,
       password,
     };
     let response = await impHttpRequests.login(loginData);
-
     if (response.status == 200) {
       // show auth interface
       registrationPopup.classList.remove("opened");
       impInterface.showUserInterface(response.data.user);
       window.username = response.data.username;
       window.userId = response.data.id;
-
       if (await isAuth()) {
         let ws = impLotoNav.connectWebsocketFunctions();
         impNav.addListeners(ws);
         impNav.pageNavigation(ws);
       }
-
       if (response.data.user.isAdmin) {
         impAdminNav.createAdminButton();
       }
     } else {
       const errorBlock = document.querySelector(".auth-form-error");
-      console.log(response);
+
       errorBlock.innerHTML = response.data.message;
     }
   });
-
-  formBody.appendChild(usernameInput);
-  formBody.appendChild(passwordInput);
-  formBody.appendChild(submitButton);
 }
 
 export async function isAdmin() {
