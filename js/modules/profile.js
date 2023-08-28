@@ -155,7 +155,7 @@ export async function openProfilePage() {
           </a>
         </div>
         <div class="profile-page__footer">
-          <button class="go-back">
+          <button class="logout">
             <p>ВЫЙТИ</p>
             <img src="img/logout.png" alt="logout" />
           </button>
@@ -228,9 +228,15 @@ export async function openProfilePage() {
       location.hash = "#leaders";
     });
 
-    const returnButton = document.querySelector(".go-back");
-    returnButton.addEventListener("click", function () {
-      location.hash = "";
+    const logoutButton = document.querySelector(".logout");
+    logoutButton.addEventListener("click", async function () {
+      await impHttp.logout();
+      localStorage.setItem("token", "");
+      // открываем форму регистрации для анимации
+      const registration = document.querySelector(".registration");
+      registration.classList.add("opened");
+      // и потом у нас перезагружаеться страница
+      location.reload();
     });
   }
 }

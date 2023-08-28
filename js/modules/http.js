@@ -1,4 +1,4 @@
-export const API_URL = "https://loto-server-new.onrender.com/api";
+export const API_URL = "http://localhost:5001/api";
 
 const $api = axios.create({
   withCredentials: true,
@@ -79,8 +79,8 @@ export async function checkAuth() {
 
 export async function logout() {
   try {
-    const response = await $api.post("/logout");
     localStorage.removeItem("token");
+    const response = await $api.post("/logout");
     return await response;
   } catch (error) {
     console.log(error.response?.data?.message);
