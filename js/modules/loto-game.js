@@ -146,57 +146,55 @@ export async function openGamePage(
   let body = document.querySelector("main");
   body.innerHTML = `  
   <div class="loto-game-room-page">
-          <div class="loto-game-room-page-content">
-            <div class="room-jackpot">
-              <div class="room-jackpot-sum">
-                <img src="img/jackpot-icon.png" alt="" /><span>${
-                  jackpot != null ? Number(jackpot).toFixed(2) : 0
-                }</span> ₼
-              </div>
-              <div class="room-jackpot-question">
-                <img src="img/question-tag.png" alt="" />
-              </div>
-            </div>
-            <div class="loto-room__gameinfo loto-gameinfo">
-              <div class="loto-gameinfo__top-row">
-                <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
-                  Ставка: <span>${bet != null ? bet : 0}</span> ₼
-                </p>
-                <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
-                  Банк: <span>${
-                    bank != null ? Number(bank).toFixed(2) : 0
-                  }</span> ₼
-                </p>
-                <div class="loto-room-page__exit-wrapper"></div>
-              </div>
-              <div
-                class="loto-gameinfo__bottom-row loto-game-gameinfo__bottom-row"
-              >
-                <p class="loto-gameinfo__online">
-                  <img src="img/online-icon.png" alt="" /> <span>${
-                    online != null ? online : 0
-                  }</span>
-                </p>
-                <p class="loto-gameinfo__jackpot-block-wrapper"></p>
-                <p class="loto-gameinfo__auto-button active">
-                  <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
-                </p>
-                <p class="loto-gameinfo__sounds-button active">
-                  <img src="img/profile icons/sound.png" alt="" />
-                </p>
-              </div>
-            </div>
-            <div class="loto-gameinfo__information-left left3">
-              У <span>0</span> карточек осталось 3 номера
-            </div>
-
-            <div class="loto-game-room__gameprocess">
-            </div>
-            <div class="loto-gamemain__body">
-              <div class="col-div loto-game-room__main loto-gamemain"></div>
-            </div>
-          </div>
+    <div class="loto-game-room-page-content">
+      <div class="room-jackpot">
+        <div class="room-jackpot-sum">
+          <img src="img/jackpot-icon.png" alt="" /><span>${
+            jackpot != null ? Number(jackpot).toFixed(2) : 0
+          }</span> ₼
         </div>
+        <div class="room-jackpot-question">
+          <img src="img/question-tag.png" alt="" />
+        </div>
+      </div>
+      <div class="loto-room__gameinfo loto-gameinfo">
+        <div class="loto-gameinfo__top-row">
+          <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
+            Ставка: <span>${bet != null ? bet : 0}</span> ₼
+          </p>
+          <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
+            Банк: <span>${bank != null ? Number(bank).toFixed(2) : 0}</span> ₼
+          </p>
+          <div class="loto-room-page__exit-wrapper"></div>
+        </div>
+        <div
+          class="loto-gameinfo__bottom-row loto-game-gameinfo__bottom-row"
+        >
+          <p class="loto-gameinfo__online">
+            <img src="img/online-icon.png" alt="" /> <span>${
+              online != null ? online : 0
+            }</span>
+          </p>
+          <p class="loto-gameinfo__auto-button active">
+            <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
+          </p>
+          <p class="loto-gameinfo__sounds-button active">
+            <img src="img/profile icons/sound.png" alt="" />
+          </p>
+          <p class="loto-gameinfo__jackpot-block-wrapper"></p>
+        </div>
+      </div>
+      <div class="loto-gameinfo__information-left left3">
+        У <span>0</span> карточек осталось 3 номера
+      </div>
+
+      <div class="loto-game-room__gameprocess">
+      </div>
+      <div class="loto-gamemain__body">
+        <div class="col-div loto-game-room__main loto-gamemain"></div>
+      </div>
+    </div>
+  </div>
   `;
 
   impMoveElement.moveElement(
@@ -314,15 +312,12 @@ export function showUserTickets(tickets, roomId) {
           ticket.classList.add("unavailable");
         }
         ticket.setAttribute("id", id);
-        ticket.setAttribute("choosedCasks", 0);
-        ticket.setAttribute("mustBeChoosed", 0);
+        ticket.setAttribute("choosedCasks", JSON.stringify([]));
+        ticket.setAttribute("mustBeChoosed", JSON.stringify([]));
         cells.forEach((cell) => {
           let ticketCell = document.createElement("li");
           ticketCell.classList.add("ticket-cell");
-          let ticketCellNumber = document.createElement("div");
-          ticketCellNumber.classList.add("ticket-cell-number");
-          ticketCellNumber.innerHTML = cell;
-          ticketCell.appendChild(ticketCellNumber);
+          ticketCell.innerHTML = cell;
           ticket.appendChild(ticketCell);
         });
         ticketsBody.appendChild(ticket);
@@ -351,10 +346,7 @@ export function showUserTicketsInLobby(tickets, roomId) {
         cells.forEach((cell) => {
           let ticketCell = document.createElement("li");
           ticketCell.classList.add("ticket-cell");
-          let ticketCellNumber = document.createElement("div");
-          ticketCellNumber.classList.add("ticket-cell-number");
-          ticketCellNumber.innerHTML = cell;
-          ticketCell.appendChild(ticketCellNumber);
+          ticketCell.innerHTML = cell;
           ticket.appendChild(ticketCell);
         });
         ticketsBody.appendChild(ticket);
@@ -383,7 +375,7 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   }
   // убираем все цвета с бочек
   gameprocessBlock.querySelectorAll(".loto-game-room__cask").forEach((cask) => {
-    caskBlock.classList.remove("active");
+    cask.classList.remove("active");
   });
   // удаляем предидущик номера бочки
   let allOldCasks = document.querySelectorAll(".cask-number");
@@ -409,11 +401,50 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   }
 }
 
+// function checkChoosedCasks(ws, pastCasks) {
+//   let ticketsBody = document.querySelector(".loto-game-room__main");
+//   if (ticketsBody) {
+//     let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+//     // смотрим или число совпадает с билетом и добавляем какие должны быть заполнены
+//     tickets.forEach((ticket) => {
+//       let ticketCells = ticket.querySelectorAll(".ticket-cell");
+//       ticketCells.forEach((cell) => {
+//         if (!cell.classList.contains("droped")) {
+//           if (pastCasks.includes(Number(cell.innerHTML))) {
+//             cell.classList.add("droped");
+//             let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
+//             ticket.setAttribute("mustBeChoosed", +mustBeChoosed + 1);
+//           }
+//         }
+//       });
+//     });
+
+//     // проверяем какой отрыв между заполнеными и пустыми для каждого елемента
+//     tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+//     tickets.forEach((ticket) => {
+//       if (!ticket.classList.contains("unavailable")) {
+//         let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
+//         let choosed = ticket.getAttribute("choosedcasks");
+
+//         if (mustBeChoosed - choosed >= 5) {
+//           ticket.classList.add("unavailable");
+//           let ticketId = ticket.getAttribute("id");
+//           ws.send(
+//             JSON.stringify({
+//               method: "cancelCard",
+//               cardId: ticketId,
+//             })
+//           );
+//         }
+//       }
+//     });
+//   }
+// }
+
 function checkChoosedCasks(ws, pastCasks) {
   let ticketsBody = document.querySelector(".loto-game-room__main");
   if (ticketsBody) {
     let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-    // смотрим или число совпадает с билетом и добавляем какие должны быть заполнены
     tickets.forEach((ticket) => {
       let ticketCells = ticket.querySelectorAll(".ticket-cell");
       ticketCells.forEach((cell) => {
@@ -421,30 +452,39 @@ function checkChoosedCasks(ws, pastCasks) {
           if (pastCasks.includes(Number(cell.innerHTML))) {
             cell.classList.add("droped");
             let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
-            ticket.setAttribute("mustBeChoosed", +mustBeChoosed + 1);
+            ticket.setAttribute(
+              "mustBeChoosed",
+              JSON.stringify([
+                ...JSON.parse(mustBeChoosed),
+                Number(cell.innerHTML),
+              ])
+            );
+          }
+        } else {
+          // если число не отмечено и оно есть в mustbechoosed, при том что оно так же есть в pastcasks без последних 5, значит ставим крестик и билет не активен
+          const pastCasksWithoutLastFive = pastCasks.slice(0, -5);
+          if (
+            pastCasksWithoutLastFive.includes(Number(cell.innerHTML)) &&
+            JSON.parse(ticket.getAttribute("mustBeChoosed")).includes(
+              Number(cell.innerHTML)
+            ) &&
+            !cell.classList.contains("active")
+          ) {
+            cell.classList.add("unavailable");
+            if (!ticket.classList.contains("unavailable")) {
+              ticket.classList.add("unavailable");
+              let ticketId = ticket.getAttribute("id");
+
+              ws.send(
+                JSON.stringify({
+                  method: "cancelCard",
+                  cardId: ticketId,
+                })
+              );
+            }
           }
         }
       });
-    });
-
-    // проверяем какой отрыв между заполнеными и пустыми для каждого елемента
-    tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-    tickets.forEach((ticket) => {
-      if (!ticket.classList.contains("unavailable")) {
-        let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
-        let choosed = ticket.getAttribute("choosedcasks");
-
-        if (mustBeChoosed - choosed >= 5) {
-          ticket.classList.add("unavailable");
-          let ticketId = ticket.getAttribute("id");
-          ws.send(
-            JSON.stringify({
-              method: "cancelCard",
-              cardId: ticketId,
-            })
-          );
-        }
-      }
     });
   }
 }
@@ -476,8 +516,7 @@ function selectCaskByFinger(pastCasks) {
 
   function colorThisCask(cell, pastCasks, ticket) {
     return function (event) {
-      let cellNumber = cell.querySelector(".ticket-cell-number");
-      let thisCellNumber = Number(cellNumber.innerHTML);
+      let thisCellNumber = Number(cell.innerHTML);
       if (pastCasks.includes(thisCellNumber)) {
         if (!cell.classList.contains("active")) {
           impAudio.playSuccess();
@@ -485,10 +524,14 @@ function selectCaskByFinger(pastCasks) {
         cell.classList.add("active");
         // обновляем все выбраные бочки
         let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
-        ticket.setAttribute("choosedcasks", allActiveCasks.length);
-        if (localStorage.getItem("cask-color")) {
-          cellNumber.style.background = localStorage.getItem("cask-color");
+        const activeCaskNumbers = [];
+        for (let i = 0; i < allActiveCasks.length; i++) {
+          let activeCaskNumber = allActiveCasks[i].innerHTML;
+          activeCaskNumbers.push(Number(activeCaskNumber));
         }
+
+        ticket.setAttribute("choosedcasks", JSON.stringify(activeCaskNumbers));
+        console.log(ticket.getAttribute("choosedcasks"));
       }
     };
   }
@@ -501,20 +544,20 @@ function colorCask(cask, pastCasks) {
     // заполнение старых цифр которые сейчас не заполнены
     tickets.forEach((ticket) => {
       let ticketCells = ticket.querySelectorAll(".ticket-cell");
-      ticketCells.forEach((cell) => {
-        if (!cell.classList.contains("active")) {
-          let cellNumber = cell.querySelector(".ticket-cell-number");
-          if (pastCasks.includes(Number(cellNumber.innerHTML))) {
-            impAudio.playSuccess();
-            cell.classList.add("active");
-            let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
-            ticket.setAttribute("choosedcasks", allActiveCasks.length);
-            if (localStorage.getItem("cask-color")) {
-              cellNumber.style.background = localStorage.getItem("cask-color");
+      if (!ticket.classList.contains("unavailable")) {
+        ticketCells.forEach((cell) => {
+          if (!cell.classList.contains("active")) {
+            if (pastCasks.includes(Number(cell.innerHTML))) {
+              impAudio.playSuccess();
+              cell.classList.add("active");
+              let allActiveCasks = ticket.querySelectorAll(
+                ".ticket-cell.active"
+              );
+              ticket.setAttribute("choosedcasks", allActiveCasks.length);
             }
           }
-        }
-      });
+        });
+      }
     });
   }
 }
@@ -551,7 +594,7 @@ export function checkWin(
     if (winTickets > 0) {
       impAudio.playLoading();
       impPopup.openEndGamePopup(
-        "Поздравляем, вы победили!",
+        `Поздравляем, вы выиграли ${(bank / winnersData.length).toFixed(2)} ₼!`,
         200,
         winnersData,
         bank,

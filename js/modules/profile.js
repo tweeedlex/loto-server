@@ -241,7 +241,7 @@ export async function openProfilePage() {
   }
 }
 
-async function openBalance() {
+export async function openBalance() {
   const main = document.querySelector("main");
   let userInfo = await getProfileInfo();
   if (userInfo == false) {

@@ -528,11 +528,9 @@
   border: 4px solid #1ea93d;
   background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
 }
-.loto-gamemain__ticket.bought-ticket.unavailable .ticket-cell {
-  background-color: #ff0000 !important;
-}
-.loto-gamemain__ticket.bought-ticket .ticket-cell.droped {
-  background-color: #d3f5d2;
+
+.loto-gamemain__ticket.bought-ticket.unavailable {
+  background-color: #d45f5f;
 }
 
 .loto-gamemain__ticket.bought-ticket .ticket-cell {
@@ -540,7 +538,22 @@
   position: relative;
 }
 
-.loto-gamemain__ticket.bought-ticket .ticket-cell .ticket-cell-number {
+.loto-gamemain__ticket.bought-ticket .ticket-cell.unavailable::before,
+.loto-gamemain__ticket.bought-ticket .ticket-cell.unavailable::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: calc(100% * 1.414);
+  transform: rotate(45deg);
+  background-color: rgba(220, 24, 24, 1);
+}
+
+.loto-gamemain__ticket.bought-ticket .ticket-cell.unavailable::before {
+  transform: rotate(-45deg);
+}
+
+.loto-gamemain__ticket.bought-ticket .ticket-cell.active::after {
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -551,10 +564,10 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  background-color: rgba(246, 186, 158, 0.3);
 }
 
-.loto-gamemain__ticket.bought-ticket .ticket-cell.active .ticket-cell-number {
-  background: #f6ba9e;
+.loto-gamemain__ticket.bought-ticket .ticket-cell.active::after {
   border: 6px solid #78010b;
 }
 
@@ -576,11 +589,13 @@
   color: #670505;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .loto-gamemain__ticket {
     grid-template-columns: repeat(9, 40px);
   }
-
+  .loto-gamemain__ticket.bought-ticket .ticket-cell.active::after {
+    border: 4px solid #78010b;
+  }
   .ticket-cell {
     font-size: 18px;
     width: 40px;
@@ -588,13 +603,33 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 375px) {
+  .loto-gamemain__ticket {
+    grid-template-columns: repeat(9, 36px);
+  }
+
+  .loto-gamemain__ticket.bought-ticket .ticket-cell.active::after {
+    border: 3px solid #78010b;
+  }
+
+  .ticket-cell {
+    font-size: 14px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 340px) {
   .loto-gamemain__ticket {
     grid-template-columns: repeat(9, 32px);
   }
 
+  .loto-gamemain__ticket.bought-ticket .ticket-cell.active::after {
+    border: 3px solid #78010b;
+  }
+
   .ticket-cell {
-    font-size: 16px;
+    font-size: 14px;
     width: 32px;
     height: 32px;
   }

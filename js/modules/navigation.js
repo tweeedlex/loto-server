@@ -8,6 +8,7 @@ import * as impLotoNav from "./loto-navigation.js";
 import * as impPopup from "./popup.js";
 import * as impMoveElement from "./move-element.js";
 import * as impAudio from "./audio.js";
+let preloader = document.querySelector(".page-preloader");
 
 // let game = document.querySelector(".games");
 // let lotoRooms = game.querySelectorAll(".loto-room");
@@ -50,7 +51,19 @@ export async function addHashListeners() {
         } else {
           location.hash = `#loto-room-${roomId}`;
         }
+      } else {
+        if (!preloader.classList.contains("d-none")) {
+          preloader.classList.add("d-none");
+        }
       }
+    } else {
+      if (!preloader.classList.contains("d-none")) {
+        preloader.classList.add("d-none");
+      }
+    }
+  } else {
+    if (!preloader.classList.contains("d-none")) {
+      preloader.classList.add("d-none");
     }
   }
 
@@ -70,6 +83,7 @@ export async function addHashListeners() {
         })
       );
       redirectToMainPage();
+      preloader.classList.remove("d-none");
 
       const ticketsResponce = await impHttp.getTickets();
       if (ticketsResponce.status == 200) {
@@ -81,6 +95,7 @@ export async function addHashListeners() {
         ) {
           const roomId = userTickets[0].gameLevel;
           const isGameStartedRes = await impHttp.isGameStarted(roomId);
+          // preloader.classList.add("d-none");
           if (isGameStartedRes.status == 200) {
             let isGameStarted = isGameStartedRes.data;
             if (JSON.parse(isGameStarted) == true) {
@@ -88,8 +103,20 @@ export async function addHashListeners() {
             } else {
               location.hash = `#loto-room-${roomId}`;
             }
+          } else {
+            if (!preloader.classList.contains("d-none")) {
+              preloader.classList.add("d-none");
+            }
           }
           // location.hash = `#loto-room-${roomId}`;
+        } else {
+          if (!preloader.classList.contains("d-none")) {
+            preloader.classList.add("d-none");
+          }
+        }
+      } else {
+        if (!preloader.classList.contains("d-none")) {
+          preloader.classList.add("d-none");
         }
       }
     } else if (hash.includes("loto-room")) {
@@ -98,6 +125,7 @@ export async function addHashListeners() {
 
       const ticketsResponce = await impHttp.getTickets();
       const isGameStartedRes = await impHttp.isGameStarted(roomId);
+
       if (ticketsResponce.status == 200 && isGameStartedRes.status == 200) {
         let userTickets = ticketsResponce.data;
         let isGameStarted = isGameStartedRes.data;
@@ -106,7 +134,6 @@ export async function addHashListeners() {
           location.hash = `#loto-game-${userTicketsRoomId}`;
         } else if (userTickets.length > 0 && isGameStarted == false) {
           let userTicketsRoomId = userTickets[0].gameLevel;
-
           if (roomId != userTicketsRoomId) {
             location.hash = `#loto-room-${userTicketsRoomId}`;
           }
@@ -125,6 +152,9 @@ export async function addHashListeners() {
           method: "connectGame",
         })
       );
+      if (!preloader.classList.contains("d-none")) {
+        preloader.classList.add("d-none");
+      }
       openRoomByHash(hash);
     } else if (hash.includes("loto-game")) {
       const query = new URLSearchParams(hash.split("?")[1]);
@@ -166,6 +196,9 @@ export async function addHashListeners() {
         })
       );
 
+      if (!preloader.classList.contains("d-none")) {
+        preloader.classList.add("d-none");
+      }
       impLotoGame.openGamePage(
         +online || null,
         +bet || null,
@@ -524,10 +557,11 @@ export function pageNavigation(ws) {
     });
 
     // открытие страницы с настройками
-    openSettingsBtn.addEventListener("click", function () {
+    openSettingsBtn.addEventListener("click", async function () {
       // ws.close();
       // impSettingsFunc.openSettingsPage();
-      location.hash = "#settings";
+      await impProfileFunc.openBalance();
+      // location.hash = "#settings";
     });
 
     // открытие страницы с профилем

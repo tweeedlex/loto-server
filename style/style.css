@@ -8,6 +8,19 @@
   font-family: "Montserrat";
 }
 
+.page-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #00000065;
+  z-index: 5;
+}
+.d-none {
+  /* display: none !important; */
+}
+
 .registration {
   transition: transform 0.3s ease;
   position: fixed;

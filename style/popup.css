@@ -175,6 +175,11 @@
   margin: 0 auto;
   background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
 }
+.end-game-winners
+  .end-game-winners__item
+  .end-game-winners__item-ticket:not(:last-child) {
+  margin-bottom: 10px;
+}
 
 .end-game-winners
   .end-game-winners__item
@@ -236,9 +241,77 @@
   }
 
   .end-game-winners__item-ticket {
-    width: 280px;
+    /* width: 280px; */
   }
 
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell {
+    width: 35px;
+    height: 35px;
+  }
+
+  .end-game-winners__item-ticket-number {
+    width: 70%;
+    height: 70%;
+  }
+
+  .end-game-winners .end-game-winners__item .end-game-winners__item-ticket {
+    grid-template-columns: repeat(9, 35px);
+    grid-template-rows: repeat(3, 35px);
+    max-width: max-content;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
+  }
+
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell.active
+    .end-game-winners__item-ticket-number {
+    width: 95%;
+    height: 95%;
+    background: #f6ba9e;
+    border: 4px solid #78010b;
+  }
+}
+
+@media (max-width: 425px) {
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  .end-game-winners__item-ticket-number {
+    width: 70%;
+    height: 70%;
+  }
+
+  .end-game-winners .end-game-winners__item .end-game-winners__item-ticket {
+    grid-template-columns: repeat(9, 30px);
+    grid-template-rows: repeat(3, 30px);
+    max-width: max-content;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
+  }
+
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell.active
+    .end-game-winners__item-ticket-number {
+    width: 95%;
+    height: 95%;
+    background: #f6ba9e;
+    border: 3px solid #78010b;
+  }
+}
+
+@media (max-width: 360px) {
   .end-game-winners
     .end-game-winners__item
     .end-game-winners__item-ticket
@@ -258,6 +331,17 @@
     max-width: max-content;
     margin: 0 auto;
     background: linear-gradient(180deg, #f1d4b2 0%, #e7e7e7 100%);
+  }
+
+  .end-game-winners
+    .end-game-winners__item
+    .end-game-winners__item-ticket
+    .end-game-winners__item-ticket-cell.active
+    .end-game-winners__item-ticket-number {
+    width: 95%;
+    height: 95%;
+    background: #f6ba9e;
+    border: 2px solid #78010b;
   }
 }
 

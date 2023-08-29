@@ -136,7 +136,7 @@ export const openEndGamePopup = (
 
     let winnerItemWon = document.createElement("div");
     winnerItemWon.classList.add("end-game-winners__item-won");
-    winnerItemWon.innerHTML = `${wonSum}`;
+    winnerItemWon.innerHTML = `${wonSum.toFixed(2)}₼`;
 
     winnerItemHeader.appendChild(winnerItemName);
     winnerItemHeader.appendChild(winnerItemWon);
@@ -225,7 +225,7 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
       <div class="popup__content jackpot-popup__content">
         <div class="jackpot-popup__jackpot animation">${jackpotData.jackpotSum}</div>
         <div class="popup__title jackpot-popup__title visible">
-          Джекпот не был выигран!
+          Джекпот не выигран, попробуйте свою удачу в следующей игре!
         </div>
       </div>
     </div>
