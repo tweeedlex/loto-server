@@ -108,16 +108,26 @@ export const openEndGamePopup = (
     <div class="popup__title end-game-popup__title">
       ${title}
     </div>
-    <div class="popup__text end-game-popup__text">
-      Список победителей:
-    </div>
-    <div class="end-game-popup__winners-wrapper">
-      <div class="end-game-popup__winners end-game-winners">
-        
+    ${
+      winnersData.length > 0 && winnersData != []
+        ? `
+      <div class="popup__text end-game-popup__text">
+        Список победителей:
       </div>
+      <div class="end-game-popup__winners-wrapper">
+        <div class="end-game-popup__winners end-game-winners">
+          
+        </div>
+      </div>
+      `
+        : `
+            <div class="popup__text end-game-popup__text">
+              К сожалению, никому не удалось выиграть в этой игре.
+            </div>
+          `
+    }
     </div>
-  </div>
-</div>
+    </div>
     `;
 
   // вставляем победителей и их билеты
@@ -163,7 +173,6 @@ export const openEndGamePopup = (
     });
     winnersBody.appendChild(winnerItem);
   });
-
   // запускаем таймер до следующего переключения на попап
 
   var timerElement = popupElement.querySelector(".close-popup-timer");
