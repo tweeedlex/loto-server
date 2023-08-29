@@ -517,7 +517,11 @@ function selectCaskByFinger(pastCasks) {
   function colorThisCask(cell, pastCasks, ticket) {
     return function (event) {
       let thisCellNumber = Number(cell.innerHTML);
-      if (pastCasks.includes(thisCellNumber)) {
+      if (
+        pastCasks.includes(
+          thisCellNumber && !cell.classList.contains("unavailable")
+        )
+      ) {
         if (!cell.classList.contains("active")) {
           impAudio.playSuccess();
         }
