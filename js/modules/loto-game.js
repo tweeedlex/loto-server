@@ -220,6 +220,14 @@ export async function openGamePage(
     toggleSound();
   });
 
+  const jackpotInformationButton = document.querySelector(
+    ".room-jackpot-question"
+  );
+
+  jackpotInformationButton.addEventListener("click", function () {
+    impPopup.openJackpotInfoPopup();
+  });
+
   const toggleSound = () => {
     if (soundButton.classList.contains("active")) {
       soundButton.classList.remove("active");
@@ -268,16 +276,16 @@ export async function openGamePage(
 
 export function showJackpotWon(winner, sum) {
   if (winner == window.userId) {
-    impPopup.open(
-      `Поздравляем вы выиграли джекпот! Ваша сумма выигрыша составила ${sum.toFixed(
-        2
-      )}М`,
-      200
-    );
-    setTimeout(() => {
-      const popup = document.querySelector(".popup");
-      impPopup.close(popup);
-    }, 5000);
+    // impPopup.open(
+    //   `Поздравляем вы выиграли джекпот! Ваша сумма выигрыша составила ${sum.toFixed(
+    //     2
+    //   )}М`,
+    //   200
+    // );
+    // setTimeout(() => {
+    //   const popup = document.querySelector(".popup");
+    //   impPopup.close(popup);
+    // }, 5000);
   }
 
   const jackpotSum = document.querySelector(".room-jackpot-sum");
@@ -314,6 +322,7 @@ export function showUserTickets(tickets, roomId) {
         ticket.setAttribute("id", id);
         ticket.setAttribute("choosedCasks", JSON.stringify([]));
         ticket.setAttribute("mustBeChoosed", JSON.stringify([]));
+        ticket.setAttribute("unavailableCasks", JSON.stringify([]));
         cells.forEach((cell) => {
           let ticketCell = document.createElement("li");
           ticketCell.classList.add("ticket-cell");
@@ -401,46 +410,6 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   }
 }
 
-// function checkChoosedCasks(ws, pastCasks) {
-//   let ticketsBody = document.querySelector(".loto-game-room__main");
-//   if (ticketsBody) {
-//     let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-//     // смотрим или число совпадает с билетом и добавляем какие должны быть заполнены
-//     tickets.forEach((ticket) => {
-//       let ticketCells = ticket.querySelectorAll(".ticket-cell");
-//       ticketCells.forEach((cell) => {
-//         if (!cell.classList.contains("droped")) {
-//           if (pastCasks.includes(Number(cell.innerHTML))) {
-//             cell.classList.add("droped");
-//             let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
-//             ticket.setAttribute("mustBeChoosed", +mustBeChoosed + 1);
-//           }
-//         }
-//       });
-//     });
-
-//     // проверяем какой отрыв между заполнеными и пустыми для каждого елемента
-//     tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-//     tickets.forEach((ticket) => {
-//       if (!ticket.classList.contains("unavailable")) {
-//         let mustBeChoosed = ticket.getAttribute("mustBeChoosed");
-//         let choosed = ticket.getAttribute("choosedcasks");
-
-//         if (mustBeChoosed - choosed >= 5) {
-//           ticket.classList.add("unavailable");
-//           let ticketId = ticket.getAttribute("id");
-//           ws.send(
-//             JSON.stringify({
-//               method: "cancelCard",
-//               cardId: ticketId,
-//             })
-//           );
-//         }
-//       }
-//     });
-//   }
-// }
-
 function checkChoosedCasks(ws, pastCasks) {
   let ticketsBody = document.querySelector(".loto-game-room__main");
   if (ticketsBody) {
@@ -462,15 +431,21 @@ function checkChoosedCasks(ws, pastCasks) {
           }
         } else {
           // если число не отмечено и оно есть в mustbechoosed, при том что оно так же есть в pastcasks без последних 5, значит ставим крестик и билет не активен
-          const pastCasksWithoutLastFive = pastCasks.slice(0, -5);
+          const pastCasksWithoutLastSeven = pastCasks.slice(0, -7);
           if (
-            pastCasksWithoutLastFive.includes(Number(cell.innerHTML)) &&
+            pastCasksWithoutLastSeven.includes(Number(cell.innerHTML)) &&
             JSON.parse(ticket.getAttribute("mustBeChoosed")).includes(
               Number(cell.innerHTML)
             ) &&
             !cell.classList.contains("active")
           ) {
             cell.classList.add("unavailable");
+            const unavailableCasks =
+              JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
+            ticket.setAttribute(
+              "unavailableCasks",
+              JSON.stringify([...unavailableCasks, +cell.innerHTML])
+            );
             if (!ticket.classList.contains("unavailable")) {
               ticket.classList.add("unavailable");
               let ticketId = ticket.getAttribute("id");
@@ -518,9 +493,8 @@ function selectCaskByFinger(pastCasks) {
     return function (event) {
       let thisCellNumber = Number(cell.innerHTML);
       if (
-        pastCasks.includes(
-          thisCellNumber && !cell.classList.contains("unavailable")
-        )
+        pastCasks.includes(thisCellNumber) &&
+        !cell.classList.contains("unavailable")
       ) {
         if (!cell.classList.contains("active")) {
           impAudio.playSuccess();
@@ -545,24 +519,78 @@ function colorCask(cask, pastCasks) {
   let ticketsBody = document.querySelector(".loto-game-room__main");
   if (ticketsBody) {
     let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-    // заполнение старых цифр которые сейчас не заполнены
+    // заполнение новой выпавшей циферки
     tickets.forEach((ticket) => {
       let ticketCells = ticket.querySelectorAll(".ticket-cell");
-      if (!ticket.classList.contains("unavailable")) {
+      // if (!ticket.classList.contains("unavailable")) {
+      ticketCells.forEach((cell) => {
+        if (
+          !cell.classList.contains("active") &&
+          !cell.classList.contains("unavailable")
+        ) {
+          if (cask == Number(cell.innerHTML)) {
+            impAudio.playSuccess();
+            cell.classList.add("active");
+            let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
+            ticket.setAttribute("choosedcasks", allActiveCasks.length);
+          }
+        }
+      });
+      // }
+    });
+  }
+}
+
+export async function colorDropedCasks(pastCasks) {
+  const page = document.querySelector(".loto-game-room-page");
+
+  if (!page.classList.contains("auto-filled")) {
+    page.classList.add("auto-filled");
+
+    let ticketsBody = document.querySelector(".loto-game-room__main");
+    const { data: ticketsData } = await impHttp.getTickets();
+
+    if (ticketsBody) {
+      let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+      // заполнение старых цифр которые сейчас не заполнены
+      tickets.forEach((ticket) => {
+        const ticketData = ticketsData.find(
+          (item) => item.id == ticket.getAttribute("id")
+        );
+        if (ticketData.isActive == false) {
+          ticket.classList.add("unavailable");
+        }
+        let ticketCells = ticket.querySelectorAll(".ticket-cell");
+        const unavailableCasks =
+          JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
         ticketCells.forEach((cell) => {
-          if (!cell.classList.contains("active")) {
+          if (
+            ticketData.isActive == true &&
+            !cell.classList.contains("active") &&
+            !cell.classList.contains("unavailable")
+          ) {
             if (pastCasks.includes(Number(cell.innerHTML))) {
               impAudio.playSuccess();
-              cell.classList.add("active");
+              if (
+                !unavailableCasks.includes(+cell.innerHTML) &&
+                ticketData.isActive == true
+              ) {
+                cell.classList.add("active");
+              }
               let allActiveCasks = ticket.querySelectorAll(
                 ".ticket-cell.active"
               );
               ticket.setAttribute("choosedcasks", allActiveCasks.length);
             }
+          } else if (
+            ticketData.isActive == false &&
+            pastCasks.includes(Number(cell.innerHTML))
+          ) {
+            cell.classList.add("unavailable");
           }
         });
-      }
-    });
+      });
+    }
   }
 }
 

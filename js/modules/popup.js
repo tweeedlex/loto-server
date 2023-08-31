@@ -41,6 +41,31 @@ export const open = (text, status, showButton = false, ws = null) => {
   });
 };
 
+export const openErorPopup = (text) => {
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup", "error-popup");
+  popupElement.innerHTML = `<div class="popup__body">
+  <div class="popup__content">
+    <div class="popup-header">
+      <p>Ошибка</p>
+      <img src="img/error-icon.png" alt="" />
+    </div>
+    <div class="popup__text">
+      ${text}
+    </div>
+    <button class="popup__button">Закрыть</button>
+  </div>
+</div>`;
+
+  body.appendChild(popupElement);
+
+  const closeButton = document.querySelector(".popup__button");
+  closeButton.addEventListener("click", function () {
+    close(popupElement);
+  });
+};
+
 export function close(element) {
   element.remove();
 }
@@ -50,16 +75,20 @@ export const openExitPopup = (text, roomId, bet = null) => {
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup");
   popupElement.innerHTML = `
-  <div class="popup__body">
-    <div class="popup__content">
-      <button class="popup__close close-popup"></button>
-      <div class="popup__text">
-        ${text}
-      </div>
+  <div class="popup__body exit-room-popup">
+  <div class="popup__content">
+    <div class="popup__img">
+      <img src="img/popup-alert.png" alt="" />
+    </div>
+    <div class="popup__text">
+      ${text}
+    </div>
+    <div class="popup__buttons">
       <button class="popup__button popup__submit-button red">Да</button>
       <button class="popup__button close-popup green">Нет</button>
     </div>
-  </div>`;
+  </div>
+</div>`;
 
   body.appendChild(popupElement);
 
@@ -108,9 +137,7 @@ export const openEndGamePopup = (
     <div class="popup__title end-game-popup__title">
       ${title}
     </div>
-    ${
-      winnersData.length > 0 && winnersData != []
-        ? `
+    
       <div class="popup__text end-game-popup__text">
         Список победителей:
       </div>
@@ -119,13 +146,9 @@ export const openEndGamePopup = (
           
         </div>
       </div>
-      `
-        : `
-            <div class="popup__text end-game-popup__text">
-              К сожалению, никому не удалось выиграть в этой игре.
-            </div>
-          `
-    }
+      
+        
+    
     </div>
     </div>
     `;
@@ -214,9 +237,12 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
     popupElement.innerHTML = `
     <div class="popup__body jackpot-popup__body">
       <div class="popup__content jackpot-popup__content">
-        <div class="jackpot-popup__jackpot animation">${jackpotData.jackpotSum}</div>
+        <div class="jackpot-popup__jackpot-img">
+          <img src="img/jackpot-text.png" alt="" />
+        </div>
+        <div class="jackpot-popup__jackpot animation"><span>${jackpotData.jackpotSum}</span>₼</div>
         <div class="popup__title jackpot-popup__title visible">
-          Джекпот был выигран игроком ${jackpotData.jackpotWinnerName}!
+        Джекпот был выигран игроком ${jackpotData.jackpotWinnerName}!
         </div>
       </div>
     </div>
@@ -231,17 +257,45 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
     popupElement.classList.add("popup", "jackpot-popup");
     popupElement.innerHTML = `
     <div class="popup__body jackpot-popup__body">
-      <div class="popup__content jackpot-popup__content">
-        <div class="jackpot-popup__jackpot animation">${jackpotData.jackpotSum}</div>
-        <div class="popup__title jackpot-popup__title visible">
-          Джекпот не выигран, попробуйте свою удачу в следующей игре!
-        </div>
+    <div class="popup__content jackpot-popup__content">
+      <div class="jackpot-popup__jackpot-img">
+        <img src="img/jackpot-text.png" alt="" />
+      </div>
+      <div class="jackpot-popup__jackpot animation"><span>${jackpotData.jackpotSum}</span>₼</div>
+      <div class="popup__title jackpot-popup__title visible">
+      Джекпот не выигран, попробуйте испытать свою удачу в следующей игре!
       </div>
     </div>
+  </div>
       `;
     body.appendChild(popupElement);
     setTimeout(() => {
       close(popupElement);
     }, 11000);
   }
+}
+
+export function openJackpotInfoPopup() {
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup", "jackpot-popup");
+  popupElement.innerHTML = `
+  <div class="popup__body jackpot-info-popup">
+  <div class="popup__content">
+    <div class="popup__text">
+      Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1
+      ряд (верхний/средний/нижний) любой, то вы будете победителем
+      джекпота.
+    </div>
+    <div class="popup-button__gotit">Понятно</div>
+  </div>
+</div>
+      `;
+
+  let gotItBtn = popupElement.querySelector(".popup-button__gotit");
+  gotItBtn.addEventListener("click", function () {
+    close(popupElement);
+  });
+
+  body.appendChild(popupElement);
 }

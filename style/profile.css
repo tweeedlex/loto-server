@@ -294,11 +294,12 @@
 }
 
 .button__credit-card {
+  cursor: pointer;
   display: flex;
   gap: 10px;
   align-items: center;
   padding: 10px;
-
+  user-select: none;
   border-radius: 10px;
   border: 1px solid #777;
   background: linear-gradient(180deg, #88143f 0%, #780d35 100%);

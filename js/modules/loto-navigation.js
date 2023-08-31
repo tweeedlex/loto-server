@@ -4,13 +4,27 @@ import * as impNav from "./navigation.js";
 import * as impPopup from "./popup.js";
 import * as impAudio from "./audio.js";
 
-let lotoTimer;
+let preloader = document.querySelector(".page-preloader");
+
+let lotoTimer = null;
 let intervals = [];
-let activeTimers = [];
-let activeFinishTimers = [];
+let activeTimers = {
+  room1: null,
+  room2: null,
+  room3: null,
+  room4: null,
+  room5: null,
+};
+let activeFinishTimers = {
+  room1: null,
+  room2: null,
+  room3: null,
+  room4: null,
+  room5: null,
+};
 
 export const connectWebsocketFunctions = () => {
-  const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
+  const ws = new WebSocket(`ws://localhost:5001/game`);
   window.ws = ws;
   let timerStarted = false;
 
@@ -34,13 +48,30 @@ export const connectWebsocketFunctions = () => {
       case "getAllInfo":
         updateAllRoomsOnline(msg.rooms);
         updateAllRoomsBet(msg.bank);
-        for (let timer of activeTimers) {
-          clearInterval(timer);
+
+        for (let room = 1; room <= 5; room++) {
+          let roomTimer = activeTimers[`room${room}`];
+          if (roomTimer != null) {
+            roomTimer = null;
+            clearInterval(roomTimer);
+          }
         }
+        // for (let timer of activeTimers) {
+        //   clearInterval(timer);
+        // }
         startMenuTimerLobby(msg.timers);
-        for (let timer of activeFinishTimers) {
-          clearInterval(timer);
+
+        for (let room = 1; room <= 5; room++) {
+          let roomTimer = activeFinishTimers[`room${room}`];
+          if (roomTimer != null) {
+            roomTimer = null;
+            clearInterval(roomTimer);
+          }
         }
+
+        // for (let timer of activeFinishTimers) {
+        //   clearInterval(timer);
+        // }
         startMenuTimerGame(msg.timers);
         break;
       case "allRoomsOnline":
@@ -53,16 +84,30 @@ export const connectWebsocketFunctions = () => {
         updateAllRoomsJackpot(msg.jackpots);
         break;
       case "allRoomsStartTimers":
-        for (let timer of activeTimers) {
-          clearInterval(timer);
+        for (let room = 1; room <= 5; room++) {
+          let roomTimer = activeTimers[`room${room}`];
+          if (roomTimer != null) {
+            roomTimer = null;
+            clearInterval(roomTimer);
+          }
         }
+        // for (let timer of activeTimers) {
+        //   clearInterval(timer);
+        // }
         startMenuTimerLobby(msg.timers);
 
         break;
       case "allRoomsFinishTimers":
-        for (let timer of activeFinishTimers) {
-          clearInterval(timer);
+        for (let room = 1; room <= 5; room++) {
+          let roomTimer = activeFinishTimers[`room${room}`];
+          if (roomTimer != null) {
+            roomTimer = null;
+            clearInterval(roomTimer);
+          }
         }
+        // for (let timer of activeFinishTimers) {
+        //   clearInterval(timer);
+        // }
         startMenuTimerGame(msg.timers);
 
         break;
@@ -110,7 +155,7 @@ export const connectWebsocketFunctions = () => {
         break;
       case "buyTickets":
         if (msg.isBought == false) {
-          impPopup.open("Произошла ошибка!", 400);
+          impPopup.openErorPopup("Произошла ошибка при покупке билета!");
           return;
         }
         deleteTickets();
@@ -156,7 +201,8 @@ export const connectWebsocketFunctions = () => {
             method: "disconnectGame",
           })
         );
-        impPopup.open("Вы не купили билеты для игры!", 400);
+
+        impPopup.openErorPopup("Вы не купили билеты для игры!");
         break;
       case "updateRoomTimer":
         console.log(msg);
@@ -184,12 +230,12 @@ export const connectWebsocketFunctions = () => {
         break;
       case "openGame":
         console.log(msg);
-
         location.hash = `#loto-game-${msg.roomId}?bet=${msg.bet}&bank=${msg.bank}&jackpot=${msg.jackpot}&online=${msg.online}`;
         // updateBank(msg.bank);
         break;
       case "sendNewCask":
         impLotoGame.createCask(ws, msg.cask, msg.caskNumber, msg.pastCasks);
+        await impLotoGame.colorDropedCasks(msg.pastCasks);
         break;
 
       case "jackpotWon":
@@ -236,7 +282,7 @@ export const connectWebsocketFunctions = () => {
 
 function setLoader(roomId) {
   const room = document.querySelector(`.loto-room-${roomId}`);
-  if (!room.classList.contains("game-started")) {
+  if (!room.classList.contains("finishing")) {
     const loader = document.createElement("div");
     loader.classList.add("room-loader");
     room.appendChild(loader);
@@ -263,7 +309,9 @@ export async function openLotoRoom(ws, roomId) {
       impAudio.playLoading();
     } else {
       location.hash = "";
-      impPopup.open("подождите пока игра закончится!", 400);
+      impPopup.openErorPopup(
+        "Игра уже началась. Если вы хотите принять участие в игре, подождите ее окончания!"
+      );
     }
   } else {
     location.hash = `#loto-room-${roomId}`;
@@ -351,10 +399,9 @@ async function startLotoTimer(strtedAt) {
     lotoTimer = setInterval(async () => {
       const now = new Date().getTime();
       const distance = targetTime - now;
-
       if (distance <= 0) {
         clearInterval(lotoTimer);
-
+        lotoTimer = null;
         // console.log("timer finished");
         if (timerBlock) {
           // добавить окно (игра начинается)
@@ -382,7 +429,7 @@ function updateAllRoomsOnline(onlineArr) {
   if (mainPage) {
     for (let roomId = 1; roomId <= 5; roomId++) {
       let lotoRoom = mainPage.querySelector(`.loto-room-${roomId}`);
-      let lotoRoomOnline = lotoRoom.querySelector(".game__room-online");
+      let lotoRoomOnline = lotoRoom.querySelector(".lobby-room-online span");
       if (lotoRoomOnline) {
         lotoRoomOnline.innerHTML = onlineArr[`room${roomId}`];
       }
@@ -395,7 +442,7 @@ function updateAllRoomsBet(betArr) {
   if (mainPage) {
     for (let roomId = 1; roomId <= 5; roomId++) {
       let lotoRoom = mainPage.querySelector(`.loto-room-${roomId}`);
-      let lotoRoomBet = lotoRoom.querySelector(".game__room-bank-sum");
+      let lotoRoomBet = lotoRoom.querySelector(".lobby-room-bet span");
       if (lotoRoomBet) {
         const targetBet = betArr[`room${roomId}`];
         const currentBet = parseFloat(lotoRoomBet.innerHTML);
@@ -487,7 +534,9 @@ export function buyTickets(ws, roomId, bet) {
       const balance = +document.querySelector(".header__balance").innerHTML;
       const ticketsPrice = +ticketsCount.innerHTML * bet;
       if (balance < ticketsPrice) {
-        impPopup.open("Недостаточно средств!", 400);
+        impPopup.openErorPopup(
+          "Вам не хватает баланса. Пожалуйста, увеличьте свой баланс. "
+        );
         return;
       }
 
@@ -594,21 +643,40 @@ function startMenuTimerLobby(timers) {
   if (mainPage) {
     for (let roomId = 1; roomId <= 5; roomId++) {
       let lotoRoom = mainPage.querySelector(`.loto-room-${roomId}`);
-      let lotoRoomTimer = lotoRoom.querySelector(".game__until-start-timer");
+      let lotoRoomTimer = lotoRoom.querySelector(
+        ".room-left__item-timer-block .timer-block__timer"
+      );
 
       if (timers[`room${roomId}`] == null) {
         if (lotoRoomTimer) {
           lotoRoomTimer.innerHTML = "00:00";
+          if (activeTimers[`room${roomId}`] != null) {
+            clearInterval(activeTimers[`room${roomId}`]);
+            activeTimers[`room${roomId}`] = null;
+          }
+          // clearInterval(activeTimers[roomId - 1]);
+          // return;
         }
       } else {
+        let lotoRoomTimerText = lotoRoom.querySelector(
+          ".room-left__item-timer-block .timer-block__text"
+        );
+        lotoRoomTimerText.innerHTML = "Начинается";
+        lotoRoom.classList.add("starting");
         let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 30000;
         let timer = setInterval(function () {
           let now = new Date().getTime();
           let distance = countDownDate - now;
-          if (distance < 0) {
-            clearInterval(activeTimers[roomId - 1]);
+          // console.log(distance);
+          // console.log("timer");
+          if (distance <= 0) {
+            // console.log("distance < 0");
+            clearInterval(activeTimers[`room${roomId}`]);
+            activeTimers[`room${roomId}`] = null;
             lotoRoomTimer.innerHTML = "00:00";
-          } else {
+          } else if (distance > 0) {
+            // console.log("distance > 0");
+
             const minutes = Math.floor(distance / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -619,8 +687,8 @@ function startMenuTimerLobby(timers) {
               lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
             }
           }
-        }, 50);
-        activeTimers.push(timer);
+        }, 500);
+        activeTimers[`room${roomId}`] = timer;
       }
     }
   }
@@ -632,28 +700,43 @@ function startMenuTimerGame(timers) {
   if (mainPage) {
     for (let roomId = 1; roomId <= 5; roomId++) {
       let lotoRoom = mainPage.querySelector(`.loto-room-${roomId}`);
-      let lotoRoomTimer = lotoRoom.querySelector(".game__until-finish-timer");
+
+      let lotoRoomTimer = lotoRoom.querySelector(
+        ".room-left__item-timer-block .timer-block__timer"
+      );
 
       if (timers[`room${roomId}`] == null) {
-        if (lotoRoom.classList.contains("game-started")) {
-          lotoRoom.classList.remove("game-started");
+        if (lotoRoom.classList.contains("finishing")) {
+          if (activeFinishTimers[`room${roomId}`] != null) {
+            clearInterval(activeFinishTimers[`room${roomId}`]);
+            activeFinishTimers[`room${roomId}`] = null;
+          }
+          lotoRoom.classList.remove("finishing", "starting");
+          let lotoRoomTimerText = lotoRoom.querySelector(
+            ".room-left__item-timer-block .timer-block__text"
+          );
+          lotoRoomTimerText.innerHTML = "Ожидание";
         }
         if (lotoRoomTimer) {
           lotoRoomTimer.innerHTML = "00:00";
         }
       } else {
         //добавляем клас на комнату
-        lotoRoom.classList.add("game-started");
+        let lotoRoomTimerText = lotoRoom.querySelector(
+          ".room-left__item-timer-block .timer-block__text"
+        );
+        lotoRoomTimerText.innerHTML = "Закончится";
+        lotoRoom.classList.add("finishing");
 
         let countDownDate = new Date(timers[`room${roomId}`]).getTime();
         let timer = setInterval(function () {
           let now = new Date().getTime();
           let distance = countDownDate - now;
           if (distance < 0) {
-            if (lotoRoom.classList.contains("game-started")) {
-              lotoRoom.classList.remove("game-started");
-            }
-            // clearInterval(activeFinishTimers[roomId - 1]);
+            clearInterval(activeFinishTimers[`room${roomId}`]);
+            activeFinishTimers[`room${roomId}`] = null;
+            lotoRoom.classList.remove("finishing", "starting");
+            lotoRoomTimerText.innerHTML = "Ожидание";
             lotoRoomTimer.innerHTML = "00:00";
           } else {
             const minutes = Math.floor(distance / (1000 * 60));
@@ -666,8 +749,9 @@ function startMenuTimerGame(timers) {
               lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
             }
           }
-        }, 50);
-        activeFinishTimers.push(timer);
+        }, 500);
+
+        activeFinishTimers[`room${roomId}`] = timer;
       }
     }
   }

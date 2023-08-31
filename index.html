@@ -21,11 +21,11 @@
   <div class="page-preloader"></div>
   <header>
     <div class="header__container">
-      <a href="" class="header__logo">Лото</a>
+      <a href="" class="header__logo"><img src="img/logo.png" alt="" /> </a>
       <div class="header__user">
-        <p>Баланс: <span class="header__balance">0р</span></p>
-        <!-- <a class="header__name"> Имя </a> -->
-        <!-- <button class="header__exit">Logout</button> -->
+        <p class="header__balance-block">
+          <span class="header__balance">0.00</span> ₼
+        </p>
       </div>
     </div>
   </header>
@@ -132,172 +132,286 @@
           <div class="games__container" id="loto">
             <a class="game loto-room loto-room-1" room="1">
               <div class="loto-room__body">
-                <p class="game__title">Лото</p>
-                <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">0.20</span>М</p>
-                <div class="game__until-start">
-                  <p>До начала:</p>
-                  <span class="game__until-start-timer">00:00</span>
+                <div class="loto-room__body-left room-left">
+                  <div class="room-left__item room-left__item-1">
+                    <div class="logo">
+                      <img src="img/loto-room-card-logo.png" alt="" />
+                    </div>
+                    <div class="room-left__item-timer-block">
+                      <p class="timer-block__text">Ожидание</p>
+                      <span class="timer-block__timer">00:00</span>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-2">
+                    <div class="room-left__item-info-row lobby-room-bet">
+                      <img src="img/bank-icon.png" alt="" />
+                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                    </div>
+                    <div
+                      class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
+                    >
+                      <img src="img/lobby-online-icon.png" alt="" />
+                      <p>ИГРОКОВ ОНЛАЙН: <span>0</span></p>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-3">
+                    <div class="room-left__item-info-row">
+                      <img src="img/bank-before-icon.png" alt="" />
+                      <p>
+                        Сумма выйгрыша в пред. игре:
+                        <span class="game__room-prevbank-sum">0</span> ₼
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="game__until-finish">
-                  <p>До конца:</p>
-                  <span class="game__until-finish-timer">00:00</span>
+                <div class="loto-room__body-right">
+                  <div class="loto-room__body-right__jackpot-text">
+                    <img src="img/jackpot-text.png" alt="" />
+                  </div>
+                  <div class="loto-room__body-right__jackpot">
+                    <img src="img/room-jackpot-img.png" alt="" />
+                    <p
+                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div class="loto-room__body-right__price-block">
+                    <p class="price-text">Цена билета:</p>
+                    <button class="price"><span>0.20</span> ₼</button>
+                  </div>
                 </div>
-                <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>М
-                </p>
-                <p class="game__room-bank">
-                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
-                </p>
-                <p class="game__room-jackpot">
-                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
-                </p>
               </div>
             </a>
             <a class="game loto-room loto-room-2" room="2">
               <div class="loto-room__body">
-                <p class="game__title">Лото</p>
-                <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">0.50</span>М</p>
-                <p class="game__until-start">
-                  До начала: <span class="game__until-start-timer">00:00</span>
-                </p>
-                <div class="game__until-finish">
-                  <p>До конца:</p>
-                  <span class="game__until-finish-timer">00:00</span>
+                <div class="loto-room__body-left room-left">
+                  <div class="room-left__item room-left__item-1">
+                    <div class="logo">
+                      <img src="img/loto-room-card-logo.png" alt="" />
+                    </div>
+                    <div class="room-left__item-timer-block">
+                      <p class="timer-block__text">Ожидание</p>
+                      <span class="timer-block__timer">00:00</span>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-2">
+                    <div class="room-left__item-info-row lobby-room-bet">
+                      <img src="img/bank-icon.png" alt="" />
+                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                    </div>
+                    <div
+                      class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
+                    >
+                      <img src="img/lobby-online-icon.png" alt="" />
+                      <p>ИГРОКОВ ОНЛАЙН: <span>0</span></p>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-3">
+                    <div class="room-left__item-info-row">
+                      <img src="img/bank-before-icon.png" alt="" />
+                      <p>
+                        Сумма выйгрыша в пред. игре:
+                        <span class="game__room-prevbank-sum">0</span> ₼
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>М
-                </p>
-                <p class="game__room-bank">
-                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
-                </p>
-                <p class="game__room-jackpot">
-                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
-                </p>
+                <div class="loto-room__body-right">
+                  <div class="loto-room__body-right__jackpot-text">
+                    <img src="img/jackpot-text.png" alt="" />
+                  </div>
+                  <div class="loto-room__body-right__jackpot">
+                    <img src="img/room-jackpot-img.png" alt="" />
+                    <p
+                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div class="loto-room__body-right__price-block">
+                    <p class="price-text">Цена билета:</p>
+                    <button class="price"><span>0.20</span> ₼</button>
+                  </div>
+                </div>
               </div>
             </a>
             <a class="game loto-room loto-room-3" room="3">
               <div class="loto-room__body">
-                <p class="game__title">Лото</p>
-                <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">1</span>М</p>
-                <p class="game__until-start">
-                  До начала: <span class="game__until-start-timer">00:00</span>
-                </p>
-                <div class="game__until-finish">
-                  <p>До конца:</p>
-                  <span class="game__until-finish-timer">00:00</span>
+                <div class="loto-room__body-left room-left">
+                  <div class="room-left__item room-left__item-1">
+                    <div class="logo">
+                      <img src="img/loto-room-card-logo.png" alt="" />
+                    </div>
+                    <div class="room-left__item-timer-block">
+                      <p class="timer-block__text">Ожидание</p>
+                      <span class="timer-block__timer">00:00</span>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-2">
+                    <div class="room-left__item-info-row lobby-room-bet">
+                      <img src="img/bank-icon.png" alt="" />
+                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                    </div>
+                    <div
+                      class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
+                    >
+                      <img src="img/lobby-online-icon.png" alt="" />
+                      <p>ИГРОКОВ ОНЛАЙН: <span>0</span></p>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-3">
+                    <div class="room-left__item-info-row">
+                      <img src="img/bank-before-icon.png" alt="" />
+                      <p>
+                        Сумма выйгрыша в пред. игре:
+                        <span class="game__room-prevbank-sum">0</span> ₼
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>М
-                </p>
-                <p class="game__room-bank">
-                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
-                </p>
-                <p class="game__room-jackpot">
-                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
-                </p>
+                <div class="loto-room__body-right">
+                  <div class="loto-room__body-right__jackpot-text">
+                    <img src="img/jackpot-text.png" alt="" />
+                  </div>
+                  <div class="loto-room__body-right__jackpot">
+                    <img src="img/room-jackpot-img.png" alt="" />
+                    <p
+                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div class="loto-room__body-right__price-block">
+                    <p class="price-text">Цена билета:</p>
+                    <button class="price"><span>0.20</span> ₼</button>
+                  </div>
+                </div>
               </div>
             </a>
             <a class="game loto-room loto-room-4" room="4">
               <div class="loto-room__body">
-                <p class="game__title">Лото</p>
-                <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">5</span>М</p>
-                <p class="game__until-start">
-                  До начала: <span class="game__until-start-timer">00:00</span>
-                </p>
-                <div class="game__until-finish">
-                  <p>До конца:</p>
-                  <span class="game__until-finish-timer">00:00</span>
+                <div class="loto-room__body-left room-left">
+                  <div class="room-left__item room-left__item-1">
+                    <div class="logo">
+                      <img src="img/loto-room-card-logo.png" alt="" />
+                    </div>
+                    <div class="room-left__item-timer-block">
+                      <p class="timer-block__text">Ожидание</p>
+                      <span class="timer-block__timer">00:00</span>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-2">
+                    <div class="room-left__item-info-row lobby-room-bet">
+                      <img src="img/bank-icon.png" alt="" />
+                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                    </div>
+                    <div
+                      class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
+                    >
+                      <img src="img/lobby-online-icon.png" alt="" />
+                      <p>ИГРОКОВ ОНЛАЙН: <span>0</span></p>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-3">
+                    <div class="room-left__item-info-row">
+                      <img src="img/bank-before-icon.png" alt="" />
+                      <p>
+                        Сумма выйгрыша в пред. игре:
+                        <span class="game__room-prevbank-sum">0</span> ₼
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>М
-                </p>
-                <p class="game__room-bank">
-                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
-                </p>
-                <p class="game__room-jackpot">
-                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
-                </p>
+                <div class="loto-room__body-right">
+                  <div class="loto-room__body-right__jackpot-text">
+                    <img src="img/jackpot-text.png" alt="" />
+                  </div>
+                  <div class="loto-room__body-right__jackpot">
+                    <img src="img/room-jackpot-img.png" alt="" />
+                    <p
+                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div class="loto-room__body-right__price-block">
+                    <p class="price-text">Цена билета:</p>
+                    <button class="price"><span>0.20</span> ₼</button>
+                  </div>
+                </div>
               </div>
             </a>
             <a class="game loto-room loto-room-5" room="5">
               <div class="loto-room__body">
-                <p class="game__title">Лото</p>
-                <p>Онлайн: <span class="game__room-online">0</span></p>
-                <p>Ставка: <span class="game__bet">10</span>М</p>
-                <p class="game__until-start">
-                  До начала: <span class="game__until-start-timer">00:00</span>
-                </p>
-                <div class="game__until-finish">
-                  <p>До конца:</p>
-                  <span class="game__until-finish-timer">00:00</span>
+                <div class="loto-room__body-left room-left">
+                  <div class="room-left__item room-left__item-1">
+                    <div class="logo">
+                      <img src="img/loto-room-card-logo.png" alt="" />
+                    </div>
+                    <div class="room-left__item-timer-block">
+                      <p class="timer-block__text">Ожидание</p>
+                      <span class="timer-block__timer">00:00</span>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-2">
+                    <div class="room-left__item-info-row lobby-room-bet">
+                      <img src="img/bank-icon.png" alt="" />
+                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                    </div>
+                    <div
+                      class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
+                    >
+                      <img src="img/lobby-online-icon.png" alt="" />
+                      <p>ИГРОКОВ ОНЛАЙН: <span>0</span></p>
+                    </div>
+                  </div>
+                  <div class="room-left__item room-left__item-3">
+                    <div class="room-left__item-info-row">
+                      <img src="img/bank-before-icon.png" alt="" />
+                      <p>
+                        Сумма выйгрыша в пред. игре:
+                        <span class="game__room-prevbank-sum">0</span> ₼
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p class="game__room-bank">
-                  Общий банк: <span class="game__room-bank-sum">0</span>М
-                </p>
-                <p class="game__room-bank">
-                  Пред. банк: <span class="game__room-prevbank-sum">0</span>М
-                </p>
-                <p class="game__room-jackpot">
-                  Джекпот: <span class="game__room-jackpot-sum">0</span>М
-                </p>
+                <div class="loto-room__body-right">
+                  <div class="loto-room__body-right__jackpot-text">
+                    <img src="img/jackpot-text.png" alt="" />
+                  </div>
+                  <div class="loto-room__body-right__jackpot">
+                    <img src="img/room-jackpot-img.png" alt="" />
+                    <p
+                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
+                    >
+                      0
+                    </p>
+                  </div>
+                  <div class="loto-room__body-right__price-block">
+                    <p class="price-text">Цена билета:</p>
+                    <button class="price"><span>0.20</span> ₼</button>
+                  </div>
+                </div>
               </div>
             </a>
           </div>
         </section>
-        <!-- <div class="loto-game-room-page">
-          <div class="loto-game-room-page-content">
-            <div class="room-jackpot">
-              <div class="room-jackpot-sum">
-                <img src="img/jackpot-icon.png" alt="" /><span>0</span> ₼
-              </div>
-              <div class="room-jackpot-question">
-                <img src="img/question-tag.png" alt="" />
-              </div>
-            </div>
-            <div class="loto-room__gameinfo loto-gameinfo">
-              <div class="loto-gameinfo__top-row">
-                <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
-                  Ставка: <span>0</span> ₼
-                </p>
-                <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
-                  Банк: <span>0</span> ₼
-                </p>
-                <div class="loto-room-page__exit-wrapper"></div>
-              </div>
-              <div
-                class="loto-gameinfo__bottom-row loto-game-gameinfo__bottom-row"
-              >
-                <p class="loto-gameinfo__online">
-                  <img src="img/online-icon.png" alt="" /> <span>0</span>
-                </p>
-                <p class="loto-gameinfo__jackpot-block-wrapper"></p>
-                <p class="loto-gameinfo__auto-button active">
-                  <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
-                </p>
-                <p class="loto-gameinfo__sounds-button active">
-                  <img src="img/profile icons/sound.png" alt="" />
-                </p>
-              </div>
-            </div>
-            <div class="loto-gameinfo__information-left left3">
-              У <span>0</span> карточек осталось 3 номера
-            </div>
 
-            <div class="loto-game-room__gameprocess">
-              <div class="loto-game-room__cask">12</div>
-              <div class="loto-game-room__cask">12</div>
-              <div class="loto-game-room__cask">12</div>
-              <div class="loto-game-room__cask">12</div>
-              <div class="loto-game-room__cask">12</div>
+        <!-- <div class="popup end-game-popup">
+          <div class="popup__body end-game-popup__body">
+            <div class="popup__content end-game-popup__content">
+              <button class="popup__close-timer close-popup-timer">00</button>
+              <div class="popup__title end-game-popup__title">
+                К сожалению вы не смогли выиграть попробуйте еще раз.
+              </div>
 
-              <div class="loto-game-room__cask active">12</div>
-            </div>
-            <div class="loto-gamemain__body">
-              <div class="col-div loto-game-room__main loto-gamemain"></div>
+              <div class="popup__text end-game-popup__text">
+                Список победителей:
+              </div>
+              <div class="end-game-popup__winners-wrapper">
+                <div class="end-game-popup__winners end-game-winners"></div>
+              </div>
             </div>
           </div>
         </div> -->

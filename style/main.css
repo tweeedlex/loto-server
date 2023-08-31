@@ -1,12 +1,17 @@
 /* footer styles */
 
 #footer {
+  /* position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; */
   display: block;
-  background: linear-gradient(
-    180deg,
-    #572451 0%,
-    rgba(71, 100, 204, 0.64) 100%
-  );
+  background: linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%),
+    #000;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .footer__container {

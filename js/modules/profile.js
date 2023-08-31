@@ -81,6 +81,8 @@ import * as impLeaders from "./leaders.js";
 //   });
 // }
 
+let preloader = document.querySelector(".page-preloader");
+
 export async function openProfilePage() {
   let main = document.querySelector("main");
   if (main) {
@@ -202,12 +204,16 @@ export async function openProfilePage() {
 
     const profileDetailsButton = document.querySelector(".profile-details");
     profileDetailsButton.addEventListener("click", async function () {
+      preloader.classList.remove("d-none");
       await openUserDetails();
+      preloader.classList.add("d-none");
     });
 
     const balanceButton = document.querySelector(".profile__balance-button");
     balanceButton.addEventListener("click", async function () {
+      preloader.classList.remove("d-none");
       await openBalance();
+      preloader.classList.add("d-none");
     });
 
     const changePasswordButton = document.querySelector(
@@ -218,14 +224,17 @@ export async function openProfilePage() {
     });
 
     const gameHistoryButton = document.querySelector(".game-history");
-    gameHistoryButton.addEventListener("click", () => {
-      openUserGames();
+    gameHistoryButton.addEventListener("click", async () => {
+      preloader.classList.remove("d-none");
+      await openUserGames();
+      preloader.classList.add("d-none");
     });
 
     const userRatingButton = document.querySelector(".user-rating");
     userRatingButton.addEventListener("click", () => {
-      impLeaders.openLeadersMenuPage();
+      preloader.classList.remove("d-none");
       location.hash = "#leaders";
+      preloader.classList.add("d-none");
     });
 
     const logoutButton = document.querySelector(".logout");
@@ -278,6 +287,7 @@ export async function openBalance() {
   });
   const goBackButton = document.querySelector(".go-back");
   goBackButton.addEventListener("click", function () {
+    location.href = "#profile";
     openProfilePage();
   });
 }

@@ -8,6 +8,11 @@
   font-family: "Montserrat";
 }
 
+button,
+a {
+  user-select: none;
+}
+
 .page-preloader {
   position: fixed;
   top: 0;
@@ -61,6 +66,8 @@
 
 .registration__logo {
   margin-bottom: 70px;
+  margin-top: 20px;
+  width: 200px;
 }
 
 .select-language {
@@ -350,6 +357,14 @@
   margin-bottom: 10px;
   display: block;
   font-size: 18px;
+}
+
+.main__container {
+  padding: 0 0 110px 0;
+}
+
+main {
+  padding-top: 110px;
 }
 
 /* ================================ */
