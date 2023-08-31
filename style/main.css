@@ -64,6 +64,15 @@
   transform: scale(1.7);
 }
 
+@media (max-width: 767px) {
+  .menu-footer {
+    min-height: 80px;
+    padding: 10px 8px;
+    font-size: 16px;
+    column-gap: 28px;
+  }
+}
+
 @media (max-width: 500px) {
   .menu-footer {
     column-gap: 25px;

@@ -84,7 +84,7 @@ import * as impLeaders from "./leaders.js";
 let preloader = document.querySelector(".page-preloader");
 
 export async function openProfilePage() {
-  let main = document.querySelector("main");
+  let main = document.querySelector(".main__container");
   if (main) {
     let userInfo = await getProfileInfo();
     if (userInfo == false) {
@@ -251,7 +251,7 @@ export async function openProfilePage() {
 }
 
 export async function openBalance() {
-  const main = document.querySelector("main");
+  const main = document.querySelector(".main__container");
   let userInfo = await getProfileInfo();
   if (userInfo == false) {
     return;
@@ -293,7 +293,7 @@ export async function openBalance() {
 }
 
 async function openDeposit() {
-  const main = document.querySelector("main");
+  const main = document.querySelector(".main__container");
   let userInfo = await getProfileInfo();
   if (userInfo == false) {
     return;
@@ -357,7 +357,7 @@ async function openUserDetails() {
   if (userInfo == false) {
     return;
   }
-  const main = document.querySelector("main");
+  const main = document.querySelector(".main__container");
   main.innerHTML = `
   <section class="profile-page">
     <div class="profile-page__header">
@@ -429,7 +429,7 @@ async function openUserDetails() {
 }
 
 async function openUserGames() {
-  let main = document.querySelector("main");
+  let main = document.querySelector(".main__container");
   if (main) {
     const userGames = await impHttp.getUserGames();
 
@@ -553,7 +553,7 @@ function createHistoryUserTickets(parent, tickets) {
 }
 
 export function openChangePasswordForm() {
-  let main = document.querySelector("main");
+  let main = document.querySelector(".main__container");
 
   // let profilePage = document.createElement("div");
   // profilePage.classList.add(".password-form");
