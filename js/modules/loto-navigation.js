@@ -24,7 +24,7 @@ let activeFinishTimers = {
 };
 
 export const connectWebsocketFunctions = () => {
-  const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
+  const ws = new WebSocket(`ws://localhost:5001/game`);
   window.ws = ws;
   let timerStarted = false;
 
@@ -379,10 +379,21 @@ const handleLeftSome = (msg, leftSome) => {
 
       break;
     case "left3":
-      block3 = document.querySelector(".left3 span");
-      if (block3) {
+      if (msg.left3 > 0) {
+        const initialBlock = document.querySelector(
+          ".loto-gameinfo__information-left.initial"
+        );
+        if (initialBlock) {
+          initialBlock.remove();
+          let block = document.createElement("div");
+          block.classList.add("loto-gameinfo__information-left", "left3");
+          block.innerHTML = `У <span>0</span> карточек осталось 3 номерa`;
+          gameContent.insertBefore(block, gameProcess);
+        }
+        block3 = document.querySelector(".left3 span");
         block3.innerHTML = msg.left3;
       }
+
       break;
   }
 };

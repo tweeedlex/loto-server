@@ -9,6 +9,9 @@ import * as impPopup from "./popup.js";
 import * as impMoveElement from "./move-element.js";
 import * as impAudio from "./audio.js";
 let preloader = document.querySelector(".page-preloader");
+let header = document.querySelector("header");
+let main = document.querySelector("main");
+main.classList.add("header__padding");
 
 // let game = document.querySelector(".games");
 // let lotoRooms = game.querySelectorAll(".loto-room");
@@ -33,6 +36,11 @@ export function addListeners(ws) {
 
 export async function addHashListeners() {
   location.hash = "#";
+  if (header.classList.contains("d-none")) {
+    header.classList.remove("d-none");
+    main.classList.add("header__padding");
+  }
+
   // проверяем или есть у нас тикеты и кидаем куда надо
   const ticketsResponce = await impHttp.getTickets();
   if (ticketsResponce.status == 200) {
@@ -69,6 +77,10 @@ export async function addHashListeners() {
 
   // на изменение хеша
   window.addEventListener("hashchange", async function () {
+    if (header.classList.contains("d-none")) {
+      header.classList.remove("d-none");
+      main.classList.add("header__padding");
+    }
     let hash = location.hash;
 
     if (!hash || hash == "" || hash == "#") {
@@ -120,7 +132,7 @@ export async function addHashListeners() {
         }
       }
     } else if (hash.includes("loto-room")) {
-      preloader.classList.remove("d-none");
+      // preloader.classList.remove("d-none");
 
       // open loto room waiting page if game is not started
       const roomId = Number(hash.split("-")[2][0]);
@@ -159,6 +171,11 @@ export async function addHashListeners() {
         preloader.classList.add("d-none");
       }
     } else if (hash.includes("loto-game")) {
+      if (!header.classList.contains("d-none")) {
+        header.classList.add("d-none");
+        main.classList.remove("header__padding");
+      }
+
       const query = new URLSearchParams(hash.split("?")[1]);
       const roomId = Number(hash.split("-")[2].split("?")[0]);
 
@@ -219,9 +236,14 @@ export async function addHashListeners() {
         break;
       case "#profile":
         impProfileFunc.openProfilePage();
+        header.classList.add("d-none");
+        main.classList.remove("header__padding");
         break;
       case "#deposit":
         await impProfileFunc.openBalance();
+        header.classList.add("d-none");
+        main.classList.remove("header__padding");
+
         break;
     }
   });
@@ -509,7 +531,7 @@ function redirectToMainPage() {
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.20</span> ₼</button>
+                    <button class="price"><span>0.50</span> ₼</button>
                   </div>
                 </div>
               </div>
@@ -562,7 +584,7 @@ function redirectToMainPage() {
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.20</span> ₼</button>
+                    <button class="price"><span>1</span> ₼</button>
                   </div>
                 </div>
               </div>
@@ -615,7 +637,7 @@ function redirectToMainPage() {
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.20</span> ₼</button>
+                    <button class="price"><span>5</span> ₼</button>
                   </div>
                 </div>
               </div>
@@ -668,7 +690,7 @@ function redirectToMainPage() {
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.20</span> ₼</button>
+                    <button class="price"><span>10</span> ₼</button>
                   </div>
                 </div>
               </div>

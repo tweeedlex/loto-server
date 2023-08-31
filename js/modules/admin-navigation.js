@@ -85,6 +85,14 @@ function addAdminFunctions() {
 }
 
 async function redirectToAdminPage() {
+  let header = document.querySelector("header");
+  let main = document.querySelector("main");
+  const footer = document.querySelector("footer");
+  footer.classList.add("d-none");
+  if (header.classList.contains("d-none")) {
+    header.classList.remove("d-none");
+    main.classList.add("header__padding");
+  }
   let isCurrGamePage = document.querySelector(".loto-game-room-page");
   let isCurrLobbyPage = document.querySelector(".loto-room-page");
 
@@ -113,8 +121,6 @@ async function redirectToAdminPage() {
   if (botWinStats.status == 200) {
     showbotWinStats = JSON.parse(botWinStats.data);
   }
-
-  const main = document.querySelector("main");
 
   main.innerHTML = `
     <section class="admin">

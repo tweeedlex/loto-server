@@ -145,25 +145,29 @@ export async function openGamePage(
 ) {
   let body = document.querySelector("main");
   body.innerHTML = `  
+
   <div class="loto-game-room-page">
-    <div class="loto-game-room-page-content">
-      <div class="room-jackpot">
-        <div class="room-jackpot-sum">
-          <img src="img/jackpot-icon.png" alt="" /><span>${
-            jackpot != null ? Number(jackpot).toFixed(2) : 0
-          }</span> ₼
-        </div>
-        <div class="room-jackpot-question">
-          <img src="img/question-tag.png" alt="" />
-        </div>
+  <div class="loto-game-room-page-content">
+    <div class="room-jackpot">
+      <div class="room-jackpot-sum">
+        <img src="img/jackpot-icon.png" alt="" /><span>${
+          jackpot != null ? Number(jackpot).toFixed(2) : 0
+        }</span>
+        ₼
       </div>
+      <div class="room-jackpot-question">
+        <img src="img/question-tag.png" alt="" />
+      </div>
+    </div>
+    <div class="loto-gameinfo__wrapper">
       <div class="loto-room__gameinfo loto-gameinfo">
         <div class="loto-gameinfo__top-row">
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
             Ставка: <span>${bet != null ? bet : 0}</span> ₼
           </p>
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
-            Банк: <span>${bank != null ? Number(bank).toFixed(2) : 0}</span> ₼
+            Банк:
+            <span>${bank != null ? Number(bank).toFixed(2) : 0}</span> ₼
           </p>
           <div class="loto-room-page__exit-wrapper"></div>
         </div>
@@ -171,9 +175,8 @@ export async function openGamePage(
           class="loto-gameinfo__bottom-row loto-game-gameinfo__bottom-row"
         >
           <p class="loto-gameinfo__online">
-            <img src="img/online-icon.png" alt="" /> <span>${
-              online != null ? online : 0
-            }</span>
+            <img src="img/online-icon.png" alt="" />
+            <span>${online != null ? online : 0}</span>
           </p>
           <p class="loto-gameinfo__auto-button active">
             <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
@@ -184,23 +187,26 @@ export async function openGamePage(
           <p class="loto-gameinfo__jackpot-block-wrapper"></p>
         </div>
       </div>
-      <div class="loto-gameinfo__information-left left3">
-        У <span>0</span> карточек осталось 3 номера
-      </div>
+    </div>
 
-      <div class="loto-game-room__gameprocess">
-      </div>
-      <div class="loto-gamemain__body">
-        <div class="col-div loto-game-room__main loto-gamemain"></div>
+    <div class="loto-gameinfo__information-left initial">
+      Приятной игры!
+    </div>
+
+    <div class="loto-game-room__gameprocess"></div>
+    <div class="loto-gamemain__body">
+      <div class="col-div loto-game-room__main loto-gamemain">
+       
       </div>
     </div>
   </div>
+</div>
   `;
 
   impMoveElement.moveElement(
     "loto-game-room-page-content",
     "room-jackpot",
-    "loto-gameinfo",
+    "loto-gameinfo__wrapper",
     "loto-gameinfo__jackpot-block-wrapper",
     768
   );
