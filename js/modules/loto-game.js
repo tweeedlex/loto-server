@@ -141,7 +141,8 @@ export async function openGamePage(
   bet = null,
   bank = null,
   roomId = null,
-  jackpot = null
+  jackpot = null,
+  isJackpotPlaying = null
 ) {
   let body = document.querySelector("main");
   body.innerHTML = `  
@@ -210,6 +211,10 @@ export async function openGamePage(
     "loto-gameinfo__jackpot-block-wrapper",
     768
   );
+
+  if (isJackpotPlaying && isJackpotPlaying == true) {
+    impLotoNav.animateJackpot();
+  }
 
   const soundButton = document.querySelector(".loto-gameinfo__sounds-button");
 
@@ -374,9 +379,7 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   let gameprocessBlock = document.querySelector(".loto-game-room__gameprocess");
   let caskBlock = document.createElement("div");
 
-  if (cask <= 10) {
-    impAudio.playNumber(cask);
-  }
+  impAudio.playNumber(cask);
   caskBlock.classList.add("loto-game-room__cask");
   caskBlock.innerHTML = cask;
 
@@ -437,7 +440,7 @@ function checkChoosedCasks(ws, pastCasks) {
           }
         } else {
           // если число не отмечено и оно есть в mustbechoosed, при том что оно так же есть в pastcasks без последних 5, значит ставим крестик и билет не активен
-          const pastCasksWithoutLastSeven = pastCasks.slice(0, -7);
+          const pastCasksWithoutLastSeven = pastCasks.slice(0, -6);
           if (
             pastCasksWithoutLastSeven.includes(Number(cell.innerHTML)) &&
             JSON.parse(ticket.getAttribute("mustBeChoosed")).includes(
@@ -505,7 +508,7 @@ function selectCaskByFinger(pastCasks) {
         if (!cell.classList.contains("active")) {
           impAudio.playSuccess();
         }
-        cell.classList.add("active");
+        cell.classList.add("active", localStorage.getItem("cask-color") || "");
         // обновляем все выбраные бочки
         let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
         const activeCaskNumbers = [];
@@ -536,7 +539,10 @@ function colorCask(cask, pastCasks) {
         ) {
           if (cask == Number(cell.innerHTML)) {
             impAudio.playSuccess();
-            cell.classList.add("active");
+            cell.classList.add(
+              "active",
+              localStorage.getItem("cask-color") || ""
+            );
             let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
             ticket.setAttribute("choosedcasks", allActiveCasks.length);
           }
@@ -581,7 +587,10 @@ export async function colorDropedCasks(pastCasks) {
                 !unavailableCasks.includes(+cell.innerHTML) &&
                 ticketData.isActive == true
               ) {
-                cell.classList.add("active");
+                cell.classList.add(
+                  "active",
+                  localStorage.getItem("cask-color") || ""
+                );
               }
               let allActiveCasks = ticket.querySelectorAll(
                 ".ticket-cell.active"

@@ -6,12 +6,28 @@
   left: 0;
   width: 100%; */
   display: block;
-  background: linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%),
-    #000;
+  /* background: linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%),
+    #000; */
+  background: var(
+    --linear-2-paints,
+    linear-gradient(
+      180deg,
+      rgba(159, 72, 72, 0.2) 0%,
+      rgba(159, 72, 72, 0.14) 27.6%,
+      rgba(159, 72, 72, 0.08) 60.42%,
+      rgba(159, 72, 72, 0) 100%
+    ),
+    linear-gradient(180deg, #572451 0%, rgb(68, 93, 185) 100%)
+  );
+
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  border-radius: 50px 50px 0px 0px;
+  border-top: 3px solid var(--Linear, #f5be30);
+  border-right: 3px solid var(--Linear, #f5be30);
+  border-left: 3px solid var(--Linear, #f5be30);
 }
 
 .footer__container {
@@ -42,6 +58,39 @@
   flex: 0 0 40px;
   height: 40px;
   position: relative;
+}
+
+.menu-footer .menu-footer__item img {
+  z-index: 3;
+}
+
+.menu-footer .menu-footer__item.active::after {
+  /* highlight that this tab selected */
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  filter: blur(10px);
+  z-index: 2;
+}
+
+.menu-footer__item.menu-footer__main-item.open-games-menu.active::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  left: 15%;
+  top: 15%;
+  border-radius: 50%;
+  background-color: #ffffff;
+  opacity: 0.7;
+  filter: blur(10px);
+  z-index: 2;
 }
 
 .menu-footer .menu-footer__item img {

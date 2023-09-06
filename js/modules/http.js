@@ -316,3 +316,93 @@ export async function getAdminBotWins() {
     return await e.response;
   }
 }
+
+export async function exchangeTokens(tokens) {
+  try {
+    const response = await $api.put(`/exchange-tokens`, { tokens });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getAllUsersStats() {
+  try {
+    const response = await $api.get(`/allUsersStats`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getUserStats() {
+  try {
+    const response = await $api.get(`/userStats`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getCurrencyRate() {
+  try {
+    const response = await $api.get(`/getCurrencyRate`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function deposit(sum) {
+  try {
+    const response = await $api.post(`/deposit`, { sum });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getPayouts() {
+  try {
+    const response = await $api.get(`/getPayouts`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function checkPayouts(ids) {
+  try {
+    const response = await $api.put(`/checkPayouts`, { ids });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function createPayout(
+  withdrawAmount,
+  cardNumber,
+  cardHolder,
+  validity
+) {
+  try {
+    const response = await $api.post(`/createPayout`, {
+      withdrawAmount,
+      cardNumber,
+      cardHolder,
+      validity,
+    });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}

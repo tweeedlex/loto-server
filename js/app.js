@@ -9,6 +9,8 @@ impAuth.registrationForm();
 impAuth.createLoginForm();
 impNav.addHashListeners();
 
+impNav.applyDefaultSettings();
+
 if (await impAuth.isAuth()) {
   location.hash = "";
   impNav.hideAuthorization();
@@ -29,6 +31,39 @@ if (await impAuth.isAuth()) {
     } else {
     }
   }
+
+  // const ticketsResponce = await impHttp.getTickets();
+  // if (ticketsResponce.status == 200) {
+  //   let userTickets = ticketsResponce.data;
+  //   if (
+  //     userTickets.length > 0 &&
+  //     !location.hash.includes("loto-game") &&
+  //     !location.hash.includes("loto-room")
+  //   ) {
+  //     const roomId = userTickets[0].gameLevel;
+  //     const isGameStartedRes = await impHttp.isGameStarted(roomId);
+  //     if (isGameStartedRes.status == 200) {
+  //       let isGameStarted = isGameStartedRes.data;
+  //       if (JSON.parse(isGameStarted) == true) {
+  //         location.hash = `#loto-game-${roomId}`;
+  //       } else {
+  //         location.hash = `#loto-room-${roomId}`;
+  //       }
+  //     } else {
+  //       if (!preloader.classList.contains("d-none")) {
+  //         preloader.classList.add("d-none");
+  //       }
+  //     }
+  //   } else {
+  //     if (!preloader.classList.contains("d-none")) {
+  //       preloader.classList.add("d-none");
+  //     }
+  //   }
+  // } else {
+  //   if (!preloader.classList.contains("d-none")) {
+  //     preloader.classList.add("d-none");
+  //   }
+  // }
 }
 
 // window.addEventListener("beforeunload", async function (e) {

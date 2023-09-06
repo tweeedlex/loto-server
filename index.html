@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="style/admin.css" />
     <link rel="stylesheet" href="style/settings.css" />
     <link rel="stylesheet" href="style/profile.css" />
+    <link rel="stylesheet" href="style/change-tokens.css" />
+    <link rel="stylesheet" href="style/admin-withdraw-page.css" />
   </head>
   <div class="page-preloader"></div>
   <header>
@@ -25,6 +27,12 @@
       <div class="header__user">
         <p class="header__balance-block">
           <span class="header__balance">0.00</span> ₼
+          <img
+            src="img/plus-orange.png"
+            alt="balance"
+            class="curpointer header__plus"
+            height="20"
+          />
         </p>
       </div>
     </div>
@@ -127,7 +135,70 @@
     </div>
 
     <main>
-      <div class="main__container">
+      <div class="main__container footer__padding">
+
+
+        <!-- <section class="profile-page deposit">
+          
+      
+          <div class="deposit__content">
+            <div class="button__credit-cards">
+              <div class="button__credit-card">
+                <img src="img/visa-mastercard.png" alt="cards" />
+                <div class="credit-card__text">
+                  Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe
+                </div>
+              </div>
+            </div>
+      
+            <div class="deposit__form">
+              <h2 class="deposit__form-username">${userInfo.username}</h2>
+              <div class="deposit__form-money">
+                <h2>СУММА:</h2>
+                <div class="deposit__form-content">
+                  <input class="deposit__form-sum" type="number" />
+                  <div class="deposit__form-ready-sums">
+                    <div class="deposit__form-ready-sum">
+                      5
+                    </div>
+                    <div class="deposit__form-ready-sum">
+                      25
+                    </div>
+                    <div class="deposit__form-ready-sum">
+                      50
+                    </div>
+                    <div class="deposit__form-ready-sum">
+                      100
+                    </div>
+                    <div class="deposit__form-ready-sum">
+                      250
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="deposit__form-wrapper">
+              <p class="deposit__form-minimum">Минимальный: 2.00</p>
+              <button class="deposit__form-button">ВНЕСТИ ДЕПОЗИТ</button>
+              </div>
+                
+              
+            </div>
+          </div>
+      
+          <div class="profile-page__footer">
+            <button class="go-back">
+              <p>НАЗАД</p>
+              <img src="img/logout.png" alt="logout" />
+            </button>
+          </div>
+        </section> -->
+
+
+
+
+
+        
+       
         <section class="games">
           <div class="games__container" id="loto">
             <a class="game loto-room loto-room-1" room="1">
@@ -145,7 +216,7 @@
                   <div class="room-left__item room-left__item-2">
                     <div class="room-left__item-info-row lobby-room-bet">
                       <img src="img/bank-icon.png" alt="" />
-                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                      <p><span>0</span> ₼</p>
                     </div>
                     <div
                       class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
@@ -170,15 +241,22 @@
                   </div>
                   <div class="loto-room__body-right__jackpot">
                     <img src="img/room-jackpot-img.png" alt="" />
-                    <p
-                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
-                    >
-                      0
+                    <p class="loto-room__body-right__jackpot-sum">
+                      <span class="game__room-jackpot-sum"> 0 </span>
+                      ₼
                     </p>
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.20</span> ₼</button>
+                    <button class="price">
+                      <div class="price-money"><span>0.20</span> ₼</div>
+                      <div class="price-tockens">
+                        x2
+                        <div class="price-tockens__decor">
+                          <img src="img/room-tokens-decor.png" alt="" />
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -198,7 +276,7 @@
                   <div class="room-left__item room-left__item-2">
                     <div class="room-left__item-info-row lobby-room-bet">
                       <img src="img/bank-icon.png" alt="" />
-                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                      <p><span>0</span> ₼</p>
                     </div>
                     <div
                       class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
@@ -223,15 +301,22 @@
                   </div>
                   <div class="loto-room__body-right__jackpot">
                     <img src="img/room-jackpot-img.png" alt="" />
-                    <p
-                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
-                    >
-                      0
+                    <p class="loto-room__body-right__jackpot-sum">
+                      <span class="game__room-jackpot-sum"> 0 </span>
+                      ₼
                     </p>
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>0.50</span> ₼</button>
+                    <button class="price">
+                      <div class="price-money"><span>0.50</span> ₼</div>
+                      <div class="price-tockens">
+                        x5
+                        <div class="price-tockens__decor">
+                          <img src="img/room-tokens-decor.png" alt="" />
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -251,7 +336,7 @@
                   <div class="room-left__item room-left__item-2">
                     <div class="room-left__item-info-row lobby-room-bet">
                       <img src="img/bank-icon.png" alt="" />
-                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                      <p><span>0</span> ₼</p>
                     </div>
                     <div
                       class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
@@ -276,15 +361,22 @@
                   </div>
                   <div class="loto-room__body-right__jackpot">
                     <img src="img/room-jackpot-img.png" alt="" />
-                    <p
-                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
-                    >
-                      0
+                    <p class="loto-room__body-right__jackpot-sum">
+                      <span class="game__room-jackpot-sum"> 0 </span>
+                      ₼
                     </p>
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>1</span> ₼</button>
+                    <button class="price">
+                      <div class="price-money"><span>1</span> ₼</div>
+                      <div class="price-tockens">
+                        x10
+                        <div class="price-tockens__decor">
+                          <img src="img/room-tokens-decor.png" alt="" />
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -304,7 +396,7 @@
                   <div class="room-left__item room-left__item-2">
                     <div class="room-left__item-info-row lobby-room-bet">
                       <img src="img/bank-icon.png" alt="" />
-                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                      <p><span>0</span> ₼</p>
                     </div>
                     <div
                       class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
@@ -329,15 +421,22 @@
                   </div>
                   <div class="loto-room__body-right__jackpot">
                     <img src="img/room-jackpot-img.png" alt="" />
-                    <p
-                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
-                    >
-                      0
+                    <p class="loto-room__body-right__jackpot-sum">
+                      <span class="game__room-jackpot-sum"> 0 </span>
+                      ₼
                     </p>
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>5</span> ₼</button>
+                    <button class="price">
+                      <div class="price-money"><span>5</span> ₼</div>
+                      <div class="price-tockens">
+                        x50
+                        <div class="price-tockens__decor">
+                          <img src="img/room-tokens-decor.png" alt="" />
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -357,7 +456,7 @@
                   <div class="room-left__item room-left__item-2">
                     <div class="room-left__item-info-row lobby-room-bet">
                       <img src="img/bank-icon.png" alt="" />
-                      <p>ОБЩИЙ БАНК: <span>0</span> ₼</p>
+                      <p><span>0</span> ₼</p>
                     </div>
                     <div
                       class="room-left__item-info-row room-left__item-info-row-green lobby-room-online"
@@ -382,22 +481,31 @@
                   </div>
                   <div class="loto-room__body-right__jackpot">
                     <img src="img/room-jackpot-img.png" alt="" />
-                    <p
-                      class="loto-room__body-right__jackpot-sum game__room-jackpot-sum"
-                    >
-                      0
+                    <p class="loto-room__body-right__jackpot-sum">
+                      <span class="game__room-jackpot-sum"> 0 </span>
+                      ₼
                     </p>
                   </div>
                   <div class="loto-room__body-right__price-block">
                     <p class="price-text">Цена билета:</p>
-                    <button class="price"><span>10</span> ₼</button>
+                    <button class="price">
+                      <div class="price-money"><span>10</span> ₼</div>
+                      <div class="price-tockens">
+                        x100
+                        <div class="price-tockens__decor">
+                          <img src="img/room-tokens-decor.png" alt="" />
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
             </a>
           </div>
         </section>
-      </div>
+
+        
+
       <!-- <div class="main__container">
         <section class="user-game-history">
           <div class="user-game-history-header">
@@ -844,14 +952,14 @@
       <div class="footer__container">
         <div class="foter__content">
           <div class="footer__menu menu-footer">
-            <div class="menu-footer__item open-profile">
+            <div class="menu-footer__item open-profile active">
               <img src="img/profile-button.png" alt="" />
             </div>
             <div class="menu-footer__item">
               <img src="img/chat.png" alt="" />
             </div>
             <div
-              class="menu-footer__item menu-footer__main-item open-games-menu"
+              class="menu-footer__item menu-footer__main-item open-games-menu active"
             >
               <img src="img/games.png" alt="" />
             </div>

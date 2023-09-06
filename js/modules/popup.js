@@ -7,10 +7,17 @@ import * as impHttp from "./http.js";
 // 400 ошибка в игре
 // 500 анонс
 
+const isPopupOpened = () => {
+  return document.querySelector(".popup") ? true : false;
+};
+
 export const open = (text, status, showButton = false, ws = null) => {
+  if (isPopupOpened()) {
+    return;
+  }
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
-  popupElement.classList.add("popup");
+  popupElement.classList.add("popup", "default-popup");
   popupElement.innerHTML = `<div class="popup__body">
   <div class="popup__content ${status === 200 ? "popup__content_won" : ""} ${
     status === 300 ? "popup__content_lost" : ""
@@ -42,6 +49,9 @@ export const open = (text, status, showButton = false, ws = null) => {
 };
 
 export const openErorPopup = (text) => {
+  if (isPopupOpened()) {
+    return;
+  }
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup", "error-popup");
@@ -70,7 +80,68 @@ export function close(element) {
   element.remove();
 }
 
+export const openAnotherAccountEnterPopup = (ws) => {
+  if (isPopupOpened()) {
+    return;
+  }
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+  popupElement.innerHTML = `
+  <div class="popup__body another-account-popup">
+  <div class="popup__content">
+    <div class="popup__img">
+      <img src="img/popup-alert.png" alt="" />
+    </div>
+    <div class="popup__text">
+      В ваш аккаунт вошли с другого места!
+    </div>
+    <div class="popup__buttons">
+      <button class="popup__button popup__submit-button">Понятно</button>
+    </div>
+  </div>
+</div>`;
+
+  body.appendChild(popupElement);
+
+  const button = body.querySelector(".popup__submit-button");
+  button.addEventListener("click", async () => {
+    close(popupElement);
+    location.reload();
+  });
+};
+
+export const openSuuccessBonusesChange = (ws) => {
+  if (isPopupOpened()) {
+    return;
+  }
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+  popupElement.innerHTML = `
+        <div class="popup__body success-bonuses-change-popup">
+          <div class="popup__content">
+           
+            <div class="popup__text">
+              Вы успешно обменяли бонусы!
+            </div>
+            <div class="popup__buttons">
+              <button class="popup__button popup__submit-button">Ок</button>
+            </div>
+          </div>
+        </div>`;
+  body.appendChild(popupElement);
+
+  const button = body.querySelector(".popup__submit-button");
+  button.addEventListener("click", async () => {
+    close(popupElement);
+  });
+};
+
 export const openExitPopup = (text, roomId, bet = null) => {
+  if (isPopupOpened()) {
+    return;
+  }
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup");
@@ -121,6 +192,9 @@ export const openEndGamePopup = (
   isJackpotWon,
   jackpotData
 ) => {
+  if (isPopupOpened()) {
+    return;
+  }
   //status
   //200 - ok
   //400 - error
@@ -230,6 +304,9 @@ export const openEndGamePopup = (
 };
 
 function openJackpotPopup(isJackpotWon, jackpotData) {
+  if (isPopupOpened()) {
+    return;
+  }
   if (isJackpotWon) {
     const body = document.querySelector("body");
     let popupElement = document.createElement("div");
@@ -276,6 +353,9 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
 }
 
 export function openJackpotInfoPopup() {
+  if (isPopupOpened()) {
+    return;
+  }
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup", "jackpot-popup");
@@ -283,14 +363,120 @@ export function openJackpotInfoPopup() {
   <div class="popup__body jackpot-info-popup">
   <div class="popup__content">
     <div class="popup__text">
-      Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1
-      ряд (верхний/средний/нижний) любой, то вы будете победителем
+      Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любой
+      ряд (верхний/средний/нижний), то вы будете победителем
       джекпота.
     </div>
+    <img src="img/jackpot-info-image.png" class="jackpot-popup-image">
     <div class="popup-button__gotit">Понятно</div>
   </div>
 </div>
       `;
+
+  let gotItBtn = popupElement.querySelector(".popup-button__gotit");
+  gotItBtn.addEventListener("click", function () {
+    close(popupElement);
+  });
+
+  body.appendChild(popupElement);
+}
+
+export function openInfoTokensPopup() {
+  if (isPopupOpened()) {
+    return;
+  }
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup", "jackpot-popup");
+  popupElement.innerHTML = `
+  <div class="popup__body jackpot-info-popup">
+    <div class="popup__content">
+      <div class="popup__text popup__text-bold">
+        Уважаемые игроки накопив баллы вы можете обменить их на ₼.
+        Для обмена вам требуется минимум 100 бонусов.
+        Курс Обмена 100 бонусов = 0.20 ₼
+      </div>
+      <div class="tokens-popup-table">
+        <div class="tokens-popup-table__item">
+          <div class="tokens-table-item-left">
+            <img class="tokens-popup-left-image" src="img/money-arm.png" width="40" alt="icon">
+            <p class="tokens-popup-left-text">
+              0.20 ₼
+            </p>
+          </div>
+          <div class="tokens-table-item-right">
+            <p class="tokens-popup-right-text">
+              2 coin
+            </p>
+            <img class="tokens-popup-right-image" src="img/room-tokens-decor.png" alt="icon">
+          </div>
+        </div>
+
+        <div class="tokens-popup-table__item">
+          <div class="tokens-table-item-left">
+            <img class="tokens-popup-left-image" src="img/money-arm.png" width="40" alt="icon">
+            <p class="tokens-popup-left-text">
+              0.50 ₼
+            </p>
+          </div>
+          <div class="tokens-table-item-right">
+            <p class="tokens-popup-right-text">
+              5 coin
+            </p>
+            <img class="tokens-popup-right-image" src="img/room-tokens-decor.png" alt="icon">
+          </div>
+        </div>
+
+        <div class="tokens-popup-table__item">
+          <div class="tokens-table-item-left">
+            <img class="tokens-popup-left-image" src="img/money-arm.png" width="40" alt="icon">
+            <p class="tokens-popup-left-text">
+              1.00 ₼
+            </p>
+          </div>
+
+          <div class="tokens-table-item-right">
+            <p class="tokens-popup-right-text">
+              10 coin
+            </p>
+            <img class="tokens-popup-right-image" src="img/room-tokens-decor.png" alt="icon">
+          </div>
+        </div>
+
+        <div class="tokens-popup-table__item">
+          <div class="tokens-table-item-left">
+            <img class="tokens-popup-left-image" src="img/money-arm.png" width="40" alt="icon">
+            <p class="tokens-popup-left-text">
+              5.00 ₼
+            </p>
+          </div>
+          <div class="tokens-table-item-right">
+            <p class="tokens-popup-right-text">
+              50 coin
+            </p>
+            <img class="tokens-popup-right-image" src="img/room-tokens-decor.png" alt="icon">
+          </div>
+        </div>
+
+        <div class="tokens-popup-table__item">
+          <div class="tokens-table-item-left">
+            <img class="tokens-popup-left-image" src="img/money-arm.png" width="40" alt="icon">
+            <p class="tokens-popup-left-text">
+              10.00 ₼
+            </p>
+          </div>
+          <div class="tokens-table-item-right">
+            <p class="tokens-popup-right-text">
+              100 coin
+            </p>
+            <img class="tokens-popup-right-image" src="img/room-tokens-decor.png" alt="icon">
+          </div>
+        </div>
+      </div>
+      <div class="popup-button__gotit">Понятно</div>
+    </div>
+  </div>
+  `;
 
   let gotItBtn = popupElement.querySelector(".popup-button__gotit");
   gotItBtn.addEventListener("click", function () {

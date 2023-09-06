@@ -9,3 +9,8 @@ export function showUserInterface(user) {
     userBalance.innerHTML = user.balance.toFixed(2);
   }
 }
+
+export function updateBalance(newBalance) {
+  let userBalance = document.querySelector(".header__balance");
+  userBalance.innerHTML = newBalance.toFixed(2);
+}

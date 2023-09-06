@@ -34,7 +34,6 @@ input[type="checkbox"] {
 input[type="number"] {
   padding: 5px;
   width: 80px;
-  border: 1px solid #ccc;
   border-radius: 3px;
 }
 

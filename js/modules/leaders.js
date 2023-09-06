@@ -1,4 +1,5 @@
 import * as impHttp from "./http.js";
+import * as impPopup from "./popup.js";
 
 export function openLeadersMenuPage() {
   let main = document.querySelector("main");
@@ -40,6 +41,8 @@ async function leadersMenuPageFunc() {
 }
 
 export async function openLeadersPage(gameType) {
+  let preloader = document.querySelector(".page-preloader");
+
   let tableTitle = "Лидеры";
   if (gameType == "loto") {
     tableTitle = "Лидеры лото";
@@ -70,13 +73,10 @@ export async function openLeadersPage(gameType) {
   const currentYear = currentDate.getFullYear();
   const currentMonthName = monthNames[monthNumber];
 
-  let lotoLeaders = await impHttp.getGameLeaders(gameType);
-  console.log(lotoLeaders);
-
   let main = document.querySelector("main");
   if (main) {
     main.innerHTML = `
-    <div class="main__container">
+    <div class="main__container footer__padding header__padding">
       <section class="leader-page">
         <div class="leader-page__head">
           <button class="leader-page__info">
@@ -102,100 +102,26 @@ export async function openLeadersPage(gameType) {
         <div class="leader-page__table-head">
           <div class="table-header__name">ИМЯ</div>
           <hr />
-          <div class="table-header__winsum">ВЫЙГРЫШ</div>
+          <div class="table-header__winsum">победЫ</div>
           <hr />
           <div class="table-header__bonuses">БОНУСЫ</div>
         </div>
         <div class="leader-page__table-main">
-          <div class="leader-page__table-item">
-            <p class="leader-table__user">
-              <span class="leader-table__user-number"
-                ><img src="img/leader icons/medal-gold.png" alt=""
-              /></span>
-              <span class="leader-item__username">user1</span>
-            </p>
-            <p class="leader-table__winsum">
-              <img
-                class="leader-table__winsum-icon"
-                src="img/leader icons/coins.png"
-              />
-              <span class="leader-item__wonsum">20000.00</span>
-            </p>
-            <p class="leader-table__bonuses">
-              <img
-                class="leader-table__bonuses-icon"
-                src="img/leader icons/star.png"
-              />
-              <span class="leader-item__tokens">1638803</span>
-            </p>
-          </div>
-          <div class="leader-page__table-item">
-            <p class="leader-table__user">
-              <span class="leader-table__user-number"
-                ><img src="img/leader icons/medal-silver.png" alt=""
-              /></span>
-              <span class="leader-item__username">user1</span>
-            </p>
-            <p class="leader-table__winsum">
-              <img
-                class="leader-table__winsum-icon"
-                src="img/leader icons/coins.png"
-              />
-              <span class="leader-item__wonsum">20000.00</span>
-            </p>
-            <p class="leader-table__bonuses">
-              <img
-                class="leader-table__bonuses-icon"
-                src="img/leader icons/star.png"
-              />
-              <span class="leader-item__tokens">1638803</span>
-            </p>
-          </div>
-          <div class="leader-page__table-item">
-            <p class="leader-table__user">
-              <span class="leader-table__user-number"
-                ><img src="img/leader icons/medal-bronze.png" alt=""
-              /></span>
-              <span class="leader-item__username">user1</span>
-            </p>
-            <p class="leader-table__winsum">
-              <img
-                class="leader-table__winsum-icon"
-                src="img/leader icons/coins.png"
-              />
-              <span class="leader-item__wonsum">20000.00</span>
-            </p>
-            <p class="leader-table__bonuses">
-              <img
-                class="leader-table__bonuses-icon"
-                src="img/leader icons/star.png"
-              />
-              <span class="leader-item__tokens">1638803</span>
-            </p>
-          </div>
-          <div class="leader-page__table-item">
-            <p class="leader-table__user">
-              <span class="leader-table__user-number">1)</span>
-              <span class="leader-item__username">user1</span>
-            </p>
-            <p class="leader-table__winsum">
-              <img
-                class="leader-table__winsum-icon"
-                src="img/leader icons/coins.png"
-              />
-              <span class="leader-item__wonsum">20000.00</span>
-            </p>
-            <p class="leader-table__bonuses">
-              <img
-                class="leader-table__bonuses-icon"
-                src="img/leader icons/star.png"
-              />
-              <span class="leader-item__tokens">1638803</span>
-            </p>
-          </div>
+          
         </div>
       </section>
    </div>`;
+
+    let lotoLeaders = await impHttp.getGameLeaders(gameType);
+
+    if (!preloader.classList.contains("d-none")) {
+      preloader.classList.add("d-none");
+    }
+
+    const infoButton = document.querySelector(".leader-page__info");
+    infoButton.addEventListener("click", function () {
+      impPopup.openInfoTokensPopup();
+    });
 
     // создаем лидеров в таблице лидеров
     let tableElement = document.querySelector(".leader-page__table-main");
@@ -209,12 +135,14 @@ export async function openLeadersPage(gameType) {
   // создание победителей в таблицу
   function createLeaderesTable(table, data) {
     // sort data by tokens amount from max to min
-    console.log(data);
+
+    console.log("data", data);
+
     data = data.sort((a, b) => {
-      if (b.tokens === a.tokens) {
+      if (b.gamesWon === a.gamesWon) {
         return b.moneyWon - a.moneyWon; // Фильтрация по moneyWon при равных tokens
       }
-      return b.tokens - a.tokens;
+      return b.gamesWon - a.gamesWon;
     });
 
     // создаем елементы в таблицу
@@ -234,11 +162,7 @@ export async function openLeadersPage(gameType) {
           </div>
         </div>
         <p class="leader-table__winsum">
-          <img
-            class="leader-table__winsum-icon"
-            src="img/leader icons/coins.png"
-          />
-          ${userObject.moneyWon} M
+          ${userObject.gamesWon}
         </p>
         <p class="leader-table__bonuses">
           <img

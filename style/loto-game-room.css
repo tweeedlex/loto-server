@@ -3,6 +3,7 @@
   position: relative;
   background: url("../img/bg.png") no-repeat 0 0 / cover;
   min-height: 100vh;
+  padding-bottom: 40px;
 }
 
 .loto-game-room-page .loto-gameinfo__wrapper {
@@ -188,8 +189,8 @@
   }
 
   .loto-game-room__cask {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
   }
   .ticket-container {
     width: fit-content;
@@ -204,14 +205,39 @@
 
 @media (max-width: 439px) {
   .loto-game-room__cask {
-    width: 32px;
-    height: 32px;
+    width: calc(100vw / 6 - 20px);
+    height: calc(100vw / 6 - 20px);
     border: 4px solid #550007;
-    font-size: 16px;
+    font-size: 18px;
   }
   .loto-game-room__gameprocess {
-    min-width: 310px;
+    min-width: 100%;
     gap: 15px;
+  }
+}
+
+@media (max-width: 399px) {
+  .loto-game-room__cask {
+    width: calc(100vw / 6 - 15px);
+    height: calc(100vw / 6 - 15px);
+    border: 4px solid #550007;
+  }
+  .loto-game-room__gameprocess {
+    min-width: 100%;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 359px) {
+  .loto-game-room__cask {
+    width: calc(100vw / 6 - 15px);
+    height: calc(100vw / 6 - 15px);
+    border: 4px solid #550007;
+  }
+  .loto-game-room__gameprocess {
+    min-width: 100%;
+    padding: 15px;
+    gap: 10px;
   }
 }
 

@@ -22,8 +22,8 @@ export const setMenuSoundsAllowed = (allowed) => {
 
 // casks
 const casksSounds = [];
-for (let i = 1; i <= 10; i++) {
-  let audio = new Audio(`./js/modules/sounds/ru/${i}.mp3`);
+for (let i = 1; i <= 90; i++) {
+  let audio = new Audio(`./js/modules/sounds/ru/${i}ru.mp3`);
   casksSounds.push(audio);
 }
 

@@ -2,20 +2,27 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
+  background: var(
+    --linear-2-paints,
+    linear-gradient(
       180deg,
       rgba(159, 72, 72, 0.2) 0%,
       rgba(159, 72, 72, 0.14) 27.6%,
       rgba(159, 72, 72, 0.08) 60.42%,
       rgba(159, 72, 72, 0) 100%
     ),
-    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%), #000;
+    linear-gradient(180deg, #572451 0%, rgb(68, 93, 185) 100%)
+  );
   min-height: 90px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 2;
+  border-radius: 0px 0px 50px 50px;
+  border-bottom: 3px solid var(--Linear, #f5be30);
+  border-right: 3px solid var(--Linear, #f5be30);
+  border-left: 3px solid var(--Linear, #f5be30);
 }
 
 header .header__container {
@@ -61,6 +68,9 @@ header .header__container .header__balance-block {
   }
 
   header .header__container .header__balance-block {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 16px;
     /* line-height: 80px; */
   }

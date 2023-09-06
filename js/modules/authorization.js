@@ -213,7 +213,44 @@ export function createLoginForm() {
         let ws = impLotoNav.connectWebsocketFunctions();
         impNav.addListeners(ws);
         impNav.pageNavigation(ws);
+        // проверка на активные игры в даный момент
+        const ticketsResponce = await impHttpRequests.getTickets();
+        if (ticketsResponce.status == 200) {
+          let preloader = document.querySelector(".page-preloader");
+          let userTickets = ticketsResponce.data;
+          if (
+            userTickets.length > 0 &&
+            !location.hash.includes("loto-game") &&
+            !location.hash.includes("loto-room")
+          ) {
+            const roomId = userTickets[0].gameLevel;
+            const isGameStartedRes = await impHttpRequests.isGameStarted(
+              roomId
+            );
+            if (isGameStartedRes.status == 200) {
+              let isGameStarted = isGameStartedRes.data;
+              if (JSON.parse(isGameStarted) == true) {
+                location.hash = `#loto-game-${roomId}`;
+              } else {
+                location.hash = `#loto-room-${roomId}`;
+              }
+            } else {
+              if (!preloader.classList.contains("d-none")) {
+                preloader.classList.add("d-none");
+              }
+            }
+          } else {
+            if (!preloader.classList.contains("d-none")) {
+              preloader.classList.add("d-none");
+            }
+          }
+        } else {
+          if (!preloader.classList.contains("d-none")) {
+            preloader.classList.add("d-none");
+          }
+        }
       }
+      console.log(response.data.user.isAdmin);
       if (response.data.user.isAdmin) {
         impAdminNav.createAdminButton();
       }

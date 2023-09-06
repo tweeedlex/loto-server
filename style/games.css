@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
 }
 
 .games__container {
@@ -134,11 +133,21 @@
   border: 4px solid #de2f2f;
 }
 
+.loto-room
+  .loto-room__body
+  .loto-room__body-left
+  .room-left__item-1
+  .room-left__item-timer-block
+  .timer-block__timer {
+  color: #eadf72;
+}
+
 .loto-room.starting
   .loto-room__body
   .loto-room__body-left
   .room-left__item-1
-  .room-left__item-timer-block {
+  .room-left__item-timer-block
+  .timer-block__timer {
   color: #fff;
 }
 
@@ -146,7 +155,8 @@
   .loto-room__body
   .loto-room__body-left
   .room-left__item-1
-  .room-left__item-timer-block {
+  .room-left__item-timer-block
+  .timer-block__timer {
   color: #f84b4b;
 }
 
@@ -187,17 +197,17 @@
   .loto-room__body-left
   .room-left__item-1
   .room-left__item-timer-block {
-  border-radius: 5px;
-  border: #87d889 2px solid;
-  padding: 5px 9px;
+  border-radius: 18px;
+  border: #87d888 2px solid;
+  padding: 4px 21px;
   color: #f0e274;
-
-  font-size: 16px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 110%;
-  letter-spacing: 0.49px;
+  /* line-height: 109%; */
+  letter-spacing: 1.49px;
   text-align: center;
+  -webkit-text-stroke-width: medium;
 }
 
 .loto-room__body
@@ -223,7 +233,24 @@
   flex-direction: row;
   align-items: center;
 }
-.room-left__item-info-row {
+.room-left__item-info-row.lobby-room-bet img {
+  width: 31px;
+  height: 31px;
+}
+
+.room-left__item-info-row.lobby-room-online p span {
+  font-size: 22px;
+}
+
+@media (max-width: 425px) {
+  .room-left__item-info-row.lobby-room-bet img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .room-left__item-info-row.lobby-room-online p span {
+    font-size: 18px;
+  }
 }
 
 .room-left__item-info-row:not(:last-child) {
@@ -236,13 +263,18 @@
 }
 .room-left__item-info-row p {
   color: #fff;
-  font-size: 16px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 110%; /* 196.758% */
   letter-spacing: 0.7px;
   font-weight: 600;
 }
+
+.lobby-room-bet p {
+  font-size: 25px;
+}
+
 .room-left__item-info-row-green p {
   color: #87d889;
 }
@@ -252,7 +284,7 @@
   .room-left__item-3
   .room-left__item-info-row
   p {
-  font-size: 14px;
+  font-size: 11px;
 }
 
 /* right side */
@@ -289,6 +321,7 @@
   width: 100%;
   height: 100%;
 }
+
 .loto-room__body
   .loto-room__body-right
   .loto-room__body-right__jackpot
@@ -300,6 +333,8 @@
   font-size: 18px;
   font-weight: 700;
   color: #fff;
+  width: 100%;
+  text-align: center;
 }
 
 .loto-room__body .loto-room__body-right .loto-room__body-right__price-block {
@@ -317,7 +352,7 @@
   flex-direction: column;
   align-items: center;
   color: #fff;
-  font-size: 16px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 500;
   line-height: 110%;
@@ -329,15 +364,68 @@
   .loto-room__body-right
   .loto-room__body-right__price-block
   .price {
-  border-radius: 10px;
-  background: var(--linear, linear-gradient(180deg, #78010b 0%, #d32433 100%));
-  box-shadow: 0px 2.5647671222686768px 5.1295342445373535px 1.709844708442688px
-    rgba(0, 0, 0, 0.24);
-  padding: 7px 15px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   color: #fff;
   font-size: 16px;
   user-select: none;
+  background-color: inherit;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 35px;
+}
+.loto-room__body
+  .loto-room__body-right
+  .loto-room__body-right__price-block
+  .price-money {
+  border-radius: 2px;
+  background: var(--linear, linear-gradient(180deg, #78010b 0%, #d32433 100%));
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 6px;
+}
+
+.loto-room__body
+  .loto-room__body-right
+  .loto-room__body-right__price-block
+  .price-tockens {
+  border-radius: 2px;
+  background: linear-gradient(180deg, #000 0%, #515151 100%);
+  color: #f0e274;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: 0.7px;
+  position: relative;
+  padding: 3px 17px 3px 7px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loto-room__body
+  .loto-room__body-right
+  .loto-room__body-right__price-block
+  .price-tockens
+  .price-tockens__decor {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  right: 5px;
+  top: 4px;
+}
+.loto-room__body
+  .loto-room__body-right
+  .loto-room__body-right__price-block
+  .price-tockens
+  .price-tockens__decor
+  img {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 515px) {
@@ -366,7 +454,7 @@
     .room-left__item-1
     .room-left__item-timer-block {
     padding: 3px 7px;
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .loto-room__body
@@ -386,14 +474,18 @@
   .room-left__item-info-row:not(:last-child) {
     margin-bottom: 3px;
   }
+  .lobby-room-bet p {
+    font-size: 18px !important;
+  }
+
   .room-left__item-info-row img {
     flex: 0 0 14px;
     height: 14px;
     margin-right: 7px;
   }
   .room-left__item-info-row p {
-    color: #fff;
-    font-size: 14px;
+    /* color: #fff; */
+    font-size: 10px;
     font-weight: 600;
   }
   .room-left__item-info-row-green p {
@@ -405,7 +497,7 @@
     .room-left__item-3
     .room-left__item-info-row
     p {
-    font-size: 13px;
+    font-size: 10px;
   }
 
   /* right side */
@@ -439,8 +531,34 @@
   .loto-room__body
     .loto-room__body-right
     .loto-room__body-right__price-block
+    .price {
+    min-height: 25px;
+  }
+
+  .loto-room__body
+    .loto-room__body-right
+    .loto-room__body-right__price-block
+    .price-tockens {
+    font-size: 14px;
+  }
+
+  .loto-room__body
+    .loto-room__body-right
+    .loto-room__body-right__price-block
+    .price-tockens
+    .price-tockens__decor {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 5px;
+    top: 4px;
+  }
+
+  .loto-room__body
+    .loto-room__body-right
+    .loto-room__body-right__price-block
     .price-text {
-    font-size: 12px;
+    font-size: 10px;
     margin-bottom: 5px;
   }
 
@@ -448,7 +566,7 @@
     .loto-room__body-right
     .loto-room__body-right__price-block
     .price {
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
 
     font-size: 14px;
   }
@@ -463,6 +581,10 @@
 @media (max-width: 375px) {
   .games__container {
     padding: 0 3px;
+  }
+
+  .lobby-room-bet p {
+    font-size: 16px !important;
   }
 
   .loto-room__body .loto-room__body-left .room-left__item:not(:last-child) {
@@ -480,8 +602,7 @@
   }
 
   .room-left__item-info-row p {
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
+    /* font-size: 10px; */
+    /* font-weight: 600; */
   }
 }
