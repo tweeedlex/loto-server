@@ -447,18 +447,22 @@ function checkChoosedCasks(ws, pastCasks) {
           const pastCasksWithoutLastSeven = pastCasks.slice(0, -6);
           if (
             pastCasksWithoutLastSeven.includes(Number(cell.innerHTML)) &&
-            JSON.parse(ticket.getAttribute("mustBeChoosed")).includes(
-              Number(cell.innerHTML)
-            ) &&
             !cell.classList.contains("active")
           ) {
-            cell.classList.add("unavailable");
             const unavailableCasks =
               JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
-            ticket.setAttribute(
-              "unavailableCasks",
-              JSON.stringify([...unavailableCasks, +cell.innerHTML])
-            );
+            if (!unavailableCasks.includes(+cell.innerHTML)) {
+              ticket.setAttribute(
+                "unavailableCasks",
+                JSON.stringify([...unavailableCasks, +cell.innerHTML])
+              );
+              localStorage.setItem(
+                `unavailableCasks-${ticket.getAttribute("id")}`,
+                JSON.stringify([...unavailableCasks, +cell.innerHTML])
+              );
+              cell.classList.add("unavailable");
+              console.log([...unavailableCasks, +cell.innerHTML]);
+            }
             if (!ticket.classList.contains("unavailable")) {
               ticket.classList.add("unavailable");
               let ticketId = ticket.getAttribute("id");
@@ -578,7 +582,12 @@ export async function colorDropedCasks(pastCasks) {
         }
         let ticketCells = ticket.querySelectorAll(".ticket-cell");
         const unavailableCasks =
-          JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
+          JSON.parse(
+            localStorage.getItem(
+              `unavailableCasks-${ticket.getAttribute("id")}`
+            )
+          ) || [];
+        console.log(unavailableCasks);
         ticketCells.forEach((cell) => {
           if (
             ticketData.isActive == true &&
@@ -586,7 +595,6 @@ export async function colorDropedCasks(pastCasks) {
             !cell.classList.contains("unavailable")
           ) {
             if (pastCasks.includes(Number(cell.innerHTML))) {
-              impAudio.playSuccess();
               if (
                 !unavailableCasks.includes(+cell.innerHTML) &&
                 ticketData.isActive == true
@@ -605,7 +613,19 @@ export async function colorDropedCasks(pastCasks) {
             ticketData.isActive == false &&
             pastCasks.includes(Number(cell.innerHTML))
           ) {
+            // cell.classList.add("unavailable");
+          }
+
+          if (unavailableCasks.includes(+cell.innerHTML)) {
             cell.classList.add("unavailable");
+          } else if (
+            !unavailableCasks.includes(+cell.innerHTML) &&
+            pastCasks.includes(+cell.innerHTML)
+          ) {
+            cell.classList.add(
+              "active",
+              localStorage.getItem("cask-color") || ""
+            );
           }
         });
       });
