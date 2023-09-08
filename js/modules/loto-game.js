@@ -460,6 +460,15 @@ function checkChoosedCasks(ws, pastCasks) {
                 `unavailableCasks-${ticket.getAttribute("id")}`,
                 JSON.stringify([...unavailableCasks, +cell.innerHTML])
               );
+              const localItemsToClear =
+                JSON.parse(localStorage.getItem("localItemsToClear")) || [];
+              localStorage.setItem(
+                "localItemsToClear",
+                JSON.stringify([
+                  ...localItemsToClear,
+                  `unavailableCasks-${ticket.getAttribute("id")}`,
+                ])
+              );
               cell.classList.add("unavailable");
               console.log([...unavailableCasks, +cell.innerHTML]);
             }
@@ -539,6 +548,10 @@ function colorCask(cask, pastCasks) {
     // заполнение новой выпавшей циферки
     tickets.forEach((ticket) => {
       let ticketCells = ticket.querySelectorAll(".ticket-cell");
+      const unavailableCasks =
+        JSON.parse(
+          localStorage.getItem(`unavailableCasks-${ticket.getAttribute("id")}`)
+        ) || [];
       // if (!ticket.classList.contains("unavailable")) {
       ticketCells.forEach((cell) => {
         if (
@@ -554,6 +567,9 @@ function colorCask(cask, pastCasks) {
             let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
             ticket.setAttribute("choosedcasks", allActiveCasks.length);
           }
+        }
+        if (unavailableCasks.includes(+cell.innerHTML)) {
+          cell.classList.add("unavailable");
         }
       });
       // }

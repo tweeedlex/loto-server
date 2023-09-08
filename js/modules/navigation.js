@@ -70,6 +70,15 @@ export async function addHashListeners(ws) {
       if (!preloader.classList.contains("d-none")) {
         preloader.classList.add("d-none");
       }
+      const localItemsToClear = JSON.parse(
+        localStorage.getItem("localItemsToClear")
+      );
+      if (localItemsToClear) {
+        localItemsToClear.forEach((item) => {
+          localStorage.removeItem(item);
+        });
+        localStorage.removeItem("localItemsToClear");
+      }
     }
   } else {
     if (!preloader.classList.contains("d-none")) {
