@@ -502,7 +502,7 @@ async function NowClientTime() {
   // return time + 60 * 60 * 1000;
   // return time - 60 * 60 * 1000;
   // return time - 7200000;
-  return time;
+  return time - 60 * 60 * 1000 * 3;
 }
 
 function updateAllRoomsOnline(onlineArr) {
