@@ -499,8 +499,9 @@ async function NowClientTime() {
 
   const time = new Date(date.data.datetime).getTime();
 
-  return time - 60 * 60 * 1000;
-  // return time - 7200000;
+  // return time + 60 * 60 * 1000;
+  // return time - 60 * 60 * 1000;
+  return time - 7200000;
   // return time;
 }
 
