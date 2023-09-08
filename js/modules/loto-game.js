@@ -423,46 +423,6 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   }
 }
 
-function saveTickets() {
-  const tickets = document.querySelectorAll(".loto-gamemain__ticket");
-
-  tickets.forEach((ticket) => {
-    const ticketId = ticket.getAttribute("id");
-    const choosedCasks = ticket.getAttribute("choosedCasks");
-    const mustBeChoosed = ticket.getAttribute("mustBeChoosed");
-    const unavailableCasks = ticket.getAttribute("unavailableCasks");
-
-    localStorage.setItem(
-      `ticket-${ticketId}`,
-      JSON.stringify({
-        choosedCasks,
-        mustBeChoosed,
-        unavailableCasks,
-      })
-    );
-  });
-  console.log(localStorage.getItem(`ticket-${tickets[0].getAttribute("id")}`));
-}
-
-function fillTickets() {
-  const tickets = document.querySelectorAll(".loto-gamemain__ticket");
-
-  tickets.forEach((ticket) => {
-    const ticketId = ticket.getAttribute("id");
-    const ticketData = JSON.parse(localStorage.getItem(`ticket-${ticketId}`));
-
-    if (ticketData) {
-      const choosedCasks = ticketData.choosedCasks;
-      const mustBeChoosed = ticketData.mustBeChoosed;
-      const unavailableCasks = ticketData.unavailableCasks;
-
-      ticket.setAttribute("choosedCasks", choosedCasks);
-      ticket.setAttribute("mustBeChoosed", mustBeChoosed);
-      ticket.setAttribute("unavailableCasks", unavailableCasks);
-    }
-  });
-}
-
 function checkChoosedCasks(ws, pastCasks) {
   let ticketsBody = document.querySelector(".loto-game-room__main");
   if (ticketsBody) {

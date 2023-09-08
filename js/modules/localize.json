@@ -17,7 +17,7 @@
       },
       "tickets": {
         "updateText": "Обновить",
-        "deleteText": "Удалиит"
+        "deleteText": "Удалить"
       },
       "buyTicketButtonText": "Купить билет"
     },
@@ -75,6 +75,10 @@
           "winJackpotText": "Джекпот выигран",
           "jackpotStatusWinText": "да",
           "jackpotStatusLoseText": "нет",
+          "errorText": "Ошибка",
+          "continueText": "Продолжить",
+          "understandText": "Понятно",
+          "closeText": "Закрыть",
           "ticketPriceText": "Цена билета",
           "ticketBetText": "Ставка",
           "bankText": "Общий банк"
@@ -159,7 +163,8 @@
       "winGamePopupTitle": "Поздравляем вы выиграли!",
       "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
       "endGamePopupDescr": "Список победителей",
-      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована",
+      "anotherAccountEnter": "В ваш аккаунт вошли с другого места!"
     }
   },
   "az": {

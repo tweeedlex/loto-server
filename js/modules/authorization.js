@@ -3,6 +3,7 @@ import * as impInterface from "./authinterface.js";
 import * as impNav from "./navigation.js";
 import * as impLotoNav from "./loto-navigation.js";
 import * as impAdminNav from "./admin-navigation.js";
+import * as impPopup from "./popup.js";
 
 export function registrationForm() {
   // let openFormButtons = document.querySelectorAll(".open-registration");
@@ -43,6 +44,11 @@ export function registrationForm() {
       createRegistrationForm();
     });
   }
+
+  const languageSelectButton = document.querySelector(".select-language");
+  languageSelectButton.addEventListener("click", function () {
+    impPopup.openChangeLanguage();
+  });
 
   // button.addEventListener("click", function () {
   //   if (button.classList.contains("registration-button")) {
