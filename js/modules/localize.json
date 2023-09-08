@@ -1,0 +1,654 @@
+{
+  "ru": {
+    "mainPage": {
+      "gamecards": {
+        "timerText": "Ожидание",
+        "onlineText": "Игроков онлайн",
+        "bankText": "Сума выигрыша в пред игре",
+        "priceText": "Цена билета"
+      }
+    },
+    "lotoRoomPage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто",
+        "exitRoomText": "Выйти"
+      },
+      "tickets": {
+        "updateText": "Обновить",
+        "deleteText": "Удалиит"
+      },
+      "buyTicketButtonText": "Купить билет"
+    },
+    "lotoGamePage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто"
+      },
+      "enjoyGameText": "Приятной игры",
+      "left1Text": "У 1 игроков остался 1 боченок",
+      "left2Text": "У 1 игроков осталось 2 боченка",
+      "left3Text": "У 1 игроков осталось 3 боченка"
+    },
+    "profilePage": {
+      "maniButtons": {
+        "balanceBtnText": "Баланс",
+        "profileBtnText": {
+          "title": "Детали профиля",
+          "description": "Персональные даные"
+        },
+        "passwordBtnText": "Смена пароля",
+        "mygamesBtnText": "Мои игры",
+        "bonusesBtnText": "Бонусы",
+        "soundsBtnText": "Звуки",
+        "casksBtnText": "Цвет боченков",
+        "logoutBtnText": "выйти"
+      },
+      "profileDetailsPage": {
+        "changeAvatar": "сменить аватар",
+        "usernameText": "Имя пользователя",
+        "nameText": "Ваше имя",
+        "emailText": "Ваша почта",
+        "saveButtonText": "сохранить",
+        "changeLanguageBtnText": "Сменить язык",
+        "transactionsBtnText": "Транзакции",
+        "returnBtnText": "Назад"
+      },
+      "changePasswordPage": {
+        "oldPassText": "Старый пароль",
+        "newPassText": "Новый пароль",
+        "repeatNewPassText": "Повторите новый пароль",
+        "saveBtnText": "Изменить пароль",
+        "returnBtnText": "Назад"
+      },
+      "myGamesPage": {
+        "header": {
+          "backButtonText": "выйти",
+          "headerTitle": "Моя статистика"
+        },
+        "statsItem": {
+          "loseGameText": "Проиграл",
+          "winGameText": "Выиграл",
+          "winSumText": "Ход",
+          "winJackpotText": "Джекпот выигран",
+          "jackpotStatusWinText": "да",
+          "jackpotStatusLoseText": "нет",
+          "ticketPriceText": "Цена билета",
+          "ticketBetText": "Ставка",
+          "bankText": "Общий банк"
+        }
+      },
+      "bonusesPage": {
+        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
+        "balanceText": "Ваш баланс 0 поинтов",
+        "changeCofText": "Коефициент обмена 100 / 0.20₼",
+        "pointToChangeText": "Поинтов для обмена",
+        "pointToGetText": "Вы получите",
+        "changeButtonText": "Обмен",
+        "alertText": "Обмен осуществляется минимально от 100 поинтов",
+        "returnBtnText": "Выйти"
+      },
+      "transactionsPage": {
+        "tableHeader": {
+          "nickText": "ник",
+          "typeText": "Тип",
+          "sumText": "Сумма",
+          "dateText": "Дата"
+        },
+        "tableItem": {
+          "typeText1": "Вывод",
+          "typeText2": "Депозит"
+        }
+      }
+    },
+    "statsPage": {
+      "informationButtonText": "Информация",
+      "menuHedaer": {
+        "gameLotoText": "Лото",
+        "gameNardsText": "Надры",
+        "gameBackgamonsText": "Домино",
+        "mounthes": [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Окрябрь",
+          "Ноябрь",
+          "Декабрь"
+        ]
+      },
+      "tableHedaer": {
+        "nameText": "Имя",
+        "winsText": "Победы",
+        "bonusesText": "Бонусы"
+      }
+    },
+    "depositMenuPage": {
+      "depositButton": "депозит",
+      "withdrawButton": "Выплаты"
+    },
+    "depositPage": {
+      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
+      "depositSumText": "Сумма",
+      "alertText": "Минимальный",
+      "depositButtonText": "Внести депозит",
+      "returnBtnText": "Назад"
+    },
+    "withdrawPage": {
+      "cardNumberText": "Номер карты",
+      "cardHolderText": "Имя владельца",
+      "cardExpiresText": "Дата окончания срока",
+      "cardSumText": "Сумма",
+      "alertText": "Минимальная сумма",
+      "withdrawButtonText": "Выплата",
+      "returnBtnText": "Назад"
+    },
+    "popups": {
+      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
+      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
+      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
+      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
+      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
+      "winGamePopupTitle": "Поздравляем вы выиграли!",
+      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
+      "endGamePopupDescr": "Список победителей",
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+    }
+  },
+  "az": {
+    "mainPage": {
+      "gamecards": {
+        "timerText": "Ожидание",
+        "onlineText": "Игроков онлайн",
+        "bankText": "Сума выигрыша в пред игре",
+        "priceText": "Цена билета"
+      }
+    },
+    "lotoRoomPage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто",
+        "exitRoomText": "Выйти"
+      },
+      "tickets": {
+        "updateText": "Обновить",
+        "deleteText": "Удалиит"
+      },
+      "buyTicketButtonText": "Купить билет"
+    },
+    "lotoGamePage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто"
+      },
+      "enjoyGameText": "Приятной игры",
+      "left1Text": "У 1 игроков остался 1 боченок",
+      "left2Text": "У 1 игроков осталось 2 боченка",
+      "left3Text": "У 1 игроков осталось 3 боченка"
+    },
+    "profilePage": {
+      "maniButtons": {
+        "balanceBtnText": "Баланс",
+        "profileBtnText": {
+          "title": "Детали профиля",
+          "description": "Персональные даные"
+        },
+        "passwordBtnText": "Смена пароля",
+        "mygamesBtnText": "Мои игры",
+        "bonusesBtnText": "Бонусы",
+        "soundsBtnText": "Звуки",
+        "casksBtnText": "Цвет боченков",
+        "logoutBtnText": "выйти"
+      },
+      "profileDetailsPage": {
+        "changeAvatar": "сменить аватар",
+        "usernameText": "Имя пользователя",
+        "nameText": "Ваше имя",
+        "emailText": "Ваша почта",
+        "saveButtonText": "сохранить",
+        "changeLanguageBtnText": "Сменить язык",
+        "transactionsBtnText": "Транзакции",
+        "returnBtnText": "Назад"
+      },
+      "changePasswordPage": {
+        "oldPassText": "Старый пароль",
+        "newPassText": "Новый пароль",
+        "repeatNewPassText": "Повторите новый пароль",
+        "saveBtnText": "Изменить пароль",
+        "returnBtnText": "Назад"
+      },
+      "myGamesPage": {
+        "header": {
+          "backButtonText": "выйти",
+          "headerTitle": "Моя статистика"
+        },
+        "statsItem": {
+          "loseGameText": "Проиграл",
+          "winGameText": "Выиграл",
+          "winSumText": "Ход",
+          "winJackpotText": "Джекпот выигран",
+          "jackpotStatusWinText": "да",
+          "jackpotStatusLoseText": "нет",
+          "ticketPriceText": "Цена билета",
+          "ticketBetText": "Ставка",
+          "bankText": "Общий банк"
+        }
+      },
+      "bonusesPage": {
+        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
+        "balanceText": "Ваш баланс 0 поинтов",
+        "changeCofText": "Коефициент обмена 100 / 0.20₼",
+        "pointToChangeText": "Поинтов для обмена",
+        "pointToGetText": "Вы получите",
+        "changeButtonText": "Обмен",
+        "alertText": "Обмен осуществляется минимально от 100 поинтов",
+        "returnBtnText": "Выйти"
+      },
+      "transactionsPage": {
+        "tableHeader": {
+          "nickText": "ник",
+          "typeText": "Тип",
+          "sumText": "Сумма",
+          "dateText": "Дата"
+        },
+        "tableItem": {
+          "typeText1": "Вывод",
+          "typeText2": "Депозит"
+        }
+      }
+    },
+    "statsPage": {
+      "informationButtonText": "Информация",
+      "menuHedaer": {
+        "gameLotoText": "Лото",
+        "gameNardsText": "Надры",
+        "gameBackgamonsText": "Домино",
+        "mounthes": [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Окрябрь",
+          "Ноябрь",
+          "Декабрь"
+        ]
+      },
+      "tableHedaer": {
+        "nameText": "Имя",
+        "winsText": "Победы",
+        "bonusesText": "Бонусы"
+      }
+    },
+    "depositMenuPage": {
+      "depositButton": "депозит",
+      "withdrawButton": "Выплаты"
+    },
+    "depositPage": {
+      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
+      "depositSumText": "Сумма",
+      "alertText": "Минимальный",
+      "depositButtonText": "Внести депозит",
+      "returnBtnText": "Назад"
+    },
+    "withdrawPage": {
+      "cardNumberText": "Номер карты",
+      "cardHolderText": "Имя владельца",
+      "cardExpiresText": "Дата окончания срока",
+      "cardSumText": "Сумма",
+      "alertText": "Минимальная сумма",
+      "withdrawButtonText": "Выплата",
+      "returnBtnText": "Назад"
+    },
+    "popups": {
+      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
+      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
+      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
+      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
+      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
+      "winGamePopupTitle": "Поздравляем вы выиграли!",
+      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
+      "endGamePopupDescr": "Список победителей",
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+    }
+  },
+  "en": {
+    "mainPage": {
+      "gamecards": {
+        "timerText": "Ожидание",
+        "onlineText": "Игроков онлайн",
+        "bankText": "Сума выигрыша в пред игре",
+        "priceText": "Цена билета"
+      }
+    },
+    "lotoRoomPage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто",
+        "exitRoomText": "Выйти"
+      },
+      "tickets": {
+        "updateText": "Обновить",
+        "deleteText": "Удалиит"
+      },
+      "buyTicketButtonText": "Купить билет"
+    },
+    "lotoGamePage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто"
+      },
+      "enjoyGameText": "Приятной игры",
+      "left1Text": "У 1 игроков остался 1 боченок",
+      "left2Text": "У 1 игроков осталось 2 боченка",
+      "left3Text": "У 1 игроков осталось 3 боченка"
+    },
+    "profilePage": {
+      "maniButtons": {
+        "balanceBtnText": "Баланс",
+        "profileBtnText": {
+          "title": "Детали профиля",
+          "description": "Персональные даные"
+        },
+        "passwordBtnText": "Смена пароля",
+        "mygamesBtnText": "Мои игры",
+        "bonusesBtnText": "Бонусы",
+        "soundsBtnText": "Звуки",
+        "casksBtnText": "Цвет боченков",
+        "logoutBtnText": "выйти"
+      },
+      "profileDetailsPage": {
+        "changeAvatar": "сменить аватар",
+        "usernameText": "Имя пользователя",
+        "nameText": "Ваше имя",
+        "emailText": "Ваша почта",
+        "saveButtonText": "сохранить",
+        "changeLanguageBtnText": "Сменить язык",
+        "transactionsBtnText": "Транзакции",
+        "returnBtnText": "Назад"
+      },
+      "changePasswordPage": {
+        "oldPassText": "Старый пароль",
+        "newPassText": "Новый пароль",
+        "repeatNewPassText": "Повторите новый пароль",
+        "saveBtnText": "Изменить пароль",
+        "returnBtnText": "Назад"
+      },
+      "myGamesPage": {
+        "header": {
+          "backButtonText": "выйти",
+          "headerTitle": "Моя статистика"
+        },
+        "statsItem": {
+          "loseGameText": "Проиграл",
+          "winGameText": "Выиграл",
+          "winSumText": "Ход",
+          "winJackpotText": "Джекпот выигран",
+          "jackpotStatusWinText": "да",
+          "jackpotStatusLoseText": "нет",
+          "ticketPriceText": "Цена билета",
+          "ticketBetText": "Ставка",
+          "bankText": "Общий банк"
+        }
+      },
+      "bonusesPage": {
+        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
+        "balanceText": "Ваш баланс 0 поинтов",
+        "changeCofText": "Коефициент обмена 100 / 0.20₼",
+        "pointToChangeText": "Поинтов для обмена",
+        "pointToGetText": "Вы получите",
+        "changeButtonText": "Обмен",
+        "alertText": "Обмен осуществляется минимально от 100 поинтов",
+        "returnBtnText": "Выйти"
+      },
+      "transactionsPage": {
+        "tableHeader": {
+          "nickText": "ник",
+          "typeText": "Тип",
+          "sumText": "Сумма",
+          "dateText": "Дата"
+        },
+        "tableItem": {
+          "typeText1": "Вывод",
+          "typeText2": "Депозит"
+        }
+      }
+    },
+    "statsPage": {
+      "informationButtonText": "Информация",
+      "menuHedaer": {
+        "gameLotoText": "Лото",
+        "gameNardsText": "Надры",
+        "gameBackgamonsText": "Домино",
+        "mounthes": [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Окрябрь",
+          "Ноябрь",
+          "Декабрь"
+        ]
+      },
+      "tableHedaer": {
+        "nameText": "Имя",
+        "winsText": "Победы",
+        "bonusesText": "Бонусы"
+      }
+    },
+    "depositMenuPage": {
+      "depositButton": "депозит",
+      "withdrawButton": "Выплаты"
+    },
+    "depositPage": {
+      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
+      "depositSumText": "Сумма",
+      "alertText": "Минимальный",
+      "depositButtonText": "Внести депозит",
+      "returnBtnText": "Назад"
+    },
+    "withdrawPage": {
+      "cardNumberText": "Номер карты",
+      "cardHolderText": "Имя владельца",
+      "cardExpiresText": "Дата окончания срока",
+      "cardSumText": "Сумма",
+      "alertText": "Минимальная сумма",
+      "withdrawButtonText": "Выплата",
+      "returnBtnText": "Назад"
+    },
+    "popups": {
+      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
+      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
+      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
+      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
+      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
+      "winGamePopupTitle": "Поздравляем вы выиграли!",
+      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
+      "endGamePopupDescr": "Список победителей",
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+    }
+  },
+  "ua": {
+    "mainPage": {
+      "gamecards": {
+        "timerText": "Ожидание",
+        "onlineText": "Игроков онлайн",
+        "bankText": "Сума выигрыша в пред игре",
+        "priceText": "Цена билета"
+      }
+    },
+    "lotoRoomPage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто",
+        "exitRoomText": "Выйти"
+      },
+      "tickets": {
+        "updateText": "Обновить",
+        "deleteText": "Удалиит"
+      },
+      "buyTicketButtonText": "Купить билет"
+    },
+    "lotoGamePage": {
+      "gameInfo": {
+        "bankText": "Банк",
+        "betText": "Ставка",
+        "autoButtonText": "Авто"
+      },
+      "enjoyGameText": "Приятной игры",
+      "left1Text": "У 1 игроков остался 1 боченок",
+      "left2Text": "У 1 игроков осталось 2 боченка",
+      "left3Text": "У 1 игроков осталось 3 боченка"
+    },
+    "profilePage": {
+      "maniButtons": {
+        "balanceBtnText": "Баланс",
+        "profileBtnText": {
+          "title": "Детали профиля",
+          "description": "Персональные даные"
+        },
+        "passwordBtnText": "Смена пароля",
+        "mygamesBtnText": "Мои игры",
+        "bonusesBtnText": "Бонусы",
+        "soundsBtnText": "Звуки",
+        "casksBtnText": "Цвет боченков",
+        "logoutBtnText": "выйти"
+      },
+      "profileDetailsPage": {
+        "changeAvatar": "сменить аватар",
+        "usernameText": "Имя пользователя",
+        "nameText": "Ваше имя",
+        "emailText": "Ваша почта",
+        "saveButtonText": "сохранить",
+        "changeLanguageBtnText": "Сменить язык",
+        "transactionsBtnText": "Транзакции",
+        "returnBtnText": "Назад"
+      },
+      "changePasswordPage": {
+        "oldPassText": "Старый пароль",
+        "newPassText": "Новый пароль",
+        "repeatNewPassText": "Повторите новый пароль",
+        "saveBtnText": "Изменить пароль",
+        "returnBtnText": "Назад"
+      },
+      "myGamesPage": {
+        "header": {
+          "backButtonText": "выйти",
+          "headerTitle": "Моя статистика"
+        },
+        "statsItem": {
+          "loseGameText": "Проиграл",
+          "winGameText": "Выиграл",
+          "winSumText": "Ход",
+          "winJackpotText": "Джекпот выигран",
+          "jackpotStatusWinText": "да",
+          "jackpotStatusLoseText": "нет",
+          "ticketPriceText": "Цена билета",
+          "ticketBetText": "Ставка",
+          "bankText": "Общий банк"
+        }
+      },
+      "bonusesPage": {
+        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
+        "balanceText": "Ваш баланс 0 поинтов",
+        "changeCofText": "Коефициент обмена 100 / 0.20₼",
+        "pointToChangeText": "Поинтов для обмена",
+        "pointToGetText": "Вы получите",
+        "changeButtonText": "Обмен",
+        "alertText": "Обмен осуществляется минимально от 100 поинтов",
+        "returnBtnText": "Выйти"
+      },
+      "transactionsPage": {
+        "tableHeader": {
+          "nickText": "ник",
+          "typeText": "Тип",
+          "sumText": "Сумма",
+          "dateText": "Дата"
+        },
+        "tableItem": {
+          "typeText1": "Вывод",
+          "typeText2": "Депозит"
+        }
+      }
+    },
+    "statsPage": {
+      "informationButtonText": "Информация",
+      "menuHedaer": {
+        "gameLotoText": "Лото",
+        "gameNardsText": "Надры",
+        "gameBackgamonsText": "Домино",
+        "mounthes": [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Окрябрь",
+          "Ноябрь",
+          "Декабрь"
+        ]
+      },
+      "tableHedaer": {
+        "nameText": "Имя",
+        "winsText": "Победы",
+        "bonusesText": "Бонусы"
+      }
+    },
+    "depositMenuPage": {
+      "depositButton": "депозит",
+      "withdrawButton": "Выплаты"
+    },
+    "depositPage": {
+      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
+      "depositSumText": "Сумма",
+      "alertText": "Минимальный",
+      "depositButtonText": "Внести депозит",
+      "returnBtnText": "Назад"
+    },
+    "withdrawPage": {
+      "cardNumberText": "Номер карты",
+      "cardHolderText": "Имя владельца",
+      "cardExpiresText": "Дата окончания срока",
+      "cardSumText": "Сумма",
+      "alertText": "Минимальная сумма",
+      "withdrawButtonText": "Выплата",
+      "returnBtnText": "Назад"
+    },
+    "popups": {
+      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
+      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
+      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
+      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
+      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
+      "winGamePopupTitle": "Поздравляем вы выиграли!",
+      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
+      "endGamePopupDescr": "Список победителей",
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+    }
+  }
+}

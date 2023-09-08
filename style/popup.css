@@ -790,3 +790,30 @@
 .popup__text-bold {
   font-weight: 600;
 }
+
+.language-popup__button {
+  border-radius: 10px;
+  background: var(--Linear, linear-gradient(180deg, #87dbb9 0%, #3fba88 100%));
+  box-shadow: 0px 2.56477px 5.12953px 1.70984px rgba(0, 0, 0, 0.24);
+  flex: 1 1 auto;
+  padding: 10px 20px;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+.language-popup-content,
+.change-language-popup__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.language-popup-content .popup__text {
+  text-align: center;
+  margin-bottom: 5px;
+}

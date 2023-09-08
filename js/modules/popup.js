@@ -1,5 +1,6 @@
 import * as impNav from "./navigation.js";
 import * as impHttp from "./http.js";
+import * as impAudio from "./audio.js";
 
 // 100 предупреждения
 // 200 выиграш
@@ -481,6 +482,43 @@ export function openInfoTokensPopup() {
   let gotItBtn = popupElement.querySelector(".popup-button__gotit");
   gotItBtn.addEventListener("click", function () {
     close(popupElement);
+  });
+
+  body.appendChild(popupElement);
+}
+
+export function openChangeLanguage() {
+  if (isPopupOpened()) {
+    return;
+  }
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup", "change-language-popup");
+  popupElement.innerHTML = `
+  <div class="popup__body change-language-popup">
+  <div class="popup__content language-popup-content">
+    <div class="popup__text popup__text-bold">
+      Выберите язык
+    </div>
+    <div class="change-language-popup__buttons">
+      <button lang="ru" class="language-popup__button">Русский</button>
+      <button lang="UA" class="language-popup__button">Українська</button>
+      <button lang="AZ-TR" class="language-popup__button">Azərbaycan dili</button>
+      <button lang="EN" class="language-popup__button">English</button>
+    </div>
+  </div>
+  `;
+
+  const languageButtons = popupElement.querySelectorAll(
+    ".language-popup__button"
+  );
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      let lang = button.getAttribute("lang");
+      localStorage.setItem("language", lang);
+      impAudio.setLanguage(lang);
+      close(popupElement);
+    });
   });
 
   body.appendChild(popupElement);

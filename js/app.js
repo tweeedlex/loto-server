@@ -7,7 +7,7 @@ import * as impMoveElement from "./modules/move-element.js";
 let preloader = document.querySelector(".page-preloader");
 impAuth.registrationForm();
 impAuth.createLoginForm();
-impNav.addHashListeners();
+// impNav.addHashListeners();
 
 impNav.applyDefaultSettings();
 
@@ -20,6 +20,7 @@ if (await impAuth.isAuth()) {
   }
   let ws = impLotoNav.connectWebsocketFunctions();
   impNav.pageNavigation(ws);
+  impNav.addHashListeners(ws);
 
   // проверка на активные игры в даный момент
   const ticketsResponce = await impHttp.getTickets();

@@ -305,9 +305,10 @@ export async function openProfilePage() {
 
     const balanceButton = document.querySelector(".profile__balance-button");
     balanceButton.addEventListener("click", async function () {
+      // preloader.classList.remove("d-none");
+      // await openBalance();
       preloader.classList.remove("d-none");
-      await openBalance();
-      preloader.classList.add("d-none");
+      location.hash = "#deposit";
     });
 
     const changePasswordButton = document.querySelector(
@@ -492,7 +493,7 @@ async function openDeposit() {
           </div>
         </div>
         <div class="deposit__form-wrapper">
-        <p class="deposit__form-minimum">Минимальный: 2.00$</p>
+        <p class="deposit__form-minimum">Минимальный: 2.00₼</p>
         <button class="deposit__form-button">ВНЕСТИ ДЕПОЗИТ<span style="margin-left: 7px; font-weight: 600;">0$</span></button>
         </div>
       </div>
@@ -537,7 +538,7 @@ async function openDeposit() {
       impPopup.open("Введите сумму");
       return;
     }
-    if (+dollarsSum.innerHTML < 2) {
+    if (+sum < 2) {
       impPopup.open("Минимальная сумма 2.00₼");
       return;
     }
@@ -565,25 +566,39 @@ async function openWithdraw() {
   }
   main.innerHTML = `
   <section class="withdraw-page withdraw">
-    <div class="withdraw-page__container">
-      <div class="withdraw-page_form withdraw-form">
-          <div class="withdraw-form__item"><label for="withdraw-form-card-number">Номер карты</label><input id="withdraw-form-cart-number" type="number"></div>
-          <div class="withdraw-form__item"><label for="withdraw-form-card-name">Имя владельца</label><input id="withdraw-form-cart-name" type="text"></div>
-          <div class="withdraw-form__item row"><label>Дата окончания срока</label><div class="date-input"><input placeholder="ММ" id="withdraw-form-cart-mounth" type="number"> / <input placeholder="ГГ" id="withdraw-form-cart-year"  type="number"></div> </div>
-          <div class="withdraw-form__item"><label for="withdraw-form-sum">Сумма </label><input id="withdraw-form-sum" type="number"></div>
-          <button class="withdraw-form__item-button">Выплата</button>
+          <div class="withdraw-page__container">
+            <div class="withdraw-page_form withdraw-form">
+              <div class="withdraw-form__card-item">
+                <img src="img/card.png" alt="" class="withdraw-form__card-item-img">
+                <div class="card-item__number">#### **** **** ####</div>
+                <div class="card-item__holder">
+                  <div class="card-item__holder-text">Card Holder</div>
+                  <div class="card-item__holder-name">Name Name</div>
+                </div> 
+                <div class="card-item__expires">
+                  <div class="card-item__expires-text">Expires</div>
+                  <div class="card-item__expires-date"><span class = 'mm'>MM</span> / <span class = 'yy'>YY</span></div>
+                </div>
+              </div>
 
-          <button class="go-back">
-            <p>НАЗАД</p>
-            <img src="img/logout.png" alt="logout" />
-          </button>
-        </div>
-        
-        <div class="withdraw-page__footer">
-          
-        </div>
-    </div>
-  </section>
+                <div class="withdraw-form__item"><label for="withdraw-form-card-number">Номер карты</label><input id="withdraw-form-cart-number" type="tel"></div>
+                <div class="withdraw-form__item"><label for="withdraw-form-card-name">Имя владельца</label><input id="withdraw-form-cart-name" type="text"></div>
+                <div class="withdraw-form__item row"><label>Дата окончания срока</label><div class="date-input"><input placeholder="ММ" maxlength="2" id="withdraw-form-cart-mounth" type="number"> / <input placeholder="ГГГГ" maxlength="4" id="withdraw-form-cart-year" type="number" ></div> </div>
+                <div class="withdraw-form__item"><label for="withdraw-form-sum">Сумма </label><input id="withdraw-form-sum" type="tel"></div>
+                <p class="withdraw-form-p">Минимальная сумма: 15₼</p>
+                <button class="withdraw-form__item-button">Выплата</button>
+      
+                <button class="go-back">
+                  <p>НАЗАД</p>
+                  <img src="img/logout.png" alt="logout" />
+                </button>
+              </div>
+              
+              <div class="withdraw-page__footer">
+                
+              </div>
+          </div>
+        </section>
   `;
 
   const goBackButton = document.querySelector(".withdraw-page .go-back");
@@ -594,9 +609,83 @@ async function openWithdraw() {
   let withdrawButton = document.querySelector(
     ".withdraw-page .withdraw-form__item-button"
   );
+
+  const cardInput = document.querySelector("#withdraw-form-cart-number");
+  const cardNumberOnCard = document.querySelector(
+    ".withdraw-form__card-item .card-item__number"
+  );
+
+  cardInput.addEventListener("input", (e) => {
+    let value = e.target.value;
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{4})/g, "$1 ");
+    value = value.trim();
+    value = value.slice(0, 19);
+
+    cardNumberOnCard.innerText = value;
+    e.target.value = value;
+  });
+
+  const usrnameInput = document.querySelector("#withdraw-form-cart-name");
+  const usrnameInputOnCard = document.querySelector(
+    ".withdraw-form__card-item .card-item__holder-name"
+  );
+
+  usrnameInput.addEventListener("input", (e) => {
+    // allow only latin symbols and one white space between words
+    e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, "");
+    e.target.value = e.target.value.replace(/(\s{2,})/g, " ");
+
+    let value = e.target.value;
+    usrnameInputOnCard.innerText = value;
+    e.target.value = value;
+  });
+
+  const cardExpiresMMOnCard = document.querySelector(
+    ".card-item__expires-date .mm"
+  );
+
+  const monthInput = document.querySelector("#withdraw-form-cart-mounth");
+  monthInput.addEventListener("input", (e) => {
+    let value = e.target.value;
+    if (value.length > 2) {
+      monthInput.value = monthInput.value.slice(0, 2);
+    } else {
+      cardExpiresMMOnCard.innerHTML = value;
+      e.target.value = value;
+    }
+  });
+
+  const cardExpiresYYOnCard = document.querySelector(
+    ".card-item__expires-date .yy"
+  );
+  const yearInput = document.querySelector("#withdraw-form-cart-year");
+  yearInput.addEventListener("input", (e) => {
+    let value = e.target.value;
+    if (value.length > 4) {
+      yearInput.value = yearInput.value.slice(0, 4);
+    } else {
+      cardExpiresYYOnCard.innerHTML = value;
+      e.target.value = value;
+    }
+  });
+
+  const sumInput = document.querySelector("#withdraw-form-sum");
+  sumInput.addEventListener("input", () => {
+    // allow only float numbers with 2 digits after dot
+    sumInput.value = sumInput.value.replace(/[^0-9.]/g, "");
+    sumInput.value = sumInput.value.replace(/(\..*)\./g, "$1");
+    sumInput.value = sumInput.value.replace(/(\.[0-9][0-9])./g, "$1");
+  });
+
   withdrawButton.addEventListener("click", async function () {
     const withdrawInput = document.querySelector("#withdraw-form-sum");
     let withdrawAmount = withdrawInput.value;
+
+    if (withdrawAmount < 15) {
+      impPopup.openErorPopup("Минимальная сумма 15₼");
+      return;
+    }
 
     let errorsCounter = 0;
     // сбрасываем ошибки
@@ -611,22 +700,26 @@ async function openWithdraw() {
     );
     let cardNumberValue = cardNumber.value;
 
-    if (!/^\d{13,16}$/.test(cardNumberValue)) {
+    if (cardNumberValue.length != 19) {
       cardNumber.classList.add("error");
       errorsCounter++;
     }
+    if (!isValidCreditCardNumber) {
+      cardNumber.classList.add("error");
+      errorsCounter++;
+    }
+
+    if (!isValidCreditCard(cardNumberValue)) {
+      cardNumber.classList.add("error");
+      errorsCounter++;
+    }
+
     // парсим имя владельца на латинеце
     let cardName = document.querySelector(
       ".withdraw-page #withdraw-form-cart-name"
     );
     let cardNameValue = cardName.value;
-    if (!/^[a-zA-Z]+$/.test(cardNameValue)) {
-      cardName.classList.add("error");
-      errorsCounter++;
-    }
-
-    // Проверка, что имя не пустое и не слишком короткое
-    if (cardNameValue.length < 2) {
+    if (!/^[a-zA-Z]+$/.test(cardNameValue) && cardNameValue.length < 3) {
       cardName.classList.add("error");
       errorsCounter++;
     }
@@ -641,29 +734,19 @@ async function openWithdraw() {
       ".withdraw-page #withdraw-form-cart-year"
     );
     let cardYYValue = cardYY.value;
-    // if (cardMMValue.length > 99 || cardYYValue.length > 99) {
-    //   cardDateBlock.classList.add("error");
-    // }
-    // if (cardMMValue.length < 1 || cardYYValue.length < 1) {
-    //   cardDateBlock.classList.add("error");
-    // }
     if (
       cardMMValue > 12 ||
-      cardYYValue < 23 ||
+      cardYYValue < 2023 ||
       cardMMValue > 12 ||
-      cardYYValue > 99 ||
+      cardYYValue > 2099 ||
       cardMMValue.length < 1 ||
-      cardYYValue.length < 1 ||
+      cardYYValue.length < 4 ||
       cardMMValue.length > 2 ||
-      cardYYValue.length > 2
+      cardYYValue.length > 4
     ) {
       cardDateBlock.classList.add("error");
       errorsCounter++;
     }
-    // withdrawAmount,
-    // cardNumber,
-    // cardHolder,
-    // validity,
     if (withdrawAmount == "" || withdrawAmount == null || withdrawAmount == 0) {
       errorsCounter++;
     }
@@ -690,11 +773,57 @@ async function openWithdraw() {
         cardMM.value = "";
         cardNumber.value = "";
         withdrawInput.value = "";
+        cardNumberOnCard.innerHTML = "#### **** **** ####";
+        usrnameInputOnCard.innerHTML = "Name Name";
+        cardExpiresMMOnCard.innerHTML = "MM";
+        cardExpiresYYOnCard.innerHTML = "YY";
       }
     } else {
       impPopup.openErorPopup("Ошибка! Проверьте введенные данные");
     }
   });
+}
+
+function isValidCreditCardNumber(cardNumber) {
+  // Шаблон для Visa и MasterCard: начинается с 4 или 5, и имеет 16 цифр
+  var cardPattern = /^(4|5)\d{19}$/;
+
+  return cardPattern.test(cardNumber);
+}
+
+function isValidCreditCard(cardNumber) {
+  // Удаляем пробелы из номера карты и переводим его в строку
+  cardNumber = cardNumber.replace(/\s/g, "");
+
+  // Проверяем, что номер карты состоит только из цифр и имеет длину 13-19 символов
+  if (!/^\d{13,19}$/.test(cardNumber)) {
+    return false;
+  }
+
+  // Преобразуем номер карты в массив цифр и инвертируем его
+  const digits = cardNumber.split("").map(Number).reverse();
+
+  // Рассчитываем контрольную сумму с учетом алгоритма Луна
+  let sum = 0;
+  for (let i = 0; i < digits.length; i++) {
+    let digit = digits[i];
+
+    // Удваиваем каждую вторую цифру, начиная с последней
+    if (i % 2 === 1) {
+      digit *= 2;
+
+      // Если результат больше 9, вычитаем 9
+      if (digit > 9) {
+        digit -= 9;
+      }
+    }
+
+    // Суммируем все цифры
+    sum += digit;
+  }
+
+  // Карта валидна, если сумма делится на 10 без остатка
+  return sum % 10 === 0;
 }
 
 async function openUserDetails() {
@@ -762,6 +891,11 @@ async function openUserDetails() {
     </div>
   </section>
   `;
+
+  const changeLanguage = document.querySelector(".profile__button.curpointer");
+  changeLanguage.addEventListener("click", function () {
+    impPopup.openChangeLanguage();
+  });
 
   const transactionsButtons = document.querySelector(".transactions");
   transactionsButtons.addEventListener("click", async () => {

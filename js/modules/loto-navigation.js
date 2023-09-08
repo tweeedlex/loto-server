@@ -26,6 +26,7 @@ let activeFinishTimers = {
 };
 
 export const connectWebsocketFunctions = () => {
+  // const ws = new WebSocket(`ws://localhost:5001/game`);
   const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
   window.ws = ws;
   let clientId = createClientId();
@@ -145,6 +146,8 @@ export const connectWebsocketFunctions = () => {
           }
         }
 
+        updatIngameBank(msg.bank);
+
         if (msg.isJackpotPlaying == true) {
           animateJackpot();
         }
@@ -247,8 +250,6 @@ export const connectWebsocketFunctions = () => {
       case "openGame":
         console.log(msg);
         location.hash = `#loto-game-${msg.roomId}?bet=${msg.bet}&bank=${msg.bank}&jackpot=${msg.jackpot}&online=${msg.online}&isJackpotPlaying=${msg.isJackpotPlaying}`;
-
-        // updateBank(msg.bank);
         break;
       case "sendNewCask":
         impLotoGame.createCask(ws, msg.cask, msg.caskNumber, msg.pastCasks);
@@ -453,7 +454,10 @@ async function startLotoTimer(strtedAt) {
     let nowClientTime = await NowClientTime();
 
     let distance = targetTime - nowClientTime;
-
+    if (lotoTimer != null) {
+      clearInterval(lotoTimer);
+      lotoTimer = null;
+    }
     lotoTimer = setInterval(async () => {
       distance -= 1000;
       console.log(distance);
@@ -484,18 +488,21 @@ async function startLotoTimer(strtedAt) {
 
 async function NowClientTime() {
   const date = await axios.get(
-    "https://worldtimeapi.org/api/timezone/Europe/London",
+    "https://api.api-ninjas.com/v1/worldtime?city=London",
     {
       headers: {
         "Content-Type": "application/json",
+        "X-Api-Key": "rpWZR9MlW23ZoAcHMLIWhw==KcixnFSk5PKTcK58",
       },
     }
   );
 
   const time = new Date(date.data.datetime).getTime();
 
-  return time + 60 * 60 * 1000;
+  // return time + 60 * 60 * 1000;
+  return time - 60 * 60 * 1000;
   // return time - 7200000;
+  // return time;
 }
 
 function updateAllRoomsOnline(onlineArr) {
@@ -682,6 +689,7 @@ export function createTicket(cells, ticketId) {
         ticketCell.appendChild(ticketCellNumber);
         ticket.appendChild(ticketCell);
       });
+      impAudio.playRefreshTicket();
       ticket.setAttribute("id", ticketId);
     });
     let deleteButton = document.createElement("button");
@@ -693,7 +701,7 @@ export function createTicket(cells, ticketId) {
         const tickets = document.querySelectorAll(".loto-gamemain__ticket");
         if (tickets.length > 1) {
           ticketContainer.remove();
-          impAudio.playTicket();
+          impAudio.playDeleteTicket();
           const counter = document.querySelector(
             ".loto-gamecontrolls__counter__value"
           );
@@ -918,6 +926,21 @@ function updateBank(bank) {
     }
   }
 }
+function updatIngameBank(bank) {
+  let lotoGameInfo = document.querySelector(".loto-game-room-page");
+  if (lotoGameInfo) {
+    let lotoBank = lotoGameInfo.querySelector(".loto-gameinfo__bank");
+    const targetBank = bank;
+    const currentBank = parseFloat(lotoBank.querySelector("span").innerHTML);
+    if (targetBank !== currentBank) {
+      animateNumberChange(
+        lotoBank.querySelector("span"),
+        currentBank,
+        targetBank
+      );
+    }
+  }
+}
 
 export function animateJackpot() {
   let lotoJackpot = document.querySelector(".room-jackpot-sum");
@@ -989,7 +1012,7 @@ export function counterTickets() {
         let isDeleted = deleteTicket();
         if (isDeleted == true) {
           counterValue.innerHTML = +counterValue.innerHTML - 1;
-          impAudio.playTicket();
+          impAudio.playDeleteTicket();
         } else counterValue.innerHTML = +counterValue.innerHTML;
       }
     }

@@ -36,7 +36,7 @@ export function addListeners(ws) {
   });
 }
 
-export async function addHashListeners() {
+export async function addHashListeners(ws) {
   location.hash = "#";
   if (header.classList.contains("d-none")) {
     header.classList.remove("d-none");
@@ -94,7 +94,7 @@ export async function addHashListeners() {
       openGamesLobbyBtn.classList.add("active");
 
       // закрыть вебсокет
-      window.ws.close(
+      ws.close(
         3001,
         JSON.stringify({
           // roomId,
@@ -277,6 +277,7 @@ export async function addHashListeners() {
       case "#deposit":
         await impProfileFunc.openBalance();
         header.classList.add("d-none");
+        preloader.classList.add("d-none");
         mainContainer.classList.remove("header__padding");
         navButtons.forEach((button) => button.classList.remove("active"));
 
