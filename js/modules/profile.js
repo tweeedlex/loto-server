@@ -159,6 +159,15 @@ export async function openProfilePage() {
                 <div color="purple" color-code="#C870FF" class="setting-cask purple"></div>
               </div>
             </a>
+            
+            <a class="profile__button  user-cask-color">
+              <div class="text-block">Связаться с нами</div>
+                <div class="casks-block">
+                  <img src="img/profile icons/tiktok.png" style="width: 35px;height: 35px;">
+                  <img src="img/profile icons/telegram.png" style="width: 35px;height: 35px;">
+                  <img src="img/profile icons/instagram.png" style="width: 35px;height: 35px;">
+              </div>
+            </a>
             ${
               (await impAuth.isAdmin())
                 ? `
@@ -844,7 +853,8 @@ async function openUserDetails() {
         <input
           type="text"
           placeholder="${userInfo.username}"
-          class="form-body__input email-input"
+          class="form-body__input username-input"
+          disabled
         />
         <p>Ваше имя</p>
         <input
@@ -856,7 +866,7 @@ async function openUserDetails() {
         <input
           type="text"
           placeholder="${userInfo.email}"
-          class="form-body__input password-input"
+          class="form-body__input email-input"
         />
         </div>
         <button class="profile__save">
@@ -891,6 +901,51 @@ async function openUserDetails() {
     </div>
   </section>
   `;
+
+  const nameInput = document.querySelector(
+    ".profile-info__form input.password-input"
+  );
+  const emailInput = document.querySelector(
+    ".profile-info__form input.email-input"
+  );
+
+  const saveButton = document.querySelector(".profile__save");
+
+  saveButton.addEventListener("click", async () => {
+    const name = nameInput.value || userInfo.name;
+    const email = emailInput.value || userInfo.email;
+
+    if (!name && !email) {
+      impPopup.openErorPopup("Заполните хотя бы одно поле");
+      return;
+    }
+
+    // validate email using regexp
+    let isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isEmailValid) {
+      impPopup.openErorPopup("Неверный формат почты");
+      return;
+    }
+
+    let response = await impHttp.updateUserData(name, email);
+
+    if (response.status == 200) {
+      impPopup.open("Данные успешно обновлены");
+      nameInput.value = "";
+      emailInput.value = "";
+      nameInput.placeholder = response.data.newName;
+      emailInput.placeholder = response.data.newEmail;
+    }
+
+    if (response.status == 400) {
+      if (response.data.message == "ERR_EMAIL_ALREADY_EXISTS") {
+        impPopup.openErorPopup("Пользователь с такой почтой уже существует");
+      } else {
+        impPopup.openErorPopup("Ошибка");
+      }
+      console.log(response.data);
+    }
+  });
 
   const changeLanguage = document.querySelector(".profile__button.curpointer");
   changeLanguage.addEventListener("click", function () {
@@ -1366,6 +1421,12 @@ async function openTransactions() {
   main.innerHTML = `
     <section class="transactions-page">
       <div class="transactions__content">
+        <div class="pader user-game-history-header" style="width:100%;margin-bottom:20px;">
+          <div class="user-game-history-header__back">
+            <p>ВЫЙТИ</p>
+            <img src="img/logout.png" alt="logout" /></div>
+          <h3 class="user-game-history-header__title">Транзакции</h3>
+        </div>
         <div class="transactions__table">
           <div class="transactions-table__header">
             <div class="table-header__item">Ник</div>
@@ -1379,6 +1440,13 @@ async function openTransactions() {
       </div>
     </section>
   `;
+
+  let buttonBack = document.querySelector(".user-game-history-header__back");
+  if (buttonBack) {
+    buttonBack.addEventListener("click", function () {
+      openProfilePage();
+    });
+  }
 
   const { data: users } = await impHttp.getPayouts();
   console.log(users[0]);
@@ -1410,6 +1478,8 @@ async function openTransactions() {
     return Date.parse(b.date) - Date.parse(a.date);
   });
 
+  const tableBody = document.querySelector(".transactions-table__body");
+
   transactions.forEach((transaction) => {
     const payoutItem = document.createElement("div");
     payoutItem.classList.add("transactions-table__item");
@@ -1419,9 +1489,13 @@ async function openTransactions() {
     <p>${transaction.sum}</p>
     <p>${transaction.date}</p>
   `;
-    const tableBody = document.querySelector(".transactions-table__body");
     tableBody.appendChild(payoutItem);
   });
+
+  if (transactions.length === 0) {
+    tableBody.innerHTML =
+      "<span style='color:#fff'>Не найдено транзакций</span>";
+  }
 }
 
 async function getProfileInfo() {

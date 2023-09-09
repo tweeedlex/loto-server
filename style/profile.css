@@ -126,6 +126,7 @@
   letter-spacing: 1.98px;
   text-transform: uppercase;
   margin-bottom: 15px;
+  align-self: center;
 }
 .user-cask-color .casks-block {
   display: flex;
@@ -133,6 +134,7 @@
   width: 100%;
   min-height: 10px;
   gap: 20px;
+  justify-content: center;
 }
 
 .user-cask-color .casks-block .setting-cask {
@@ -144,7 +146,10 @@
   cursor: pointer;
 }
 .user-cask-color .casks-block .setting-cask.active {
-  border: 2px solid #ffffff;
+  border: 2px solid #7b5764;
+  box-sizing: content-box;
+  width: 45px;
+  height: 45px;
 }
 
 .user-cask-color .casks-block .setting-cask.red {

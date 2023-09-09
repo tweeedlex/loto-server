@@ -407,3 +407,17 @@ export async function createPayout(
     return await e.response;
   }
 }
+
+export async function updateUserData(name, email) {
+  try {
+    const response = await $api.put(`/updateUserData`, {
+      username,
+      name,
+      email,
+    });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}

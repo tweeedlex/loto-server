@@ -502,7 +502,7 @@ async function NowClientTime() {
   // return time + 60 * 60 * 1000;
   // return time - 60 * 60 * 1000;
   // return time - 7200000;
-  return time + 60 * 60 * 1000 * 3;
+  return time + 60 * 60 * 1000 * 4;
 }
 
 function updateAllRoomsOnline(onlineArr) {
@@ -647,6 +647,7 @@ export function buyTickets(ws, roomId, bet) {
         method: "buyTickets",
       };
 
+      impAudio.playBuyTicket();
       ws.send(JSON.stringify(msg));
     });
   }

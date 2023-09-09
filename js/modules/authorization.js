@@ -75,14 +75,14 @@ export function createRegistrationForm() {
   formBody.innerHTML = `<div class="form-body-registration">
   <input
     type="text"
-    placeholder="Имя"
-    class="form-body__input name-input"
+    placeholder="Имя пользователя"
+    class="form-body__input username-input"
   />
 
   <input
     type="text"
-    placeholder="username"
-    class="form-body__input username-input"
+    placeholder="Ваше имя"
+    class="form-body__input name-input"
   />
 
   <input
@@ -101,6 +101,29 @@ export function createRegistrationForm() {
     placeholder="Повтор пароля"
     class="form-body__input repeat-password-input"
   />
+
+  <label class="registration-label">
+    <input
+      type="checkbox"
+      class="form-body__checkbox"
+      id="registration-age-checkbox"
+    />
+    <span class="form-body__checkbox-text">
+      Я подтверждаю, что достиг совершеннолетия в стране моего местонахождения, чтобы пользоваться этим сайтом.
+    </span>
+  </label>
+
+  <label class="registration-label">
+    <input
+      type="checkbox"
+      class="form-body__checkbox"
+      id="registration-terms-checkbox"
+    />
+    <span class="form-body__checkbox-text">
+      Я ознакомлен и принимаю <a href="#conditions" target="_blank" class="form-body__link">Условия использования</a> и <a href="#privacy-policy" target="_blank" class="form-body__link">Политику конфиденциальности</a>.
+    </span>
+  </label>
+
   <button class="form-body__button registration-button">
     ЗАРЕГИСТРИРОВАТЬСЯ
   </button>
@@ -140,6 +163,21 @@ export function createRegistrationForm() {
     let password = registrationPopup.querySelector(".password-input").value;
     let username = registrationPopup.querySelector(".username-input").value;
     let name = registrationPopup.querySelector(".name-input").value;
+
+    const ageCheckbox = document.querySelector("#registration-age-checkbox");
+    const termsCheckbox = document.querySelector(
+      "#registration-terms-checkbox"
+    );
+
+    if (!ageCheckbox.checked) {
+      errorBlock.innerHTML = "Подтвердите, что достигли совершеннолетия";
+      return;
+    }
+
+    if (!termsCheckbox.checked) {
+      errorBlock.innerHTML = "Подтвердите, что вы согласны с правилами";
+      return;
+    }
 
     const registerData = {
       username,
@@ -217,6 +255,7 @@ export function createLoginForm() {
       window.userId = response.data.id;
       if (await isAuth()) {
         let ws = impLotoNav.connectWebsocketFunctions();
+        impNav.addHashListeners(ws);
         impNav.addListeners(ws);
         impNav.pageNavigation(ws);
         // проверка на активные игры в даный момент

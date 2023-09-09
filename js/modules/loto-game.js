@@ -388,6 +388,19 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
   caskNumberBlock.innerHTML = caskNumber;
   caskNumberBlock.classList.add("cask-number");
 
+  // если игрок перезашел в комнату и уже есть прошедшие каски, показываем их
+  if (pastCasks.length > 0 && gameprocessBlock.innerHTML == "") {
+    for (let i = 0; i < 5; i++) {
+      let caskBlock = document.createElement("div");
+      caskBlock.classList.add("loto-game-room__cask");
+      const number = pastCasks[pastCasks.length - 6 + i];
+      if (number) {
+        caskBlock.innerHTML = number;
+        gameprocessBlock.appendChild(caskBlock);
+      }
+    }
+  }
+
   // убираем все бочки что старее 5
   if (gameprocessBlock.children.length > 5) {
     gameprocessBlock.removeChild(gameprocessBlock.children[0]);

@@ -76,3 +76,9 @@ export const playSuccess = () => {
   success.volume = menuVolume;
   success.play();
 };
+
+export const playBuyTicket = () => {
+  const buyTicket = new Audio("./js/modules/sounds/buy-ticket.mp3");
+  buyTicket.volume = menuVolume;
+  buyTicket.play();
+};

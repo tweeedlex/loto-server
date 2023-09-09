@@ -11,6 +11,8 @@ impAuth.createLoginForm();
 
 impNav.applyDefaultSettings();
 
+impNav.addUnauthorizedHashListeners();
+
 if (await impAuth.isAuth()) {
   location.hash = "";
   impNav.hideAuthorization();
