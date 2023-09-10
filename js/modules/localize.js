@@ -84,6 +84,28 @@ export function translateAuthPage() {
     );
     selectLanguageText.innerHTML = siteLanguage.authPage.chooseLanguage;
 
+    let selectLanguageTextBottom = authPage.querySelector(
+      ".select-language__text span"
+    );
+
+    switch (localStorage.getItem("language")) {
+      case "ru":
+        selectLanguageTextBottom.innerHTML = "Русский";
+        break;
+      case "EN":
+        selectLanguageTextBottom.innerHTML = "English";
+        break;
+      case "UA":
+        selectLanguageTextBottom.innerHTML = "Українська";
+        break;
+      case "AZ":
+        selectLanguageTextBottom.innerHTML = "Azərbaycan";
+        break;
+      case "TR":
+        selectLanguageTextBottom.innerHTML = "Türk";
+        break;
+    }
+
     let registration = authPage.querySelector(".form-body-registration");
     if (registration) {
       let regTitle = document.querySelector(".form-header__heading");
