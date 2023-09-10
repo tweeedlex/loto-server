@@ -64,41 +64,42 @@ export function registrationForm() {
 }
 
 export function createRegistrationForm() {
+  const siteLanguage = window.siteLanguage;
   // toggler position
   let registrationPopup = document.querySelector(".registration");
   let form = registrationPopup.querySelector(".registration-form");
   let formHeaderText = form.querySelector(".form-header__heading");
-  formHeaderText.innerHTML = "Регистрация";
+  formHeaderText.innerHTML = siteLanguage.authPage.registration.title;
 
   let formBody = form.querySelector(".form-body");
 
   formBody.innerHTML = `<div class="form-body-registration">
   <input
     type="text"
-    placeholder="Имя пользователя"
+    placeholder="${siteLanguage.authPage.registration.usernameText}"
     class="form-body__input username-input"
   />
 
   <input
     type="text"
-    placeholder="Ваше имя"
+    placeholder="${siteLanguage.authPage.registration.nameText}"
     class="form-body__input name-input"
   />
 
   <input
     type="text"
-    placeholder="Ваш email"
+    placeholder="${siteLanguage.authPage.registration.emailText}"
     class="form-body__input email-input"
   />
 
   <input
     type="password"
-    placeholder="Ваш пароль"
+    placeholder="${siteLanguage.authPage.registration.passwordText}"
     class="form-body__input password-input"
   />
   <input
     type="password"
-    placeholder="Повтор пароля"
+    placeholder="${siteLanguage.authPage.registration.repeatPasswordText}"
     class="form-body__input repeat-password-input"
   />
 
@@ -108,8 +109,8 @@ export function createRegistrationForm() {
       class="form-body__checkbox"
       id="registration-age-checkbox"
     />
-    <span class="form-body__checkbox-text">
-      Я подтверждаю, что достиг совершеннолетия в стране моего местонахождения, чтобы пользоваться этим сайтом.
+    <span class="form-body__checkbox-text age">
+      ${siteLanguage.authPage.registration.ageAccept}
     </span>
   </label>
 
@@ -119,19 +120,19 @@ export function createRegistrationForm() {
       class="form-body__checkbox"
       id="registration-terms-checkbox"
     />
-    <span class="form-body__checkbox-text">
-      Я ознакомлен и принимаю <a href="#conditions" target="_blank" class="form-body__link">Условия использования</a> и <a href="#privacy-policy" target="_blank" class="form-body__link">Политику конфиденциальности</a>.
+    <span class="form-body__checkbox-text terms">
+      ${siteLanguage.authPage.registration.termsAccept} <a href="#conditions" target="_blank" class="form-body__link">${siteLanguage.authPage.registration.termsLink}</a> ${siteLanguage.authPage.registration.and} <a href="#privacy-policy" target="_blank" class="form-body__link">${siteLanguage.authPage.registration.privacyLink}</a>.
     </span>
   </label>
 
   <button class="form-body__button registration-button">
-    ЗАРЕГИСТРИРОВАТЬСЯ
+    ${siteLanguage.authPage.registration.registerButtonText}
   </button>
 
   <div class="form-body__no-account">
-    <a>Есть аккаунт?</a>
+    <a>${siteLanguage.authPage.registration.haveAccount}</a>
     <button class="form-body__registration open-login">
-      Войти
+      ${siteLanguage.authPage.registration.loginButtonText}
     </button>
   </div>
 </div>`;
@@ -170,12 +171,12 @@ export function createRegistrationForm() {
     );
 
     if (!ageCheckbox.checked) {
-      errorBlock.innerHTML = "Подтвердите, что достигли совершеннолетия";
+      errorBlock.innerHTML = siteLanguage.popups.confirmAge;
       return;
     }
 
     if (!termsCheckbox.checked) {
-      errorBlock.innerHTML = "Подтвердите, что вы согласны с правилами";
+      errorBlock.innerHTML = siteLanguage.popups.confirmTerms;
       return;
     }
 
@@ -198,32 +199,33 @@ export function createRegistrationForm() {
 }
 
 export function createLoginForm() {
+  let siteLanguage = window.siteLanguage;
   // toggler position
   let registrationPopup = document.querySelector(".registration");
   let form = registrationPopup.querySelector(".registration-form");
   let formHeaderText = form.querySelector(".form-header__heading");
-  formHeaderText.innerHTML = "Авторизация";
+  formHeaderText.innerHTML = siteLanguage.authPage.login.title;
 
   let formBody = form.querySelector(".form-body");
 
   formBody.innerHTML = `<div class="form-body-login">
-  <p>Имя пользователя</p>
+  <p class="username-label">${siteLanguage.authPage.login.usernameText}</p>
   <input
     type="text"
-    placeholder="Ваш username"
+    placeholder="${siteLanguage.authPage.login.yourUsername}"
     class="form-body__input username-input"
   />
-  <p>Пароль</p>
+  <p class="password-label">${siteLanguage.authPage.login.passwordText}</p>
   <input
     type="password"
-    placeholder="Ваш пароль"
+    placeholder="${siteLanguage.authPage.login.yourPassword}"
     class="form-body__input password-input"
   />
-  <button class="form-body__button login-button">Войти</button>
+  <button class="form-body__button login-button">${siteLanguage.authPage.login.loginButtonText}</button>
   <div class="form-body__no-account">
-    <a>Нет аккаунта?</a>
+    <a>${siteLanguage.authPage.login.noAccount}</a>
     <button class="form-body__registration open-registration">
-      Регистрация
+      ${siteLanguage.authPage.login.registerButtonText}
     </button>
   </div>
 </div>`;
@@ -256,6 +258,7 @@ export function createLoginForm() {
       if (await isAuth()) {
         let ws = impLotoNav.connectWebsocketFunctions();
         impNav.addHashListeners(ws);
+        // impNav.addHashListenersWS(ws);
         impNav.addListeners(ws);
         impNav.pageNavigation(ws);
         // проверка на активные игры в даный момент

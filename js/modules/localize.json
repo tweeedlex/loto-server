@@ -1,10 +1,41 @@
 {
   "ru": {
+    "authPage": {
+      "registration": {
+        "title": "Регистрация",
+        "usernameText": "Имя пользователя",
+        "nameText": "Ваше имя",
+        "emailText": "Ваша почта",
+        "passwordText": "Пароль",
+        "repeatPasswordText": "Повторите пароль",
+        "ageAccept": "Я подтверждаю, что достиг совершеннолетия в стране моего местонахождения, чтобы пользоваться этим сайтом.",
+        "termsAccept": "Я ознакомлен и принимаю",
+        "termsLink": "Условия пользования",
+        "and": "и",
+        "privacyLink": "Политику конфидециальности",
+        "registerButtonText": "Зарегистрироваться",
+        "haveAccount": "Уже есть аккаунт?",
+        "loginButtonText": "Войти"
+      },
+      "login": {
+        "title": "Авторизация",
+        "usernameText": "Имя пользователя",
+        "yourUsername": "Ваше имя пользователя",
+        "passwordText": "Пароль",
+        "yourPassword": "Ваш пароль",
+        "loginButtonText": "Войти",
+        "noAccount": "Нет аккаунта?",
+        "registerButtonText": "Регистрация"
+      },
+      "chooseLanguage": "Выберите язык"
+    },
     "mainPage": {
       "gamecards": {
-        "timerText": "Ожидание",
+        "timerTextWaiting": "Ожидание",
+        "timerTextStarting": "Начинается",
+        "timerTextFinising": "Заканчивается",
         "onlineText": "Игроков онлайн",
-        "bankText": "Сума выигрыша в пред игре",
+        "bankText": "Сумма выигрыша в пред игре",
         "priceText": "Цена билета"
       }
     },
@@ -28,22 +59,23 @@
         "autoButtonText": "Авто"
       },
       "enjoyGameText": "Приятной игры",
-      "left1Text": "У 1 игроков остался 1 боченок",
-      "left2Text": "У 1 игроков осталось 2 боченка",
-      "left3Text": "У 1 игроков осталось 3 боченка"
+      "left1Text": "У COUNT_PLAYERS игроков остался 1 боченок",
+      "left2Text": "У COUNT_PLAYERS игроков осталось 2 боченка",
+      "left3Text": "У COUNT_PLAYERS игроков осталось 3 боченка"
     },
     "profilePage": {
-      "maniButtons": {
+      "mainButtons": {
         "balanceBtnText": "Баланс",
         "profileBtnText": {
           "title": "Детали профиля",
-          "description": "Персональные даные"
+          "description": "Персональные данные"
         },
         "passwordBtnText": "Смена пароля",
         "mygamesBtnText": "Мои игры",
         "bonusesBtnText": "Бонусы",
         "soundsBtnText": "Звуки",
         "casksBtnText": "Цвет боченков",
+        "contactsBtnText": "Связатся с нами",
         "logoutBtnText": "выйти"
       },
       "profileDetailsPage": {
@@ -69,6 +101,8 @@
           "headerTitle": "Моя статистика"
         },
         "statsItem": {
+          "resultText": "Результат",
+          "sumWinText": "Сума выигрыша",
           "loseGameText": "Проиграл",
           "winGameText": "Выиграл",
           "winSumText": "Ход",
@@ -81,13 +115,17 @@
           "closeText": "Закрыть",
           "ticketPriceText": "Цена билета",
           "ticketBetText": "Ставка",
-          "bankText": "Общий банк"
+          "bankText": "Общий банк",
+          "jackpotWasWon": "Джекпот был выигран!",
+          "jackpotWasNotWon": "Джекпот не был выигран.",
+          "congrats": "Поздравляем, вы выиграли",
+          "lose": "К сожалению вы не смогли выиграть попробуйте еще раз."
         }
       },
       "bonusesPage": {
         "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
-        "balanceText": "Ваш баланс 0 поинтов",
-        "changeCofText": "Коефициент обмена 100 / 0.20₼",
+        "balanceText": "Ваш баланс очков",
+        "changeCofText": "Коэффициент обмена 100 / 0.20₼",
         "pointToChangeText": "Поинтов для обмена",
         "pointToGetText": "Вы получите",
         "changeButtonText": "Обмен",
@@ -95,7 +133,7 @@
         "returnBtnText": "Выйти"
       },
       "transactionsPage": {
-        "tableHeader": {
+        "tableheader": {
           "nickText": "ник",
           "typeText": "Тип",
           "sumText": "Сумма",
@@ -109,9 +147,9 @@
     },
     "statsPage": {
       "informationButtonText": "Информация",
-      "menuHedaer": {
+      "menuHeader": {
         "gameLotoText": "Лото",
-        "gameNardsText": "Надры",
+        "gameNardsText": "Нарды",
         "gameBackgamonsText": "Домино",
         "mounthes": [
           "Январь",
@@ -128,7 +166,7 @@
           "Декабрь"
         ]
       },
-      "tableHedaer": {
+      "tableHeader": {
         "nameText": "Имя",
         "winsText": "Победы",
         "bonusesText": "Бонусы"
@@ -136,7 +174,8 @@
     },
     "depositMenuPage": {
       "depositButton": "депозит",
-      "withdrawButton": "Выплаты"
+      "withdrawButton": "Выплаты",
+      "returnBtnText": "Назад"
     },
     "depositPage": {
       "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
@@ -155,351 +194,544 @@
       "returnBtnText": "Назад"
     },
     "popups": {
-      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
-      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
+      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любой ряд (верхний/средний/нижний), то вы будете победителем джекпота.",
+      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменять их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
       "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
-      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
-      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
+      "jackpotWonPopup": "Поздравляем! Игрок JACKPOT_USERNAME выиграл Джекпот",
+      "jackpotLosedPopup": "К сожалению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
       "winGamePopupTitle": "Поздравляем вы выиграли!",
-      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
+      "loseGamePopupTitle": "К сожалению Вам не удалось выиграть",
       "endGamePopupDescr": "Список победителей",
-      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована",
-      "anotherAccountEnter": "В ваш аккаунт вошли с другого места!"
+      "leaveGameAlert": "Если вы покинете игру ваша ставка будет аннулирована",
+      "anotherAccountEnter": "В ваш аккаунт вошли с другого места!",
+      "bonusesSuccess": "Вы успешно обменяли бонусы!",
+      "confirmAge": "Подтвердите, что достигли совершеннолетия",
+      "confirmTerms": "Подтвердите, что ознакомлены и принимаете Условия пользования и Политику конфиденциальности",
+      "depositSuccess": "Депозит успешно зачислен",
+      "notEnoughMoney": "Недостаточно денег",
+      "pointsSuccess": "Поинты успешно обменены",
+      "notEnoughPoints": "Недостаточно поинтов",
+      "emptyFields": "Заполните хотя бы одно поле",
+      "wrongFormat": "Неверный формат почты",
+      "dataSuccess": "Данные успешно изменены",
+      "emailExists": "Пользователь с такой почтой уже существует",
+      "passwordsNotMatch": "Пароли не совпадают",
+      "wrongPassword": "Неверный пароль",
+      "passwordChangeSuccess": "Пароль успешно изменен",
+      "enterSum": "Введите сумму",
+      "minimumSum": "Минимальная сумма 2.00₼",
+      "incorrectFields": "Неверные поля",
+      "ticketBuyError": "Произошла ошибка при покупке билета!"
+    },
+    "words": {
+      "yes": "да",
+      "no": "нет",
+      "understood": "понятно",
+      "ok": "OK"
     }
   },
   "az": {
+    "authPage": {
+      "registration": {
+        "title": "Qeydiyyat",
+        "usernameText": "İstifadəçi adı",
+        "nameText": "Adınız",
+        "emailText": "E-poçtunuz",
+        "passwordText": "Parol",
+        "repeatPasswordText": "Parolu təkrarlayın",
+        "ageAccept": "Mən ölkəmizin yaş müddətini çatdırdığımı təsdiq edirəm və bu saytı istifadə etmək üçün yetkin olduğumu qəbul edirəm.",
+        "termsAccept": "Mən tanış oldum və qəbul edirəm",
+        "termsLink": "İstifadə şərtləri",
+        "and": "və",
+        "privacyLink": "Gizlilik siyasəti",
+        "registerButtonText": "Qeydiyyatdan keçin",
+        "haveAccount": "Hesabınız var?",
+        "loginButtonText": "Daxil olun"
+      },
+      "login": {
+        "title": "Giriş",
+        "usernameText": "İstifadəçi adı",
+        "yourUsername": "İstifadəçi adınız",
+        "passwordText": "Parol",
+        "yourPassword": "Parolunuz",
+        "loginButtonText": "Daxil olun",
+        "noAccount": "Hesabınız yoxdur?",
+        "registerButtonText": "Qeydiyyat"
+      },
+      "chooseLanguage": "Dilinizi seçin"
+    },
     "mainPage": {
       "gamecards": {
-        "timerText": "Ожидание",
-        "onlineText": "Игроков онлайн",
-        "bankText": "Сума выигрыша в пред игре",
-        "priceText": "Цена билета"
+        "timerTextWaiting": "Gözləyir",
+        "timerTextStarting": "başlayır",
+        "timerTextFinising": "Bitirir",
+        "onlineText": "Oyunçuların sayı",
+        "bankText": "Əvvəlki oyunda udulmuş məbləğ",
+        "priceText": "Biletin qiyməti"
       }
     },
     "lotoRoomPage": {
       "gameInfo": {
-        "bankText": "Банк",
-        "betText": "Ставка",
-        "autoButtonText": "Авто",
-        "exitRoomText": "Выйти"
+        "bankText": "Bank",
+        "betText": "Bilet",
+        "autoButtonText": "Avto",
+        "exitRoomText": "Çıxış"
       },
       "tickets": {
-        "updateText": "Обновить",
-        "deleteText": "Удалиит"
+        "updateText": "Yenilə",
+        "deleteText": "Sil"
       },
-      "buyTicketButtonText": "Купить билет"
+      "buyTicketButtonText": "Bilet almaq"
     },
     "lotoGamePage": {
       "gameInfo": {
-        "bankText": "Банк",
-        "betText": "Ставка",
-        "autoButtonText": "Авто"
+        "bankText": "Bank",
+        "betText": "Bilet",
+        "autoButtonText": "Avto"
       },
-      "enjoyGameText": "Приятной игры",
-      "left1Text": "У 1 игроков остался 1 боченок",
-      "left2Text": "У 1 игроков осталось 2 боченка",
-      "left3Text": "У 1 игроков осталось 3 боченка"
+      "enjoyGameText": "Bol şanslar",
+      "left1Text": "COUNT_PLAYERS bilet 1 daş gözləyir",
+      "left2Text": "COUNT_PLAYERS bilet 2 daş gözləyir",
+      "left3Text": "COUNT_PLAYERS bilet 3 daş gözləyir"
     },
     "profilePage": {
-      "maniButtons": {
-        "balanceBtnText": "Баланс",
+      "mainButtons": {
+        "balanceBtnText": "Balans",
         "profileBtnText": {
-          "title": "Детали профиля",
-          "description": "Персональные даные"
+          "title": "Hesab məlumatları",
+          "description": "Şəxsi məlumatlar"
         },
-        "passwordBtnText": "Смена пароля",
-        "mygamesBtnText": "Мои игры",
-        "bonusesBtnText": "Бонусы",
-        "soundsBtnText": "Звуки",
-        "casksBtnText": "Цвет боченков",
-        "logoutBtnText": "выйти"
+        "passwordBtnText": "Şifrəni dəyişmək",
+        "mygamesBtnText": "Oyun tarixçəsi",
+        "bonusesBtnText": "Bonuslar",
+        "soundsBtnText": "Səs",
+        "casksBtnText": "Daşın rəngi",
+        "contactsBtnText": "Bizimlə əlaqə saxlayın",
+
+        "logoutBtnText": "Çıxış"
       },
       "profileDetailsPage": {
-        "changeAvatar": "сменить аватар",
-        "usernameText": "Имя пользователя",
-        "nameText": "Ваше имя",
-        "emailText": "Ваша почта",
-        "saveButtonText": "сохранить",
-        "changeLanguageBtnText": "Сменить язык",
-        "transactionsBtnText": "Транзакции",
-        "returnBtnText": "Назад"
+        "changeAvatar": "Avatarı dəyiş",
+        "usernameText": "İstifadəçi",
+        "nameText": "Adınız",
+        "emailText": "poçt adresi",
+        "saveButtonText": "yadda saxla",
+        "changeLanguageBtnText": "Dili dəyişmək",
+        "transactionsBtnText": "Əməliyyatlar",
+        "returnBtnText": "Geri"
       },
       "changePasswordPage": {
-        "oldPassText": "Старый пароль",
-        "newPassText": "Новый пароль",
-        "repeatNewPassText": "Повторите новый пароль",
-        "saveBtnText": "Изменить пароль",
-        "returnBtnText": "Назад"
+        "oldPassText": "Cari şifrə",
+        "newPassText": "Yeni şifrə",
+        "repeatNewPassText": "Şifrəni təsdiqlə",
+        "saveBtnText": "Şifrəni dəyiş",
+        "returnBtnText": "Geri"
       },
       "myGamesPage": {
         "header": {
-          "backButtonText": "выйти",
-          "headerTitle": "Моя статистика"
+          "backButtonText": "çıxış",
+          "headerTitle": "Mənim statistikam"
         },
         "statsItem": {
-          "loseGameText": "Проиграл",
-          "winGameText": "Выиграл",
-          "winSumText": "Ход",
-          "winJackpotText": "Джекпот выигран",
-          "jackpotStatusWinText": "да",
-          "jackpotStatusLoseText": "нет",
-          "ticketPriceText": "Цена билета",
-          "ticketBetText": "Ставка",
-          "bankText": "Общий банк"
+          "resultText": "Nəticə",
+          "sumWinText": "Uduş məbləği",
+          "loseGameText": "Uduzdunuz",
+          "winGameText": "Qələbə",
+          "winSumText": "Gediş",
+          "winJackpotText": "Cekpot uduldu",
+          "jackpotStatusWinText": "hə",
+          "jackpotStatusLoseText": "yox",
+          "errorText": "Xəta",
+          "continueText": "Davam edəcək",
+          "understandText": "Bu aydındır",
+          "closeText": "yaxın",
+          "ticketPriceText": "Biletin qiyməti",
+          "ticketBetText": "Qoyulan məbləğ",
+          "bankText": "Ümumi bank",
+          "jackpotWasWon": "Jackpot qazanıldı!",
+          "jackpotWasNotWon": "Jackpot qazanılmadı.",
+          "congrats": "Təbrik edirik, qalib gəldiniz",
+          "lose": "Təəssüf edirik, uğur yoxdur, yenidən cəhd edin."
         }
       },
       "bonusesPage": {
-        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
-        "balanceText": "Ваш баланс 0 поинтов",
-        "changeCofText": "Коефициент обмена 100 / 0.20₼",
-        "pointToChangeText": "Поинтов для обмена",
-        "pointToGetText": "Вы получите",
-        "changeButtonText": "Обмен",
-        "alertText": "Обмен осуществляется минимально от 100 поинтов",
-        "returnBtnText": "Выйти"
+        "mainDescription": "Oynanan hər oyun üçün bonus xallar toplanılır, Bonus xallar keşbek sayılır ve real pula çevirə bilərsiniz",
+        "balanceText": "Bal balansınız",
+        "changeCofText": "Mübadilə nisbəti 100 / 0.20₼",
+        "pointToChangeText": "Mübadilə üçün xallar",
+        "pointToGetText": "Alacaqsan",
+        "changeButtonText": "Mübadilə",
+        "alertText": "Mübadilə minimum 100 bal ilə həyata keçirilir",
+        "returnBtnText": "Çıxış"
       },
       "transactionsPage": {
-        "tableHeader": {
-          "nickText": "ник",
-          "typeText": "Тип",
-          "sumText": "Сумма",
-          "dateText": "Дата"
+        "tableheader": {
+          "nickText": "nik",
+          "typeText": "Növ",
+          "sumText": "Məbləğ",
+          "dateText": "Tarix"
         },
         "tableItem": {
-          "typeText1": "Вывод",
-          "typeText2": "Депозит"
+          "typeText1": "Çıxarış",
+          "typeText2": "Balans artır"
         }
       }
     },
     "statsPage": {
-      "informationButtonText": "Информация",
-      "menuHedaer": {
-        "gameLotoText": "Лото",
-        "gameNardsText": "Надры",
-        "gameBackgamonsText": "Домино",
+      "informationButtonText": "Məlumat",
+      "menuHeader": {
+        "gameLotoText": "Loto",
+        "gameNardsText": "Nərd",
+        "gameBackgamonsText": "Domino",
         "mounthes": [
-          "Январь",
-          "Февраль",
-          "Март",
-          "Апрель",
-          "Май",
-          "Июнь",
-          "Июль",
-          "Август",
-          "Сентябрь",
-          "Окрябрь",
-          "Ноябрь",
-          "Декабрь"
+          "Yanvar",
+          "Fevral",
+          "Mart",
+          "Aprel",
+          "May",
+          "İyun",
+          "İyul",
+          "Avqust",
+          "Sentyabr",
+          "Oktyabr",
+          "Noyabr",
+          "Dekabr"
         ]
       },
-      "tableHedaer": {
-        "nameText": "Имя",
-        "winsText": "Победы",
-        "bonusesText": "Бонусы"
+      "tableHeader": {
+        "nameText": "Nik",
+        "winsText": "Qələbə",
+        "bonusesText": "Bonusları"
       }
     },
     "depositMenuPage": {
-      "depositButton": "депозит",
-      "withdrawButton": "Выплаты"
+      "depositButton": "Balans artır",
+      "withdrawButton": "Çıxarış",
+      "returnBtnText": "Geri"
     },
     "depositPage": {
-      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
-      "depositSumText": "Сумма",
-      "alertText": "Минимальный",
-      "depositButtonText": "Внести депозит",
-      "returnBtnText": "Назад"
+      "depositInformationText": "Biz bütün kartları qəbul edirik, o cümlədən Apple Pay, Google Pay vasitəsi ilə",
+      "depositSumText": "məbləğ",
+      "alertText": "Minimum",
+      "depositButtonText": "Depozit qoyun",
+      "returnBtnText": "Geri"
     },
     "withdrawPage": {
-      "cardNumberText": "Номер карты",
-      "cardHolderText": "Имя владельца",
-      "cardExpiresText": "Дата окончания срока",
-      "cardSumText": "Сумма",
-      "alertText": "Минимальная сумма",
-      "withdrawButtonText": "Выплата",
-      "returnBtnText": "Назад"
+      "cardNumberText": "Kart nömrəsi",
+      "cardHolderText": "Kart sahibi",
+      "cardExpiresText": "Bitmə tarixi",
+      "cardSumText": "Məbləğ",
+      "alertText": "Minimum məbləğ",
+      "withdrawButtonText": "Çıxarış",
+      "returnBtnText": "Geri"
     },
     "popups": {
-      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
-      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
-      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
-      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
-      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
-      "winGamePopupTitle": "Поздравляем вы выиграли!",
-      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
-      "endGamePopupDescr": "Список победителей",
-      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+      "jackpotInfoPopup": "Cekpot 20 gedişə oynayır, 20 gediş ərzində 1 sıranı (yuxarı/orta/aşağı) tamamlasanız, cekpotun qalibi siz olacaqsınız.",
+      "statsInfoPopup": "Hörmətli oyunçular, topladığınız xalları dəyişdirə bilərsiniz ₼. Mübadilə etmək üçün sizə minimum 100 bonus lazımdır. Valyuta məzənnəsi 100 bonuslar = 0.20 ₼.",
+      "withdrawInfoPopup": "Müraciətiniz qəbul edildi! Çıxarış 3 iş günü ərzində kartınıza göndəriləcək",
+      "jackpotWonPopup": "Təbrik edirik! Oyunçu PLAYER Jackpotu qazandı",
+      "jackpotLosedPopup": "Təəssüf ki, Jackpot qazanılmadı. Növbəti oyunda şansınızı sınayın!",
+      "winGamePopupTitle": "Təbrik edirik, siz qalib oldunuz!",
+      "loseGamePopupTitle": "Təəssüf ki, qələbə qazana bilmədiniz",
+      "endGamePopupDescr": "Qaliblərin siyahısı",
+      "leaveGameAlert": "Oyunu tərk etsəniz, mərciniz etibarsız olacaq",
+      "anotherAccountEnter": "Hesabınız başqa yerdən daxil olub!",
+      "bonusesSuccess": "Siz uğurla bonuslarınızı mübadilə etdiniz!",
+      "confirmAge": "Zəhmət olmasa yaşınızın qanuni yaşa çatdığını təsdiq edin",
+      "confirmTerms": "Zəhmət olmasa istifadə şərtləri və Gizlilik Siyasətini oxuduğunuzu və qəbul etdiyinizi təsdiq edin",
+      "depositSuccess": "Depozit uğurla kreditləşdirildi",
+      "notEnoughMoney": "Kifayət qədər pul yoxdur",
+      "pointsSuccess": "Ballar uğurla mübadilə edildi",
+      "notEnoughPoints": "Yeterli puan yok",
+      "emptyFields": "Ən azı bir sahəni doldurun",
+      "wrongFormat": "Səhv e-poçt formatı",
+      "dataSuccess": "Məlumatlar uğurla dəyişdirildi",
+      "emailExists": "Belə bir e-poçt ilə istifadəçi artıq mövcuddur",
+      "passwordsNotMatch": "Parollar uyğun gəlmir",
+      "wrongPassword": "Yanlış parol",
+      "passwordChangeSuccess": "Parol uğurla dəyişdirildi",
+      "enterSum": "Məbləği daxil edin",
+      "minimumSum": "Minimum məbləğ 2.00₼",
+      "incorrectFields": "Yanlış sahələr",
+      "ticketBuyError": "Bilet alarkən xəta baş verdi!"
+    },
+    "words": {
+      "yes": "Bəli",
+      "no": "Yox",
+      "understood": "Aydındır",
+      "ok": "OK"
     }
   },
   "en": {
+    "authPage": {
+      "registration": {
+        "title": "Registration",
+        "usernameText": "Username",
+        "nameText": "Your name",
+        "emailText": "Your email",
+        "passwordText": "Password",
+        "repeatPasswordText": "Repeat password",
+        "ageAccept": "I confirm that I have reached the legal age in my country to use this website.",
+        "termsAccept": "I have read and accept the",
+        "termsLink": "Terms of Service",
+        "and": "and",
+        "privacyLink": "Privacy Policy",
+        "registerButtonText": "Register",
+        "haveAccount": "Already have an account?",
+        "loginButtonText": "Log In"
+      },
+      "login": {
+        "title": "Login",
+        "usernameText": "Username",
+        "yourUsername": "Your username",
+        "passwordText": "Password",
+        "yourPassword": "Your password",
+        "loginButtonText": "Log In",
+        "noAccount": "Don't have an account?",
+        "registerButtonText": "Register"
+      },
+      "chooseLanguage": "Select language"
+    },
     "mainPage": {
       "gamecards": {
-        "timerText": "Ожидание",
-        "onlineText": "Игроков онлайн",
-        "bankText": "Сума выигрыша в пред игре",
-        "priceText": "Цена билета"
+        "timerTextWaiting": "Waiting",
+        "timerTextStarting": "Starting",
+        "timerTextFinising": "Finishing",
+        "onlineText": "Players online",
+        "bankText": "Winning amount in previous game",
+        "priceText": "Ticket price"
       }
     },
     "lotoRoomPage": {
       "gameInfo": {
-        "bankText": "Банк",
-        "betText": "Ставка",
-        "autoButtonText": "Авто",
-        "exitRoomText": "Выйти"
+        "bankText": "Bank",
+        "betText": "bet",
+        "autoButtonText": "Auto",
+        "exitRoomText": "Exit"
       },
       "tickets": {
-        "updateText": "Обновить",
-        "deleteText": "Удалиит"
+        "updateText": "Update",
+        "deleteText": "Delete"
       },
-      "buyTicketButtonText": "Купить билет"
+      "buyTicketButtonText": "Ticket price"
     },
     "lotoGamePage": {
       "gameInfo": {
-        "bankText": "Банк",
-        "betText": "Ставка",
-        "autoButtonText": "Авто"
+        "bankText": "Bank",
+        "betText": "bet",
+        "autoButtonText": "Auto"
       },
-      "enjoyGameText": "Приятной игры",
-      "left1Text": "У 1 игроков остался 1 боченок",
-      "left2Text": "У 1 игроков осталось 2 боченка",
-      "left3Text": "У 1 игроков осталось 3 боченка"
+      "enjoyGameText": "Have a good game",
+      "left1Text": "COUNT_PLAYERS player has 1 barrel left",
+      "left2Text": "COUNT_PLAYERS player has 2 barrels left",
+      "left3Text": "COUNT_PLAYERS player has 3 barrels left"
     },
     "profilePage": {
-      "maniButtons": {
-        "balanceBtnText": "Баланс",
+      "mainButtons": {
+        "balanceBtnText": "Balance",
         "profileBtnText": {
-          "title": "Детали профиля",
-          "description": "Персональные даные"
+          "title": "Profile details",
+          "description": "Personal data"
         },
-        "passwordBtnText": "Смена пароля",
-        "mygamesBtnText": "Мои игры",
-        "bonusesBtnText": "Бонусы",
-        "soundsBtnText": "Звуки",
-        "casksBtnText": "Цвет боченков",
-        "logoutBtnText": "выйти"
+        "passwordBtnText": "Change Password",
+        "mygamesBtnText": "Game history",
+        "bonusesBtnText": "Bonuses",
+        "soundsBtnText": "Sounds",
+        "casksBtnText": "Color of barrels",
+        "contactsBtnText": "Contacts",
+
+        "logoutBtnText": "Exit"
       },
       "profileDetailsPage": {
-        "changeAvatar": "сменить аватар",
-        "usernameText": "Имя пользователя",
-        "nameText": "Ваше имя",
-        "emailText": "Ваша почта",
-        "saveButtonText": "сохранить",
-        "changeLanguageBtnText": "Сменить язык",
-        "transactionsBtnText": "Транзакции",
-        "returnBtnText": "Назад"
+        "changeAvatar": "change avatar",
+        "usernameText": "Username",
+        "nameText": "your name",
+        "emailText": "Your mail",
+        "saveButtonText": "save",
+        "changeLanguageBtnText": "Change language",
+        "transactionsBtnText": "Transactions",
+        "returnBtnText": "Back"
       },
       "changePasswordPage": {
-        "oldPassText": "Старый пароль",
-        "newPassText": "Новый пароль",
-        "repeatNewPassText": "Повторите новый пароль",
-        "saveBtnText": "Изменить пароль",
-        "returnBtnText": "Назад"
+        "oldPassText": "Old Password",
+        "newPassText": "New Password",
+        "repeatNewPassText": "Repeat new password",
+        "saveBtnText": "Change password",
+        "returnBtnText": "Back"
       },
       "myGamesPage": {
         "header": {
-          "backButtonText": "выйти",
-          "headerTitle": "Моя статистика"
+          "backButtonText": "Exit",
+          "headerTitle": "My statistics"
         },
         "statsItem": {
-          "loseGameText": "Проиграл",
-          "winGameText": "Выиграл",
-          "winSumText": "Ход",
-          "winJackpotText": "Джекпот выигран",
-          "jackpotStatusWinText": "да",
-          "jackpotStatusLoseText": "нет",
-          "ticketPriceText": "Цена билета",
-          "ticketBetText": "Ставка",
-          "bankText": "Общий банк"
+          "resultText": "Result",
+          "sumWinText": "Winner sum",
+          "loseGameText": "Lost",
+          "winGameText": "Win",
+          "winSumText": "Step",
+          "winJackpotText": "Jackpot win",
+          "jackpotStatusWinText": "Yes",
+          "jackpotStatusLoseText": "No",
+          "errorText": "Error",
+          "continueText": "Continue",
+          "understandText": "It's clear",
+          "closeText": "Close",
+          "ticketPriceText": "Ticket price",
+          "ticketBetText": "Bet",
+          "bankText": "General bank",
+          "jackpotWasWon": "Jackpot was won!",
+          "jackpotWasNotWon": "Jackpot was not won.",
+          "congrats": "Congratulations, you have won",
+          "lose": "Unfortunately, you didn't win, please try again."
         }
       },
       "bonusesPage": {
-        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
-        "balanceText": "Ваш баланс 0 поинтов",
-        "changeCofText": "Коефициент обмена 100 / 0.20₼",
-        "pointToChangeText": "Поинтов для обмена",
-        "pointToGetText": "Вы получите",
-        "changeButtonText": "Обмен",
-        "alertText": "Обмен осуществляется минимально от 100 поинтов",
-        "returnBtnText": "Выйти"
+        "mainDescription": "For each game played you receive bonus points, bonus points are your cashback which can be exchanged for real money",
+        "balanceText": "Your points balance",
+        "changeCofText": "Exchange Ratio 100 / 0.20₼",
+        "pointToChangeText": "Points for exchange",
+        "pointToGetText": "You'll get",
+        "changeButtonText": "Exchange",
+        "alertText": "The exchange is carried out from a minimum of 100 points",
+        "returnBtnText": "Exit"
       },
       "transactionsPage": {
-        "tableHeader": {
-          "nickText": "ник",
-          "typeText": "Тип",
-          "sumText": "Сумма",
-          "dateText": "Дата"
+        "tableheader": {
+          "nickText": "Nick",
+          "typeText": "Type",
+          "sumText": "Sum",
+          "dateText": "Date"
         },
         "tableItem": {
-          "typeText1": "Вывод",
-          "typeText2": "Депозит"
+          "typeText1": "Withdraw",
+          "typeText2": "Deposit"
         }
       }
     },
     "statsPage": {
-      "informationButtonText": "Информация",
-      "menuHedaer": {
-        "gameLotoText": "Лото",
-        "gameNardsText": "Надры",
-        "gameBackgamonsText": "Домино",
+      "informationButtonText": "Information",
+      "menuHeader": {
+        "gameLotoText": "Lotto",
+        "gameNardsText": "Backgammon",
+        "gameBackgamonsText": "Domino",
         "mounthes": [
-          "Январь",
-          "Февраль",
-          "Март",
-          "Апрель",
-          "Май",
-          "Июнь",
-          "Июль",
-          "Август",
-          "Сентябрь",
-          "Окрябрь",
-          "Ноябрь",
-          "Декабрь"
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
         ]
       },
-      "tableHedaer": {
-        "nameText": "Имя",
-        "winsText": "Победы",
-        "bonusesText": "Бонусы"
+      "tableHeader": {
+        "nameText": "Name",
+        "winsText": "Victory",
+        "bonusesText": "Bonuses"
       }
     },
     "depositMenuPage": {
-      "depositButton": "депозит",
-      "withdrawButton": "Выплаты"
+      "depositButton": "Deposit",
+      "withdrawButton": "Withdraw",
+      "returnBtnText": "Back"
     },
     "depositPage": {
-      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
-      "depositSumText": "Сумма",
-      "alertText": "Минимальный",
-      "depositButtonText": "Внести депозит",
-      "returnBtnText": "Назад"
+      "depositInformationText": "We accept all cards, including Apple Pay, Google Pay via Stripe",
+      "depositSumText": "Sum",
+      "alertText": "Minimum",
+      "depositButtonText": "Make a deposit",
+      "returnBtnText": "Back"
     },
     "withdrawPage": {
-      "cardNumberText": "Номер карты",
-      "cardHolderText": "Имя владельца",
-      "cardExpiresText": "Дата окончания срока",
-      "cardSumText": "Сумма",
-      "alertText": "Минимальная сумма",
-      "withdrawButtonText": "Выплата",
-      "returnBtnText": "Назад"
+      "cardNumberText": "Card number",
+      "cardHolderText": "Card Holder",
+      "cardExpiresText": "Expiration Date",
+      "cardSumText": "Sum",
+      "alertText": "Minimum amount",
+      "withdrawButtonText": "Withdraw",
+      "returnBtnText": "Back"
     },
     "popups": {
-      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
-      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
-      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
-      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
-      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
-      "winGamePopupTitle": "Поздравляем вы выиграли!",
-      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
-      "endGamePopupDescr": "Список победителей",
-      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+      "jackpotInfoPopup": "The jackpot plays in 20 moves, if you complete 1 row (top/middle/bottom) within 20 moves, you will be the jackpot winner.",
+      "statsInfoPopup": "Dear players, having accumulated points, you can exchange them for ₼. To exchange you need a minimum of 100 bonuses. Exchange rate 100 bonuses = 0.20 ₼.",
+      "withdrawInfoPopup": "Application accepted! Money will be sent within 3 business days",
+      "jackpotWonPopup": "Congratulations! Player PLAYER won Jackpot",
+      "jackpotLosedPopup": "Unfortunately the Jackpot has not been won. Try your luck on the next game!",
+      "winGamePopupTitle": "Congratulations you have win!",
+      "loseGamePopupTitle": "Unfortunately you didn't manage to win",
+      "endGamePopupDescr": "List of winners",
+      "leaveGameAlert": "If you leave the game your bet will be void",
+      "anotherAccountEnter": "Your account has been logged in from a different location!",
+      "bonusesSuccess": "You have successfully redeemed your bonuses!",
+      "confirmAge": "Please confirm that you have reached the legal age",
+      "confirmTerms": "Please confirm that you have read and accepted the Terms of Service and Privacy Policy",
+      "depositSuccess": "The deposit has been successfully credited",
+      "notEnoughMoney": "Not enough money",
+      "pointsSuccess": "Points successfully exchanged",
+      "notEnoughPoints": "Not enough points",
+      "emptyFields": "Fill in at least one field",
+      "wrongFormat": "Incorrect email format",
+      "dataSuccess": "Data successfully changed",
+      "emailExists": "User with this email already exists",
+      "passwordsNotMatch": "Passwords do not match",
+      "wrongPassword": "Incorrect password",
+      "passwordChangeSuccess": "Password changed successfully",
+      "enterSum": "Enter the amount",
+      "minimumSum": "Minimum amount 2.00₼",
+      "incorrectFields": "Incorrect fields",
+      "ticketBuyError": "An error occurred when buying a ticket!"
+    },
+    "words": {
+      "yes": "Yes",
+      "no": "NO",
+      "understood": "got it",
+      "ok": "OK"
     }
   },
   "ua": {
+    "authPage": {
+      "registration": {
+        "title": "Реєстрація",
+        "usernameText": "Ім'я користувача",
+        "nameText": "Ваше ім'я",
+        "emailText": "Ваша електронна пошта",
+        "passwordText": "Пароль",
+        "repeatPasswordText": "Повторіть пароль",
+        "ageAccept": "Я підтверджую, що досягнув повноліття в країні свого проживання для використання цього веб-сайту.",
+        "termsAccept": "Я ознайомлений(а) і приймаю",
+        "termsLink": "Умови використання",
+        "and": "та",
+        "privacyLink": "Політику конфіденційності",
+        "registerButtonText": "Зареєструватися",
+        "haveAccount": "Уже є обліковий запис?",
+        "loginButtonText": "Увійти"
+      },
+      "login": {
+        "title": "Авторизація",
+        "usernameText": "Ім'я користувача",
+        "yourUsername": "Ваше ім'я користувача",
+        "passwordText": "Пароль",
+        "yourPassword": "Ваш пароль",
+        "loginButtonText": "Увійти",
+        "noAccount": "Немає облікового запису?",
+        "registerButtonText": "Реєстрація"
+      },
+      "chooseLanguage": "Виберіть мову"
+    },
     "mainPage": {
       "gamecards": {
-        "timerText": "Ожидание",
-        "onlineText": "Игроков онлайн",
-        "bankText": "Сума выигрыша в пред игре",
-        "priceText": "Цена билета"
+        "timerTextWaiting": "Очікування",
+        "timerTextStarting": "Починається",
+        "timerTextFinising": "Закінчується",
+        "onlineText": "Гравців онлайн",
+        "bankText": "Сума виграшу у попередній грі",
+        "priceText": "Ціна квитка"
       }
     },
     "lotoRoomPage": {
@@ -507,13 +739,13 @@
         "bankText": "Банк",
         "betText": "Ставка",
         "autoButtonText": "Авто",
-        "exitRoomText": "Выйти"
+        "exitRoomText": "Вийти"
       },
       "tickets": {
-        "updateText": "Обновить",
-        "deleteText": "Удалиит"
+        "updateText": "Оновити",
+        "deleteText": "Видалити"
       },
-      "buyTicketButtonText": "Купить билет"
+      "buyTicketButtonText": "Купити квиток"
     },
     "lotoGamePage": {
       "gameInfo": {
@@ -521,139 +753,408 @@
         "betText": "Ставка",
         "autoButtonText": "Авто"
       },
-      "enjoyGameText": "Приятной игры",
-      "left1Text": "У 1 игроков остался 1 боченок",
-      "left2Text": "У 1 игроков осталось 2 боченка",
-      "left3Text": "У 1 игроков осталось 3 боченка"
+      "enjoyGameText": "Приємної гри",
+      "left1Text": "У COUNT_PLAYERS гравця залишилося 1 боченок",
+      "left2Text": "У COUNT_PLAYERS гравців залишилося 2 боченка",
+      "left3Text": "У COUNT_PLAYERS гравців залишилося 3 боченка"
     },
     "profilePage": {
-      "maniButtons": {
+      "mainButtons": {
         "balanceBtnText": "Баланс",
         "profileBtnText": {
-          "title": "Детали профиля",
-          "description": "Персональные даные"
+          "title": "Деталі профілю",
+          "description": "Персональні дані"
         },
-        "passwordBtnText": "Смена пароля",
-        "mygamesBtnText": "Мои игры",
-        "bonusesBtnText": "Бонусы",
+        "passwordBtnText": "Зміна пароля",
+        "mygamesBtnText": "Мої ігри",
+        "bonusesBtnText": "Бонуси",
         "soundsBtnText": "Звуки",
-        "casksBtnText": "Цвет боченков",
-        "logoutBtnText": "выйти"
+        "casksBtnText": "Колір боченків",
+        "contactsBtnText": "Звязатися з нами",
+
+        "logoutBtnText": "вийти"
       },
       "profileDetailsPage": {
-        "changeAvatar": "сменить аватар",
-        "usernameText": "Имя пользователя",
-        "nameText": "Ваше имя",
-        "emailText": "Ваша почта",
-        "saveButtonText": "сохранить",
-        "changeLanguageBtnText": "Сменить язык",
-        "transactionsBtnText": "Транзакции",
+        "changeAvatar": "змінити аватар",
+        "usernameText": "Ім'я користувача",
+        "nameText": "Ваше ім'я",
+        "emailText": "Ваша пошта",
+        "saveButtonText": "зберегти",
+        "changeLanguageBtnText": "Змінити мову",
+        "transactionsBtnText": "Транзакції",
         "returnBtnText": "Назад"
       },
       "changePasswordPage": {
-        "oldPassText": "Старый пароль",
-        "newPassText": "Новый пароль",
-        "repeatNewPassText": "Повторите новый пароль",
-        "saveBtnText": "Изменить пароль",
+        "oldPassText": "Старий пароль",
+        "newPassText": "Новий пароль",
+        "repeatNewPassText": "Повторіть новий пароль",
+        "saveBtnText": "Змінити пароль",
         "returnBtnText": "Назад"
       },
       "myGamesPage": {
         "header": {
-          "backButtonText": "выйти",
+          "backButtonText": "вийти",
           "headerTitle": "Моя статистика"
         },
         "statsItem": {
-          "loseGameText": "Проиграл",
-          "winGameText": "Выиграл",
-          "winSumText": "Ход",
-          "winJackpotText": "Джекпот выигран",
-          "jackpotStatusWinText": "да",
-          "jackpotStatusLoseText": "нет",
-          "ticketPriceText": "Цена билета",
+          "resultText": "Результат",
+          "sumWinText": "Сума виграшу",
+          "loseGameText": "Програв",
+          "winGameText": "Виграв",
+          "winSumText": "Хід",
+          "winJackpotText": "Джекпот виграно",
+          "jackpotStatusWinText": "так",
+          "jackpotStatusLoseText": "ні",
+          "errorText": "Помилка",
+          "continueText": "Продовжити",
+          "understandText": "Зрозуміло",
+          "closeText": "Закрити",
+          "ticketPriceText": "Ціна квитка",
           "ticketBetText": "Ставка",
-          "bankText": "Общий банк"
+          "bankText": "Загальний банк",
+          "jackpotWasWon": "Джекпот був виграний!",
+          "jackpotWasNotWon": "Джекпот не був виграний.",
+          "congrats": "Вітаємо, ви виграли",
+          "lose": "На жаль, ви не виграли, спробуйте ще раз."
         }
       },
       "bonusesPage": {
-        "mainDescription": "За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги",
-        "balanceText": "Ваш баланс 0 поинтов",
-        "changeCofText": "Коефициент обмена 100 / 0.20₼",
-        "pointToChangeText": "Поинтов для обмена",
-        "pointToGetText": "Вы получите",
-        "changeButtonText": "Обмен",
-        "alertText": "Обмен осуществляется минимально от 100 поинтов",
-        "returnBtnText": "Выйти"
+        "mainDescription": "За кожну зіграну гру ви отримуєте бонусні очки, бонусні очки це ваш кешбек яких можна обміняти на реальні гроші",
+        "balanceText": "Ваш баланс очок",
+        "changeCofText": "Коефіцієнт обміну 100 / 0.20₼",
+        "pointToChangeText": "Поінтів для обміну",
+        "pointToGetText": "Ви отримаєте",
+        "changeButtonText": "Обмін",
+        "alertText": "Обмін здійснюється мінімально від 100 поінтів",
+        "returnBtnText": "Вийти"
       },
       "transactionsPage": {
-        "tableHeader": {
-          "nickText": "ник",
+        "tableheader": {
+          "nickText": "Нік",
           "typeText": "Тип",
-          "sumText": "Сумма",
+          "sumText": "Сума",
           "dateText": "Дата"
         },
         "tableItem": {
-          "typeText1": "Вывод",
+          "typeText1": "Висновок",
           "typeText2": "Депозит"
         }
       }
     },
     "statsPage": {
-      "informationButtonText": "Информация",
-      "menuHedaer": {
+      "informationButtonText": "Інформація",
+      "menuHeader": {
         "gameLotoText": "Лото",
-        "gameNardsText": "Надры",
-        "gameBackgamonsText": "Домино",
+        "gameNardsText": "Нарди",
+        "gameBackgamonsText": "Доміно",
         "mounthes": [
-          "Январь",
-          "Февраль",
-          "Март",
-          "Апрель",
-          "Май",
-          "Июнь",
-          "Июль",
-          "Август",
-          "Сентябрь",
-          "Окрябрь",
-          "Ноябрь",
-          "Декабрь"
+          "Січень",
+          "Лютий",
+          "Березень",
+          "Квітень",
+          "Травень",
+          "Червень",
+          "Липень",
+          "Серпень",
+          "Вересень",
+          "Жовтень",
+          "Листопад",
+          "Грудень"
         ]
       },
-      "tableHedaer": {
-        "nameText": "Имя",
-        "winsText": "Победы",
-        "bonusesText": "Бонусы"
+      "tableHeader": {
+        "nameText": "Імя",
+        "winsText": "Перемоги",
+        "bonusesText": "Бонуси"
       }
     },
     "depositMenuPage": {
       "depositButton": "депозит",
-      "withdrawButton": "Выплаты"
+      "withdrawButton": "Виплати",
+      "returnBtnText": "Назад"
     },
     "depositPage": {
-      "depositInformationText": "Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe",
-      "depositSumText": "Сумма",
-      "alertText": "Минимальный",
+      "depositInformationText": "Приймаємо всі карти, у тому числі Apple Pay, Google Pay через Stripe",
+      "depositSumText": "Сума",
+      "alertText": "Мінімальний",
       "depositButtonText": "Внести депозит",
       "returnBtnText": "Назад"
     },
     "withdrawPage": {
-      "cardNumberText": "Номер карты",
-      "cardHolderText": "Имя владельца",
-      "cardExpiresText": "Дата окончания срока",
-      "cardSumText": "Сумма",
-      "alertText": "Минимальная сумма",
-      "withdrawButtonText": "Выплата",
+      "cardNumberText": "Номер картки",
+      "cardHolderText": "Імя власника",
+      "cardExpiresText": "Термін придатності",
+      "cardSumText": "Сума",
+      "alertText": "Мінімальна сума",
+      "withdrawButtonText": "Виплата",
       "returnBtnText": "Назад"
     },
     "popups": {
-      "jackpotInfoPopup": "Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любойряд (верхний/средний/нижний), то вы будете победителем джекпота.",
-      "statsInfoPopup": "Уважаемые игроки накопив баллы вы можете обменить их на ₼. Для обмена вам требуется минимум 100 бонусов. Курс Обмена 100 бонусов = 0.20 ₼.",
-      "withdrawInfoPopup": "Заявка принята! Деньги будут отправлены на протяжении 3 рабочих дней",
-      "jackpotWonPopup": "Поздравляем! Игрок ИГРОК выиграл Джекпот",
-      "jackpotLosedPopup": "К сожелению Джекпот не выигран. Попробуйте свою удачу в следующей игре!",
-      "winGamePopupTitle": "Поздравляем вы выиграли!",
-      "loseGamePopupTitle": "К сожелению Вам не удалось выиграть",
-      "endGamePopupDescr": "Список победителей",
-      "leaveGameAlert": "Если вы покинете игру ваша ставка будет анулирована"
+      "jackpotInfoPopup": "Джекпот грає за 20 ходів, якщо протягом 20 ходів заповнити 1 будь-який ряд (верхній/середній/нижній), то ви будете переможцем джекпоту.",
+      "statsInfoPopup": "Шановні гравці, накопичивши бали, ви можете обміняти їх на ₼. Для обміну вам потрібно щонайменше 100 бонусів. Курс Обміну 100 бонусів = 0.20 ₼.",
+      "withdrawInfoPopup": "Заявку прийнято! Гроші будуть надіслані протягом 3 робочих днів",
+      "jackpotWonPopup": "Вітаємо! Гравець ГРАВНИК виграв Джекпот",
+      "jackpotLosedPopup": "На жаль, Джекпот не виграний. Спробуйте свій успіх у наступній грі!",
+      "winGamePopupTitle": "Вітаємо ви виграли!",
+      "loseGamePopupTitle": "На жаль, Вам не вдалося виграти",
+      "endGamePopupDescr": "Список переможців",
+      "leaveGameAlert": "Якщо ви залишите гру ваша ставка буде анульована",
+      "anotherAccountEnter": "У ваш акаунт зайшли з іншого місця!",
+      "bonusesSuccess": "Ви успішно обміняли бонуси!",
+      "confirmAge": "Підтвердьте, що досягли повнолітнього віку",
+      "confirmTerms": "Підтвердьте, що ознайомлені та приймаєте Умови користування та Політику конфіденційності",
+      "depositSuccess": "Депозит успішно зараховано",
+      "notEnoughMoney": "Недостатньо коштів",
+      "pointsSuccess": "Поінтпи успішно обміняні",
+      "notEnoughPoints": "Недостатньо поінтів",
+      "emptyFields": "Заповніть хоча б одне поле",
+      "wrongFormat": "Невірний формат електронної пошти",
+      "dataSuccess": "Дані успішно змінено",
+      "emailExists": "Користувач з такою поштою вже існує",
+      "passwordsNotMatch": "Паролі не співпадають",
+      "wrongPassword": "Невірний пароль",
+      "passwordChangeSuccess": "Пароль успішно змінено",
+      "enterSum": "Введіть суму",
+      "minimumSum": "Мінімальна сума 2.00₼",
+      "incorrectFields": "Невірні поля",
+      "ticketBuyError": "Сталася помилка при купівлі білета"
+    },
+    "words": {
+      "yes": "Так",
+      "no": "НІ",
+      "understood": "Зрозуміло",
+      "ok": "OK"
+    }
+  },
+  "tr": {
+    "authPage": {
+      "registration": {
+        "title": "Kayıt Ol",
+        "usernameText": "Kullanıcı Adı",
+        "nameText": "Adınız",
+        "emailText": "E-posta Adresiniz",
+        "passwordText": "Şifre",
+        "repeatPasswordText": "Şifreyi Tekrar Girin",
+        "ageAccept": "Bu web sitesini kullanmak için kendi ülkenizde yasal yaşa ulaştığımı onaylıyorum.",
+        "termsAccept": "Şunu okudum ve kabul ediyorum:",
+        "termsLink": "Kullanım Koşulları",
+        "and": "ve",
+        "privacyLink": "Gizlilik Politikası",
+        "registerButtonText": "Kayıt Ol",
+        "haveAccount": "Zaten bir hesabınız var mı?",
+        "loginButtonText": "Giriş Yap"
+      },
+      "login": {
+        "title": "Giriş Yap",
+        "usernameText": "Kullanıcı Adı",
+        "yourUsername": "Kullanıcı Adınız",
+        "passwordText": "Şifre",
+        "yourPassword": "Şifreniz",
+        "loginButtonText": "Giriş Yap",
+        "noAccount": "Hesabınız yok mu?",
+        "registerButtonText": "Kayıt Ol"
+      },
+      "chooseLanguage": "Dil Seçiniz"
+    },
+    "mainPage": {
+      "gamecards": {
+        "timerTextWaiting": "beklenti",
+        "timerTextStarting": "başlıyor",
+        "timerTextFinising": "biter",
+        "onlineText": "Çevrimiçi oyuncular",
+        "bankText": "Önceki oyunda kazanılan miktar",
+        "priceText": "Bilet fiyatı"
+      }
+    },
+    "lotoRoomPage": {
+      "gameInfo": {
+        "bankText": "Banka",
+        "betText": "Bahis",
+        "autoButtonText": "Oto",
+        "exitRoomText": "Çıkış yap"
+      },
+      "tickets": {
+        "updateText": "yenile",
+        "deleteText": "sil"
+      },
+      "buyTicketButtonText": "Bilet al"
+    },
+    "lotoGamePage": {
+      "gameInfo": {
+        "bankText": "Banka",
+        "betText": "Bahis",
+        "autoButtonText": "Oto"
+      },
+      "enjoyGameText": "Oyunun tadını Çıkar",
+      "left1Text": "COUNT_PLAYERS oyuncunun 1 varili kaldı",
+      "left2Text": "COUNT_PLAYERS oyuncunun 2 varili kaldı",
+      "left3Text": "COUNT_PLAYERS oyunçunun 3 varili qalır"
+    },
+    "profilePage": {
+      "mainButtons": {
+        "balanceBtnText": "Bakiye",
+        "profileBtnText": {
+          "title": "Profil detayları",
+          "description": "Kişisel veri"
+        },
+        "passwordBtnText": "Parola değişimi",
+        "mygamesBtnText": "Oyunlarım",
+        "bonusesBtnText": "Bonuslar",
+        "soundsBtnText": "Sesler",
+        "casksBtnText": "Varillerin rengi",
+        "contactsBtnText": "Bize Ulaşın",
+        "logoutBtnText": "Çıkış yap"
+      },
+      "profileDetailsPage": {
+        "changeAvatar": "Avatarı değiştir",
+        "usernameText": "Kullanıcı adı",
+        "nameText": "Adınız",
+        "emailText": "Mail adresiniz",
+        "saveButtonText": "kaydetmek",
+        "changeLanguageBtnText": "Dili değiştir",
+        "transactionsBtnText": "İşlemler",
+        "returnBtnText": "Geri"
+      },
+      "changePasswordPage": {
+        "oldPassText": "Eski Şifre",
+        "newPassText": "Yeni Şifre",
+        "repeatNewPassText": "Yeni şifreyi tekrarlayın",
+        "saveBtnText": "Şifre değiştir",
+        "returnBtnText": "Geri"
+      },
+      "myGamesPage": {
+        "header": {
+          "backButtonText": "Çıkış yap",
+          "headerTitle": "İstatistiklerim"
+        },
+        "statsItem": {
+          "resultText": "Sonuç",
+          "sumWinText": "Kazanma miktarı",
+          "loseGameText": "Kayıp",
+          "winGameText": "Kazanmak",
+          "winSumText": "Geçit",
+          "winJackpotText": "Büyük ikramiye kazanıldı",
+          "jackpotStatusWinText": "Evet",
+          "jackpotStatusLoseText": "Hayır",
+          "errorText": "Hata",
+          "continueText": "Devam edecek",
+          "understandText": "Apaçık",
+          "closeText": "Kapalı",
+          "ticketPriceText": "Bilet fiyatı",
+          "ticketBetText": "Bahis",
+          "bankText": "Genel banka",
+          "jackpotWasWon": "Jackpot kazanıldı!",
+          "jackpotWasNotWon": "Jackpot kazanılmadı.",
+          "congrats": "Tebrikler, kazandınız",
+          "lose": "Üzgünüz, kazanamadınız, lütfen tekrar deneyin."
+        }
+      },
+      "bonusesPage": {
+        "mainDescription": "Oynanan her oyun için bonus puanlar toplanır, Bonus puanlar geri ödeme olarak kabul edilir ve gerçek paraya dönüştürülebilir",
+        "balanceText": "Puan bakiyeniz",
+        "changeCofText": "Döviz kuru 100 / 0.20₼",
+        "pointToChangeText": "Değişim için puanlar",
+        "pointToGetText": "Alacaksın",
+        "changeButtonText": "Değişme",
+        "alertText": "Değişim minimum 100 puan üzerinden gerçekleştirilir",
+        "returnBtnText": "Çıkış yap"
+      },
+      "transactionsPage": {
+        "tableheader": {
+          "nickText": "Nick",
+          "typeText": "Tip",
+          "sumText": "Toplam",
+          "dateText": "Tarih"
+        },
+        "tableItem": {
+          "typeText1": "Çıkarmak",
+          "typeText2": "Depozito"
+        }
+      }
+    },
+    "statsPage": {
+      "informationButtonText": "Bilgi",
+      "menuHeader": {
+        "gameLotoText": "Loto",
+        "gameNardsText": "Tavla",
+        "gameBackgamonsText": "Domino",
+        "mounthes": [
+          "Ocak",
+          "Şubat",
+          "Mart",
+          "Nisan",
+          "Mayıs",
+          "Haziran",
+          "Temmuz",
+          "Ağustos",
+          "Eylül",
+          "Ekim",
+          "Kasım",
+          "Aralık"
+        ]
+      },
+      "tableHeader": {
+        "nameText": "İsim",
+        "winsText": "Zaferler",
+        "bonusesText": "Bonuslar"
+      }
+    },
+    "depositMenuPage": {
+      "depositButton": "Depozito",
+      "withdrawButton": "Ödemeler",
+      "returnBtnText": "Geri"
+    },
+    "depositPage": {
+      "depositInformationText": "Apple Pay, Stripe aracılığıyla Google Pay dahil tüm kartları kabul ediyoruz",
+      "depositSumText": "Toplam",
+      "alertText": "Asgari",
+      "depositButtonText": "Para yatır",
+      "returnBtnText": "Geri"
+    },
+    "withdrawPage": {
+      "cardNumberText": "Kart numarası",
+      "cardHolderText": "Sahibin adı",
+      "cardExpiresText": "Son kullanma tarihi",
+      "cardSumText": "Toplam",
+      "alertText": "Minimum miktar",
+      "withdrawButtonText": "Ödeme",
+      "returnBtnText": "Geri"
+    },
+    "popups": {
+      "jackpotInfoPopup": "Jackpot 20 hamlede oynanır, herhangi bir satırın (üst/orta/alt) 1 - ni 20 hamlede doldurursanız jackpotun kazananı olursunuz.",
+      "statsInfoPopup": "Sevgili oyuncular, puan biriktirdikten sonra bunları ₼ ile değiştirebilirsiniz. Kullanmak için en az 100 bonusa ihtiyacınız var. 100 bonusun döviz kuru = 0.20 ₼.",
+      "withdrawInfoPopup": "Başvuru kabul edildi! Para 3 iş günü içinde gönderilecektir",
+      "jackpotWonPopup": "Tebrikler! Oyuncu GRAVNYK Jackpot'u kazandı",
+      "jackpotLosedPopup": "Maalesef Jackpot kazanılmadı. Bir sonraki oyunda şansınızı deneyin!",
+      "winGamePopupTitle": "Tebrikler kazandın!",
+      "loseGamePopupTitle": "Maalesef kazanamadın",
+      "endGamePopupDescr": "Kazananların listesi",
+      "leaveGameAlert": "Oyundan ayrılırsanız bahisiniz geçersiz olur",
+      "anotherAccountEnter": "Hesabınıza başka bir yerden erişildi!",
+      "bonusesSuccess": "Bonuslarınızı başarıyla kullanmışsınız!",
+      "confirmAge": "Reşit olduğunuzu onaylayın",
+      "confirmTerms": "Kullanım Koşulları ve Gizlilik Politikası'nı okuduğunuzu ve kabul ettiğinizi onaylayın",
+      "depositSuccess": "Depozito başarıyla yatırıldı",
+      "notEnoughMoney": "Yetersiz para",
+      "pointsSuccess": "Puanlar başarıyla değiştirildi",
+      "notEnoughPoints": "Takas için yeterli puan yok",
+      "emptyFields": "En az bir alanı doldurun",
+      "wrongFormat": "Yanlış e-posta formatı",
+      "dataSuccess": "Veriler başarıyla değiştirildi",
+      "emailExists": "Bu e-posta ile kullanıcı zaten mevcut",
+      "passwordsNotMatch": "Parol uyuşmuyor",
+      "wrongPassword": "Yanlış parola",
+      "passwordChangeSuccess": "Parola başarıyla değiştirildi",
+      "enterSum": "Tutarı girin",
+      "minimumSum": "Minimum tutar 2.00₼",
+      "incorrectFields": "Geçersiz alanlar",
+      "ticketBuyError": "Bilet alırken bir hata oluştu!"
+    },
+    "words": {
+      "yes": "Evet",
+      "no": "HAYIR",
+      "understood": "Apaçık",
+      "ok": "OK"
     }
   }
 }

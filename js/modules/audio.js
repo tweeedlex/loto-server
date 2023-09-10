@@ -28,6 +28,10 @@ export const setMenuSoundsAllowed = (allowed) => {
 // casks
 const casksSounds = [];
 for (let i = 1; i <= 90; i++) {
+  if (language == "AZ" || language == "TR") {
+    language = "AZ-TR";
+  }
+
   let audio = new Audio(
     `./js/modules/sounds/${language}/${i}${language
       .split("-")[0]

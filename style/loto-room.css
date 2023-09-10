@@ -17,6 +17,8 @@
   align-items: center;
 }
 .loto-room-page .room-jackpot .room-jackpot-sum {
+  min-width: 90px;
+
   display: block;
   position: relative;
   border-radius: 5px;
@@ -403,6 +405,9 @@
   .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
     font-size: 16px;
   }
+  .loto-room__gameinfo {
+    max-width: 400px;
+  }
   .loto-room__gameinfo
     .loto-gameinfo__top-row
     .loto-gameinfo__top-row-item
@@ -413,7 +418,7 @@
 
 @media (max-width: 439px) {
   .loto-room__gameinfo {
-    max-width: unset;
+    /* max-width: unset; */
     border-radius: 0 0 10px 10px;
   }
 }

@@ -103,7 +103,6 @@ a {
 
 .select-language__text {
   color: #78010b;
-  text-align: center;
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
@@ -112,7 +111,7 @@ a {
 
 .select-language__text span {
   color: #414141;
-  text-align: center;
+  text-align: left;
   font-size: 11px;
   font-style: normal;
   font-weight: 700;
@@ -153,8 +152,10 @@ a {
   height: 42.746px;
   margin-bottom: 25px;
 }
+
 .registration-button {
   margin-bottom: 25px;
+  font-size: 12px;
 }
 
 .form-body__no-account {
@@ -205,7 +206,7 @@ a {
   }
 
   .registration-form {
-    max-width: 260px !important;
+    max-width: 280px !important;
     padding: 10px;
   }
 
@@ -235,7 +236,7 @@ a {
   .form-body__button {
     height: 27.708px;
     padding: 3.879px 75.865px 3.879px 75.976px;
-    font-size: 14.746px;
+    font-size: 12px;
   }
 
   .form-body__no-account {

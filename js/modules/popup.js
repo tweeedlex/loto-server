@@ -1,6 +1,7 @@
 import * as impNav from "./navigation.js";
 import * as impHttp from "./http.js";
 import * as impAudio from "./audio.js";
+import * as impLocalization from "./localize.js";
 
 // 100 предупреждения
 // 200 выиграш
@@ -13,6 +14,7 @@ const isPopupOpened = () => {
 };
 
 export const open = (text, status, showButton = false, ws = null) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -27,7 +29,11 @@ export const open = (text, status, showButton = false, ws = null) => {
     <div class="popup__text ${status === 400 ? "popup__text-red" : ""}">
       ${text}
     </div>
-    ${showButton ? `<button class="popup__button">Продолжить</button>` : ""}
+    ${
+      showButton
+        ? `<button class="popup__button">${siteLanguage.profilePage.myGamesPage.statsItem.continueText}</button>`
+        : ""
+    }
   </div>
 </div>`;
 
@@ -50,6 +56,7 @@ export const open = (text, status, showButton = false, ws = null) => {
 };
 
 export const openErorPopup = (text) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -59,13 +66,13 @@ export const openErorPopup = (text) => {
   popupElement.innerHTML = `<div class="popup__body">
   <div class="popup__content">
     <div class="popup-header">
-      <p>Ошибка</p>
+      <p>${siteLanguage.profilePage.myGamesPage.statsItem.errorText}</p>
       <img src="img/error-icon.png" alt="" />
     </div>
     <div class="popup__text">
       ${text}
     </div>
-    <button class="popup__button">Закрыть</button>
+    <button class="popup__button">${siteLanguage.profilePage.myGamesPage.statsItem.closeText}</button>
   </div>
 </div>`;
 
@@ -82,6 +89,7 @@ export function close(element) {
 }
 
 export const openAnotherAccountEnterPopup = (ws) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -95,10 +103,10 @@ export const openAnotherAccountEnterPopup = (ws) => {
       <img src="img/popup-alert.png" alt="" />
     </div>
     <div class="popup__text">
-      В ваш аккаунт вошли с другого места!
+      ${siteLanguage.popups.anotherAccountEnter}
     </div>
     <div class="popup__buttons">
-      <button class="popup__button popup__submit-button">Понятно</button>
+      <button class="popup__button popup__submit-button">${siteLanguage.profilePage.myGamesPage.statsItem.understandText}</button>
     </div>
   </div>
 </div>`;
@@ -113,6 +121,7 @@ export const openAnotherAccountEnterPopup = (ws) => {
 };
 
 export const openSuuccessBonusesChange = (ws) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -120,17 +129,17 @@ export const openSuuccessBonusesChange = (ws) => {
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup");
   popupElement.innerHTML = `
-        <div class="popup__body success-bonuses-change-popup">
-          <div class="popup__content">
-           
-            <div class="popup__text">
-              Вы успешно обменяли бонусы!
-            </div>
-            <div class="popup__buttons">
-              <button class="popup__button popup__submit-button">Ок</button>
-            </div>
-          </div>
-        </div>`;
+    <div class="popup__body success-bonuses-change-popup">
+      <div class="popup__content">
+        
+        <div class="popup__text">
+          ${siteLanguage.popups.bonusesSuccess}
+        </div>
+        <div class="popup__buttons">
+          <button class="popup__button popup__submit-button">${siteLanguage.words.ok}</button>
+        </div>
+      </div>
+    </div>`;
   body.appendChild(popupElement);
 
   const button = body.querySelector(".popup__submit-button");
@@ -140,6 +149,7 @@ export const openSuuccessBonusesChange = (ws) => {
 };
 
 export const openExitPopup = (text, roomId, bet = null) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -156,8 +166,8 @@ export const openExitPopup = (text, roomId, bet = null) => {
       ${text}
     </div>
     <div class="popup__buttons">
-      <button class="popup__button popup__submit-button red">Да</button>
-      <button class="popup__button close-popup green">Нет</button>
+      <button class="popup__button popup__submit-button red">${siteLanguage.words.yes}</button>
+      <button class="popup__button close-popup green">${siteLanguage.words.no}</button>
     </div>
   </div>
 </div>`;
@@ -193,6 +203,7 @@ export const openEndGamePopup = (
   isJackpotWon,
   jackpotData
 ) => {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -214,7 +225,7 @@ export const openEndGamePopup = (
     </div>
     
       <div class="popup__text end-game-popup__text">
-        Список победителей:
+        ${siteLanguage.popups.endGamePopupDescr}:
       </div>
       <div class="end-game-popup__winners-wrapper">
         <div class="end-game-popup__winners end-game-winners">
@@ -305,6 +316,7 @@ export const openEndGamePopup = (
 };
 
 function openJackpotPopup(isJackpotWon, jackpotData) {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -320,7 +332,7 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
         </div>
         <div class="jackpot-popup__jackpot animation"><span>${jackpotData.jackpotSum}</span>₼</div>
         <div class="popup__title jackpot-popup__title visible">
-        Джекпот был выигран игроком ${jackpotData.jackpotWinnerName}!
+        ${siteLanguage.popups.jackpotWonPopup} ${jackpotData.jackpotWinnerName}
         </div>
       </div>
     </div>
@@ -341,7 +353,7 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
       </div>
       <div class="jackpot-popup__jackpot animation"><span>${jackpotData.jackpotSum}</span>₼</div>
       <div class="popup__title jackpot-popup__title visible">
-      Джекпот не выигран, попробуйте испытать свою удачу в следующей игре!
+      ${siteLanguage.popups.jackpotLosedPopup}
       </div>
     </div>
   </div>
@@ -354,6 +366,7 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
 }
 
 export function openJackpotInfoPopup() {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -362,16 +375,14 @@ export function openJackpotInfoPopup() {
   popupElement.classList.add("popup", "jackpot-popup");
   popupElement.innerHTML = `
   <div class="popup__body jackpot-info-popup">
-  <div class="popup__content">
-    <div class="popup__text">
-      Джекпот играет за 20 ходов, если в течение 20 ходов заполнить 1 любой
-      ряд (верхний/средний/нижний), то вы будете победителем
-      джекпота.
+    <div class="popup__content">
+      <div class="popup__text">
+      ${siteLanguage.popups.jackpotInfoPopup}
+      </div>
+      <img src="img/jackpot-info-image.png" class="jackpot-popup-image">
+      <div class="popup-button__gotit"> ${siteLanguage.profilePage.myGamesPage.statsItem.understandText}</div>
     </div>
-    <img src="img/jackpot-info-image.png" class="jackpot-popup-image">
-    <div class="popup-button__gotit">Понятно</div>
   </div>
-</div>
       `;
 
   let gotItBtn = popupElement.querySelector(".popup-button__gotit");
@@ -383,9 +394,11 @@ export function openJackpotInfoPopup() {
 }
 
 export function openInfoTokensPopup() {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
+
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup", "jackpot-popup");
@@ -393,9 +406,8 @@ export function openInfoTokensPopup() {
   <div class="popup__body jackpot-info-popup">
     <div class="popup__content">
       <div class="popup__text popup__text-bold">
-        Уважаемые игроки накопив баллы вы можете обменить их на ₼.
-        Для обмена вам требуется минимум 100 бонусов.
-        Курс Обмена 100 бонусов = 0.20 ₼
+      ${siteLanguage.popups.statsInfoPopup}
+
       </div>
       <div class="tokens-popup-table">
         <div class="tokens-popup-table__item">
@@ -474,7 +486,7 @@ export function openInfoTokensPopup() {
           </div>
         </div>
       </div>
-      <div class="popup-button__gotit">Понятно</div>
+      <div class="popup-button__gotit">${siteLanguage.profilePage.myGamesPage.statsItem.understandText}</div>
     </div>
   </div>
   `;
@@ -488,6 +500,7 @@ export function openInfoTokensPopup() {
 }
 
 export function openChangeLanguage() {
+  let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
   }
@@ -497,13 +510,11 @@ export function openChangeLanguage() {
   popupElement.innerHTML = `
   <div class="popup__body change-language-popup">
   <div class="popup__content language-popup-content">
-    <div class="popup__text popup__text-bold">
-      Выберите язык
-    </div>
     <div class="change-language-popup__buttons">
       <button lang="ru" class="language-popup__button">Русский</button>
       <button lang="UA" class="language-popup__button">Українська</button>
-      <button lang="AZ-TR" class="language-popup__button">Azərbaycan dili</button>
+      <button lang="AZ" class="language-popup__button">Azərbaycan dili</button>
+      <button lang="TR" class="language-popup__button">Türkçe</button>
       <button lang="EN" class="language-popup__button">English</button>
     </div>
   </div>
@@ -513,10 +524,23 @@ export function openChangeLanguage() {
     ".language-popup__button"
   );
   languageButtons.forEach((button) => {
-    button.addEventListener("click", function () {
+    button.addEventListener("click", async function () {
       let lang = button.getAttribute("lang");
       localStorage.setItem("language", lang);
+      let siteLanguage = await impLocalization.getCurrentSiteLang();
+      window.siteLanguage = siteLanguage;
       impAudio.setLanguage(lang);
+      impLocalization.translateMainPage();
+      impLocalization.translateProfilePage();
+
+      const languageText = document.querySelector(
+        ".select-language__text span"
+      );
+      if (languageText) {
+        languageText.innerHTML = button.innerHTML;
+      }
+      impLocalization.translateAuthPage();
+
       close(popupElement);
     });
   });

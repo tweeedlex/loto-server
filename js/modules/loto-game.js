@@ -145,6 +145,7 @@ export async function openGamePage(
   isJackpotPlaying = null
 ) {
   let body = document.querySelector("main");
+  let siteLanguage = window.siteLanguage;
   body.innerHTML = `  
 
   <div class="loto-game-room-page">
@@ -164,10 +165,12 @@ export async function openGamePage(
       <div class="loto-room__gameinfo loto-gameinfo">
         <div class="loto-gameinfo__top-row">
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
-            Ставка: <span>${bet != null ? bet : 0}</span> ₼
+            ${siteLanguage.lotoGamePage.gameInfo.betText}: <span>${
+    bet != null ? bet : 0
+  }</span> ₼
           </p>
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
-            Банк:
+            ${siteLanguage.lotoGamePage.gameInfo.bankText}:
             <span>${bank != null ? Number(bank).toFixed(2) : 0}</span> ₼
           </p>
           <div class="loto-room-page__exit-wrapper"></div>
@@ -180,7 +183,9 @@ export async function openGamePage(
             <span>${online != null ? online : 0}</span>
           </p>
           <p class="loto-gameinfo__auto-button active">
-            <img src="img/autogame-icon.png" alt="" /><span>АВТО</span>
+            <img src="img/autogame-icon.png" alt="" /><span>${
+              siteLanguage.lotoGamePage.gameInfo.autoButtonText
+            }</span>
           </p>
           <p class="loto-gameinfo__sounds-button active">
             <img src="img/profile icons/sound.png" alt="" />
@@ -191,7 +196,7 @@ export async function openGamePage(
     </div>
 
     <div class="loto-gameinfo__information-left initial">
-      Приятной игры!
+      ${siteLanguage.lotoGamePage.enjoyGameText}
     </div>
 
     <div class="loto-game-room__gameprocess"></div>
@@ -263,6 +268,8 @@ export async function openGamePage(
   // показываем билеты
   let userCards = await impHttp.getTickets();
   userCards = userCards.data;
+
+  showPreviousCasks();
   showUserTickets(userCards, roomId);
 
   // добавляем функционал на кнопку "авто игра"
@@ -286,22 +293,15 @@ export async function openGamePage(
 }
 
 export function showJackpotWon(winner, sum) {
-  if (winner == window.userId) {
-    // impPopup.open(
-    //   `Поздравляем вы выиграли джекпот! Ваша сумма выигрыша составила ${sum.toFixed(
-    //     2
-    //   )}М`,
-    //   200
-    // );
-    // setTimeout(() => {
-    //   const popup = document.querySelector(".popup");
-    //   impPopup.close(popup);
-    // }, 5000);
-  }
-
   const jackpotSum = document.querySelector(".room-jackpot-sum");
   if (jackpotSum) {
-    jackpotSum.innerHTML = "выигран!";
+    // jackpotSum.innerHTML = `выигран!`;
+    jackpotSum.innerHTML = `${
+      siteLanguage.profilePage.myGamesPage.statsItem.winJackpotText.split(" ")[
+        siteLanguage.profilePage.myGamesPage.statsItem.winJackpotText.split(" ")
+          .length - 1
+      ]
+    }!`;
   }
 }
 
@@ -314,6 +314,10 @@ export function showUserTickets(tickets, roomId) {
 
   if (tickets.length == 0) {
     return;
+  }
+  let prevTicketsInfo = localStorage.getItem("ticketsInfo");
+  if (!prevTicketsInfo) {
+    localStorage.setItem("ticketsInfo", JSON.stringify([]));
   }
   // создаем новые
   let boughtTicketsCounter = 0;
@@ -334,13 +338,45 @@ export function showUserTickets(tickets, roomId) {
         ticket.setAttribute("choosedCasks", JSON.stringify([]));
         ticket.setAttribute("mustBeChoosed", JSON.stringify([]));
         ticket.setAttribute("unavailableCasks", JSON.stringify([]));
+
+        prevTicketsInfo = localStorage.getItem("ticketsInfo");
+        let prevTicketInfo = JSON.parse(prevTicketsInfo).find(
+          (item) => item.ticketId == ticket.id
+        );
+
         cells.forEach((cell) => {
           let ticketCell = document.createElement("li");
           ticketCell.classList.add("ticket-cell");
+          if (prevTicketInfo) {
+            if (prevTicketInfo.choosedCasks.includes(+cell)) {
+              ticketCell.classList.add("active");
+            }
+            if (prevTicketInfo.unavailableCasks.includes(+cell)) {
+              ticketCell.classList.add("unavailable");
+            }
+            if (prevTicketInfo.mustBeChoosedCasks.includes(+cell)) {
+              ticketCell.classList.add("droped");
+            }
+          }
           ticketCell.innerHTML = cell;
           ticket.appendChild(ticketCell);
         });
         ticketsBody.appendChild(ticket);
+      }
+
+      let ticketInfo = {
+        ticketId: ticket.id,
+        isActive: ticket.isActive,
+        mustBeChoosedCasks: [],
+        choosedCasks: [],
+        unavailableCasks: [],
+      };
+
+      //создаем тикет в локал сторейдж
+      let ticketsInfo = JSON.parse(localStorage.getItem("ticketsInfo"));
+      if (!ticketsInfo.find((item) => item.ticketId == ticket.id)) {
+        ticketsInfo.push(ticketInfo);
+        localStorage.setItem("ticketsInfo", JSON.stringify(ticketsInfo));
       }
     }
   });
@@ -378,60 +414,66 @@ export function showUserTicketsInLobby(tickets, roomId) {
 
 export function createCask(ws, cask, caskNumber, pastCasks) {
   let gameprocessBlock = document.querySelector(".loto-game-room__gameprocess");
-  let caskBlock = document.createElement("div");
+  if (gameprocessBlock) {
+    let caskBlock = document.createElement("div");
 
-  impAudio.playNumber(cask);
-  caskBlock.classList.add("loto-game-room__cask");
-  caskBlock.innerHTML = cask;
+    impAudio.playNumber(cask);
+    caskBlock.classList.add("loto-game-room__cask");
+    caskBlock.innerHTML = cask;
 
-  let caskNumberBlock = document.createElement("span");
-  caskNumberBlock.innerHTML = caskNumber;
-  caskNumberBlock.classList.add("cask-number");
+    let caskNumberBlock = document.createElement("span");
+    caskNumberBlock.innerHTML = caskNumber;
+    caskNumberBlock.classList.add("cask-number");
 
-  // если игрок перезашел в комнату и уже есть прошедшие каски, показываем их
-  if (pastCasks.length > 0 && gameprocessBlock.innerHTML == "") {
-    for (let i = 0; i < 5; i++) {
-      let caskBlock = document.createElement("div");
-      caskBlock.classList.add("loto-game-room__cask");
-      const number = pastCasks[pastCasks.length - 6 + i];
-      if (number) {
-        caskBlock.innerHTML = number;
-        gameprocessBlock.appendChild(caskBlock);
+    localStorage.setItem("pastCasks", JSON.stringify(pastCasks));
+
+    // показываем последних 6 касок если они есть после того как прийдет новая
+    if (pastCasks.length > 0 && gameprocessBlock.innerHTML == "") {
+      for (let i = 0; i < 5; i++) {
+        let caskBlock = document.createElement("div");
+        caskBlock.classList.add("loto-game-room__cask");
+        const number = pastCasks[pastCasks.length - 6 + i];
+        if (number) {
+          caskBlock.innerHTML = number;
+          gameprocessBlock.appendChild(caskBlock);
+        }
       }
     }
-  }
 
-  // убираем все бочки что старее 5
-  if (gameprocessBlock.children.length > 5) {
-    gameprocessBlock.removeChild(gameprocessBlock.children[0]);
-  }
-  // убираем все цвета с бочек
-  gameprocessBlock.querySelectorAll(".loto-game-room__cask").forEach((cask) => {
-    cask.classList.remove("active");
-  });
-  // удаляем предидущик номера бочки
-  let allOldCasks = document.querySelectorAll(".cask-number");
-  allOldCasks.forEach((oldCaskNum) => {
-    if (oldCaskNum) {
-      oldCaskNum.remove();
+    // убираем все бочки что старее 5
+    if (gameprocessBlock.children.length > 5) {
+      gameprocessBlock.removeChild(gameprocessBlock.children[0]);
     }
-  });
-  // Устанавливаем желтый цвет только для последней вставленной бочки
-  caskBlock.classList.add("active");
-  caskBlock.appendChild(caskNumberBlock);
-  gameprocessBlock.appendChild(caskBlock);
+    // убираем все цвета с бочек
+    gameprocessBlock
+      .querySelectorAll(".loto-game-room__cask")
+      .forEach((cask) => {
+        cask.classList.remove("active");
+      });
+    // удаляем предидущик номера бочки
+    let allOldCasks = document.querySelectorAll(".cask-number");
+    allOldCasks.forEach((oldCaskNum) => {
+      if (oldCaskNum) {
+        oldCaskNum.remove();
+      }
+    });
+    // Устанавливаем желтый цвет только для последней вставленной бочки
+    caskBlock.classList.add("active");
+    caskBlock.appendChild(caskNumberBlock);
+    gameprocessBlock.appendChild(caskBlock);
 
-  // сохраняем билеты в локал сторадж
-  // saveTickets();
+    // сохраняем билеты в локал сторадж
+    // saveTickets();
 
-  // получаем состояние кнопки авто
-  let buttonAuto = document.querySelector(".loto-gameinfo__auto-button");
-  if (buttonAuto) {
-    if (buttonAuto.classList.contains("active")) {
-      colorCask(cask, pastCasks);
-    } else if (!buttonAuto.classList.contains("active")) {
-      checkChoosedCasks(ws, pastCasks);
-      selectCaskByFinger(pastCasks);
+    // получаем состояние кнопки авто
+    let buttonAuto = document.querySelector(".loto-gameinfo__auto-button");
+    if (buttonAuto) {
+      if (buttonAuto.classList.contains("active")) {
+        colorCask(cask, pastCasks);
+      } else if (!buttonAuto.classList.contains("active")) {
+        checkChoosedCasks(ws, pastCasks);
+        selectCaskByFinger(pastCasks);
+      }
     }
   }
 }
@@ -456,7 +498,7 @@ function checkChoosedCasks(ws, pastCasks) {
             );
           }
         } else {
-          // если число не отмечено и оно есть в mustbechoosed, при том что оно так же есть в pastcasks без последних 5, значит ставим крестик и билет не активен
+          // если число не отмечено и оно есть в mustbechoosed, при том что оно так же есть в pastcasks без последних 7, значит ставим крестик и билет не активен
           const pastCasksWithoutLastSeven = pastCasks.slice(0, -6);
           if (
             pastCasksWithoutLastSeven.includes(Number(cell.innerHTML)) &&
@@ -464,26 +506,28 @@ function checkChoosedCasks(ws, pastCasks) {
           ) {
             const unavailableCasks =
               JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
+
             if (!unavailableCasks.includes(+cell.innerHTML)) {
               ticket.setAttribute(
                 "unavailableCasks",
                 JSON.stringify([...unavailableCasks, +cell.innerHTML])
               );
-              localStorage.setItem(
-                `unavailableCasks-${ticket.getAttribute("id")}`,
-                JSON.stringify([...unavailableCasks, +cell.innerHTML])
-              );
-              const localItemsToClear =
-                JSON.parse(localStorage.getItem("localItemsToClear")) || [];
-              localStorage.setItem(
-                "localItemsToClear",
-                JSON.stringify([
-                  ...localItemsToClear,
-                  `unavailableCasks-${ticket.getAttribute("id")}`,
-                ])
-              );
               cell.classList.add("unavailable");
-              console.log([...unavailableCasks, +cell.innerHTML]);
+
+              let ticketsInfo = JSON.parse(
+                localStorage.getItem("ticketsInfo") || "[]"
+              );
+
+              if (ticketsInfo) {
+                ticketsInfo
+                  .find((item) => item.ticketId == ticket.getAttribute("id"))
+                  .unavailableCasks.push(+cell.innerHTML);
+                console.log(ticketsInfo);
+                localStorage.setItem(
+                  "ticketsInfo",
+                  JSON.stringify(ticketsInfo)
+                );
+              }
             }
             if (!ticket.classList.contains("unavailable")) {
               ticket.classList.add("unavailable");
@@ -548,7 +592,16 @@ function selectCaskByFinger(pastCasks) {
         }
 
         ticket.setAttribute("choosedcasks", JSON.stringify(activeCaskNumbers));
-        console.log(ticket.getAttribute("choosedcasks"));
+        let ticketsInfo = JSON.parse(
+          localStorage.getItem("ticketsInfo") || "[]"
+        );
+        if (ticketsInfo) {
+          ticketsInfo
+            .find((item) => item.ticketId == ticket.getAttribute("id"))
+            .choosedCasks.push(cask);
+
+          localStorage.setItem("ticketsInfo", JSON.stringify(ticketsInfo));
+        }
       }
     };
   }
@@ -558,14 +611,12 @@ function colorCask(cask, pastCasks) {
   let ticketsBody = document.querySelector(".loto-game-room__main");
   if (ticketsBody) {
     let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+    let ticketsInfo = JSON.parse(localStorage.getItem("ticketsInfo") || "[]");
+
     // заполнение новой выпавшей циферки
     tickets.forEach((ticket) => {
       let ticketCells = ticket.querySelectorAll(".ticket-cell");
-      const unavailableCasks =
-        JSON.parse(
-          localStorage.getItem(`unavailableCasks-${ticket.getAttribute("id")}`)
-        ) || [];
-      // if (!ticket.classList.contains("unavailable")) {
+
       ticketCells.forEach((cell) => {
         if (
           !cell.classList.contains("active") &&
@@ -579,13 +630,17 @@ function colorCask(cask, pastCasks) {
             );
             let allActiveCasks = ticket.querySelectorAll(".ticket-cell.active");
             ticket.setAttribute("choosedcasks", allActiveCasks.length);
+
+            if (ticketsInfo) {
+              ticketsInfo
+                .find((item) => item.ticketId == ticket.getAttribute("id"))
+                .choosedCasks.push(cask);
+
+              localStorage.setItem("ticketsInfo", JSON.stringify(ticketsInfo));
+            }
           }
         }
-        if (unavailableCasks.includes(+cell.innerHTML)) {
-          cell.classList.add("unavailable");
-        }
       });
-      // }
     });
   }
 }
@@ -610,13 +665,7 @@ export async function colorDropedCasks(pastCasks) {
           ticket.classList.add("unavailable");
         }
         let ticketCells = ticket.querySelectorAll(".ticket-cell");
-        const unavailableCasks =
-          JSON.parse(
-            localStorage.getItem(
-              `unavailableCasks-${ticket.getAttribute("id")}`
-            )
-          ) || [];
-        console.log(unavailableCasks);
+
         ticketCells.forEach((cell) => {
           if (
             ticketData.isActive == true &&
@@ -625,7 +674,7 @@ export async function colorDropedCasks(pastCasks) {
           ) {
             if (pastCasks.includes(Number(cell.innerHTML))) {
               if (
-                !unavailableCasks.includes(+cell.innerHTML) &&
+                // !unavailableCasks.includes(+cell.innerHTML) &&
                 ticketData.isActive == true
               ) {
                 cell.classList.add(
@@ -645,10 +694,11 @@ export async function colorDropedCasks(pastCasks) {
             // cell.classList.add("unavailable");
           }
 
-          if (unavailableCasks.includes(+cell.innerHTML)) {
-            cell.classList.add("unavailable");
-          } else if (
-            !unavailableCasks.includes(+cell.innerHTML) &&
+          // if (unavailableCasks.includes(+cell.innerHTML)) {
+          //   cell.classList.add("unavailable");
+          // } else
+          if (
+            // !unavailableCasks.includes(+cell.innerHTML) &&
             pastCasks.includes(+cell.innerHTML)
           ) {
             cell.classList.add(
@@ -686,37 +736,66 @@ export function checkWin(
 
     let jackpotWonMessage = "";
     if (isJackpotWon) {
-      jackpotWonMessage = "Джекпот был выигран!";
+      jackpotWonMessage =
+        siteLanguage.profilePage.myGamesPage.statsItem.jackpotWasWon;
     } else {
-      jackpotWonMessage = "Джекпот не был выигран.";
+      jackpotWonMessage =
+        siteLanguage.profilePage.myGamesPage.statsItem.jackpotWasNotWon;
     }
 
     if (winTickets > 0) {
       impAudio.playLoading();
       impPopup.openEndGamePopup(
-        `Поздравляем, вы выиграли ${(bank / winnersData.length).toFixed(2)} ₼!`,
+        `${siteLanguage.profilePage.myGamesPage.statsItem.congrats} ${(
+          bank / winnersData.length
+        ).toFixed(2)} ₼!`,
         200,
         winnersData,
         bank,
         isJackpotWon,
         jackpotData
       );
-      // impPopup.open(
-      //   `Общее количество победивших билетов ${winnersAmount}. Из них ваших ${winTickets}, сума выигрыша ${wonSum}. Поздравляем! \n${jackpotWonMessage}`,
-      //   200,
-      //   winnersData
-      // );
       return;
     } else {
       impAudio.playLoading();
       impPopup.openEndGamePopup(
-        "К сожалению вы не смогли выиграть попробуйте еще раз.",
+        siteLanguage.profilePage.myGamesPage.statsItem.lose,
         400,
         winnersData,
         bank,
         isJackpotWon,
         jackpotData
       );
+    }
+  }
+}
+
+function showPreviousCasks() {
+  let pastCasks = localStorage.getItem("pastCasks");
+  if (pastCasks) {
+    pastCasks = JSON.parse(pastCasks);
+  } else return;
+
+  const gameprocessBlock = document.querySelector(
+    ".loto-game-room__gameprocess"
+  );
+
+  if (gameprocessBlock.innerHTML == "") {
+    for (let i = 0; i < 6; i++) {
+      let caskBlock = document.createElement("div");
+      caskBlock.classList.add("loto-game-room__cask");
+      const number = pastCasks[pastCasks.length - 6 + i];
+      caskBlock.innerHTML = number;
+      if (i == 5) {
+        caskBlock.classList.add("active");
+        let caskNumberBlock = document.createElement("span");
+        caskNumberBlock.innerHTML = pastCasks.length;
+        caskNumberBlock.classList.add("cask-number");
+        caskBlock.appendChild(caskNumberBlock);
+      }
+      if (number) {
+        gameprocessBlock.appendChild(caskBlock);
+      }
     }
   }
 }

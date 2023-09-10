@@ -5,90 +5,13 @@ import * as impAdminNav from "./admin-navigation.js";
 import * as impAudio from "./audio.js";
 import * as impLeaders from "./leaders.js";
 import * as impAuthInterface from "./authinterface.js";
-
-// export async function openProfilePage() {
-//   let main = document.querySelector("main");
-//   if (main) {
-//     let userInfo = await getProfileInfo();
-
-//     if (userInfo == false) {
-//       return;
-//     }
-//     main.innerHTML = `<div class="main__container">
-//     <section class="password-form">
-//       <div class="password-form-header">
-//         <h3 class="password-form-header__title">Профиль игрока</h3>
-//       </div>
-//       <div class="password-form-main">
-//         <div class="password-form-main__block profile-block">
-//           <div class="profile-block__section">
-//             <div class="profile-block__item button">
-//               <h4>Баланс: <span>${userInfo.balance.toFixed(2)}</span></h4>
-//               <div class="topup-balance">+</div>
-//             </div>
-//           </div>
-//           <div class="profile-block__section">
-//             <h3 class="profile-block__item title">
-//               Информация об аккаунте
-//             </h3>
-//             <p class="profile-block__item text">
-//               Имя: <span class="profile-name">${userInfo.name}</span>
-//             </p>
-//             <p class="profile-block__item text">
-//               Почта: <span class="profile-email">${userInfo.email}</span>
-//             </p>
-//             <p class="profile-block__item text">
-//               Username: <span class="profile-username">${
-//                 userInfo.username
-//               }</span>
-//             </p>
-//             <div class="profile-block__item button change-password">
-//               <h4>Изменить пароль</h4>
-//             </div>
-//           </div>
-//           <div class="profile-block__section">
-//             <h3 class="profile-block__item title">Другое</h3>
-//             <div class="profile-block__item button" id="user-game-stats">
-//               <h4>Статистика игр</h4>
-//             </div>
-//             <div class="profile-block__item button">
-//               <h4>Транзакции</h4>
-//             </div>
-//             <div class="profile-block__item button exit logout-button">
-//               <h4>Выйти</h4>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   </div>`;
-//   }
-
-//   const gameStatsButton = document.querySelector("#user-game-stats");
-//   gameStatsButton.addEventListener("click", function () {
-//     openUserGames();
-//   });
-
-//   const changePasswordButton = document.querySelector(".change-password");
-//   changePasswordButton.addEventListener("click", function () {
-//     openChangePasswordForm();
-//   });
-
-//   let profilePage = document.querySelector(".password-form");
-//   let logoutButton = profilePage.querySelector(".logout-button");
-//   logoutButton.addEventListener("click", function () {
-//     localStorage.removeItem("token");
-//     location.reload();
-//   });
-// }
-
 let preloader = document.querySelector(".page-preloader");
 
 export async function openProfilePage() {
   let preloader = document.querySelector(".page-preloader");
   let header = document.querySelector("header");
   let main = document.querySelector(".main__container");
-
+  let siteLanguage = window.siteLanguage;
   if (main) {
     main.innerHTML = `
       <section class="profile-page">
@@ -100,7 +23,7 @@ export async function openProfilePage() {
           <div class="profile__buttons">
             <a class="profile__button profile__balance-button">
               <img src="img/profile icons/balance.png" alt="balance" />
-              <p>БАЛАНС:</p>
+              <p>${siteLanguage.profilePage.mainButtons.balanceBtnText}:</p>
               <span class="profile__balance"> <span>0</span> ₼ </span>
               <img
                 src="img/profile icons/plus.png"
@@ -111,8 +34,13 @@ export async function openProfilePage() {
             <a class="profile__button curpointer">
               <img src="img/profile icons/profile.png" alt="balance" />
               <div class="profile__button-text profile-details">
-                <p>ДЕТАЛИ ПРОФИЛЯ</p>
-                <span>Персональные данные</span>
+                <p>${
+                  siteLanguage.profilePage.mainButtons.profileBtnText.title
+                }</p>
+                <span>${
+                  siteLanguage.profilePage.mainButtons.profileBtnText
+                    .description
+                }</span>
               </div>
               <img
                 src="img/profile icons/chevron-right.png"
@@ -121,33 +49,35 @@ export async function openProfilePage() {
             </a>
             <a class="profile__button curpointer profile__change-password-button">
               <img src="img/profile icons/password.png" alt="balance" />
-              <p>СМЕНА ПАРОЛЯ</p>
+              <p>${siteLanguage.profilePage.mainButtons.passwordBtnText}</p>
               <img
                 src="img/profile icons/chevron-right.png"
-                alt="СМЕНА ПАРОЛЯ"
+                alt="${siteLanguage.profilePage.mainButtons.passwordBtnText}"
               />
             </a>
            
             <a class="profile__button curpointer game-history">
               <img src="img/profile icons/games.png" alt="balance" />
-              <p>МОИ ИГРЫ</p>
+              <p>${siteLanguage.profilePage.mainButtons.mygamesBtnText}</p>
               <img src="img/profile icons/chevron-right.png" alt="ИГРЫ" />
             </a>
             <a class="profile__button curpointer user-bonuses">
               <img src="img/profile icons/balance.png" alt="БОНУСЫ" />
-              <p>БОНУСЫ</p>
+              <p>${siteLanguage.profilePage.mainButtons.bonusesBtnText}</p>
               <img src="img/profile icons/chevron-right.png" alt="БОНУСЫ" />
             </a>
             <a class="profile__button">
               <img src="img/profile icons/sound.png" alt="ЗВУК" />
-              <p>ЗВУК</p>
+              <p>${siteLanguage.profilePage.mainButtons.soundsBtnText}</p>
               <div class="profile__button-switcher curpointer">
                 <button class="profile__button-switcher-on active">ON</button>
                 <button class="profile__button-switcher-off">OFF</button>
               </div>
             </a> 
             <a class="profile__button  user-cask-color">
-              <div class="text-block">Цвет боченков</div>
+              <div class="text-block">${
+                siteLanguage.profilePage.mainButtons.casksBtnText
+              }</div>
               <div class="casks-block">
               <div color="default" color-code="#F6BA9E" class="setting-cask default"></div>
 
@@ -161,11 +91,13 @@ export async function openProfilePage() {
             </a>
             
             <a class="profile__button  user-cask-color">
-              <div class="text-block">Связаться с нами</div>
+              <div class="text-block">${
+                siteLanguage.profilePage.mainButtons.contactsBtnText
+              }</div>
                 <div class="casks-block">
-                  <img src="img/profile icons/tiktok.png" style="width: 35px;height: 35px;">
-                  <img src="img/profile icons/telegram.png" style="width: 35px;height: 35px;">
-                  <img src="img/profile icons/instagram.png" style="width: 35px;height: 35px;">
+                  <img src="img/profile icons/tiktok.png" style="width: 35px;height: 35px;cursor:pointer;">
+                  <img src="img/profile icons/telegram.png" style="width: 35px;height: 35px;cursor:pointer;">
+                  <img src="img/profile icons/instagram.png" style="width: 35px;height: 35px;cursor:pointer;">
               </div>
             </a>
             ${
@@ -194,7 +126,7 @@ export async function openProfilePage() {
           </div>
           <div class="profile-page__footer">
             <button class="logout">
-              <p>ВЫЙТИ</p>
+              <p>${siteLanguage.profilePage.mainButtons.logoutBtnText}</p>
               <img src="img/logout.png" alt="logout" />
             </button>
           </div>
@@ -340,13 +272,6 @@ export async function openProfilePage() {
       preloader.classList.add("d-none");
     });
 
-    // const userRatingButton = document.querySelector(".user-rating");
-    // userRatingButton.addEventListener("click", () => {
-    //   preloader.classList.remove("d-none");
-    //   location.hash = "#leaders";
-    //   preloader.classList.add("d-none");
-    // });
-
     const bonusesButton = document.querySelector(".user-bonuses");
     bonusesButton.addEventListener("click", async () => {
       await openUserBonuses();
@@ -389,6 +314,8 @@ export async function openProfilePage() {
 }
 
 export async function openBalance() {
+  let siteLanguage = window.siteLanguage;
+
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   let footer = document.querySelector("#footer");
@@ -418,13 +345,17 @@ export async function openBalance() {
         2
       )}</span> ₼</p>
       <div class="profile-page__card-buttons">
-        <button style="font-size: 18px;" class="profile-page__card-button deposit red">ДЕПОЗИТ</button>
-        <button style="font-size: 18px;" class="profile-page__card-button withdraw yellow">ВЫПЛАТЫ</button>
+        <button style="font-size: 18px;" class="profile-page__card-button deposit red">${
+          siteLanguage.depositMenuPage.depositButton
+        }</button>
+        <button style="font-size: 18px;" class="profile-page__card-button withdraw yellow">${
+          siteLanguage.depositMenuPage.withdrawButton
+        }</button>
       </div>
     </div>
     <div class="profile-page__footer black">
       <button class="go-back go-back-black">
-        <p>НАЗАД</p>
+        <p>${siteLanguage.depositMenuPage.returnBtnText}</p>
         <img src="img/logout-black.png" alt="logout" />
       </button>
     </div>
@@ -452,6 +383,7 @@ export async function openBalance() {
 }
 
 async function openDeposit() {
+  let siteLanguage = window.siteLanguage;
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -470,7 +402,7 @@ async function openDeposit() {
         <div class="button__credit-card">
           <img src="img/visa-mastercard.png" alt="cards" />
           <div class="credit-card__text">
-            Принимаем все карты, в том числе Apple Pay, Google Pay через Stripe
+            ${siteLanguage.depositPage.depositInformationText}
           </div>
         </div>
       </div>
@@ -478,7 +410,7 @@ async function openDeposit() {
       <div class="deposit__form">
         <h2 class="deposit__form-username">${userInfo.username}</h2>
         <div class="deposit__form-money">
-          <h2>СУММА:</h2>
+          <h2>${siteLanguage.depositPage.depositSumText}: </h2>
           <div class="deposit__form-content">
             <input class="deposit__form-sum" placeholder="0" type="number" />
             <span>₼</span>
@@ -502,15 +434,15 @@ async function openDeposit() {
           </div>
         </div>
         <div class="deposit__form-wrapper">
-        <p class="deposit__form-minimum">Минимальный: 2.00₼</p>
-        <button class="deposit__form-button">ВНЕСТИ ДЕПОЗИТ<span style="margin-left: 7px; font-weight: 600;">0$</span></button>
+        <p class="deposit__form-minimum">${siteLanguage.depositPage.alertText}: 2.00₼</p>
+        <button class="deposit__form-button">${siteLanguage.depositPage.depositButtonText}<span style="margin-left: 7px; font-weight: 600;">0$</span></button>
         </div>
       </div>
     </div>
 
     <div class="profile-page__footer">
       <button class="go-back">
-        <p>НАЗАД</p>
+        <p>${siteLanguage.depositPage.returnBtnText}</p>
         <img src="img/logout.png" alt="logout" />
       </button>
     </div>
@@ -544,20 +476,20 @@ async function openDeposit() {
     const sumInput = document.querySelector(".deposit__form-sum");
     const sum = parseFloat(sumInput.value);
     if (isNaN(sum)) {
-      impPopup.open("Введите сумму");
+      impPopup.open(siteLanguage.popups.enterSum);
       return;
     }
     if (+sum < 2) {
-      impPopup.open("Минимальная сумма 2.00₼");
+      impPopup.open(siteLanguage.popups.minimumSum);
       return;
     }
     const result = await impHttp.deposit(sum);
     if (result.status == 200) {
-      impPopup.open("Депозит успешно зачислен");
+      impPopup.open(siteLanguage.popups.depositSuccess);
       impAuthInterface.updateBalance(result.data.balance);
       location.hash = "#profile";
     } else {
-      impPopup.open("Ошибка");
+      impPopup.open(siteLanguage.profilePage.myGamesPage.statsItem.errorText);
     }
   });
   const goBackButton = document.querySelector(".go-back");
@@ -567,6 +499,7 @@ async function openDeposit() {
 }
 
 async function openWithdraw() {
+  let siteLanguage = window.siteLanguage;
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -575,43 +508,57 @@ async function openWithdraw() {
   }
   main.innerHTML = `
   <section class="withdraw-page withdraw">
-          <div class="withdraw-page__container">
-            <div class="withdraw-page_form withdraw-form">
-              <div class="withdraw-form__card-item">
-                <img src="img/card.png" alt="" class="withdraw-form__card-item-img">
-                <div class="card-item__number">#### **** **** ####</div>
-                <div class="card-item__holder">
-                  <div class="card-item__holder-text">Card Holder</div>
-                  <div class="card-item__holder-name">Name Name</div>
-                </div> 
-                <div class="card-item__expires">
-                  <div class="card-item__expires-text">Expires</div>
-                  <div class="card-item__expires-date"><span class = 'mm'>MM</span> / <span class = 'yy'>YY</span></div>
-                </div>
-              </div>
+  <div class="withdraw-page__container">
+    <form class="withdraw-page_form withdraw-form">
+      <div class="withdraw-form__card-item">
+        <img src="img/card.png" alt="" class="withdraw-form__card-item-img">
+        <div class="card-item__number">#### **** **** ####</div>
+        <div class="card-item__holder">
+          <div class="card-item__holder-text">Card Holder</div>
+          <div class="card-item__holder-name">Name Name</div>
+        </div> 
+        <div class="card-item__expires">
+          <div class="card-item__expires-text">Expires</div>
+          <div class="card-item__expires-date"><span class="mm">MM</span> / <span class="yy">YY</span></div>
+        </div>
+      </div>
 
-                <div class="withdraw-form__item"><label for="withdraw-form-card-number">Номер карты</label><input id="withdraw-form-cart-number" type="tel"></div>
-                <div class="withdraw-form__item"><label for="withdraw-form-card-name">Имя владельца</label><input id="withdraw-form-cart-name" type="text"></div>
-                <div class="withdraw-form__item row"><label>Дата окончания срока</label><div class="date-input"><input placeholder="ММ" maxlength="2" id="withdraw-form-cart-mounth" type="number"> / <input placeholder="ГГГГ" maxlength="4" id="withdraw-form-cart-year" type="number" ></div> </div>
-                <div class="withdraw-form__item"><label for="withdraw-form-sum">Сумма </label><input id="withdraw-form-sum" type="tel"></div>
-                <p class="withdraw-form-p">Минимальная сумма: 15₼</p>
-                <button class="withdraw-form__item-button">Выплата</button>
-      
-                <button class="go-back">
-                  <p>НАЗАД</p>
-                  <img src="img/logout.png" alt="logout" />
-                </button>
-              </div>
-              
-              <div class="withdraw-page__footer">
-                
-              </div>
-          </div>
-        </section>
+      <div class="withdraw-form__item">
+        <label for="withdraw-form-card-number">${siteLanguage.withdrawPage.cardNumberText}</label>
+        <input id="withdraw-form-card-number" type="tel" autocomplete="cc-number">
+      </div>
+      <div class="withdraw-form__item">
+        <label for="withdraw-form-card-name">${siteLanguage.withdrawPage.cardHolderText}</label>
+        <input id="withdraw-form-card-name" type="text" autocomplete="cc-name">
+      </div>
+      <div class="withdraw-form__item row">
+        <label>${siteLanguage.withdrawPage.cardExpiresText}</label>
+        <div class="date-input">
+          <input placeholder="ММ" maxlength="2" id="withdraw-form-card-month" type="number" autocomplete="cc-exp-month">
+          / 
+          <input placeholder="ГГГГ" maxlength="4" id="withdraw-form-card-year" type="number" autocomplete="cc-exp-year">
+        </div>
+      </div>
+      <div class="withdraw-form__item">
+        <label for="withdraw-form-sum">${siteLanguage.withdrawPage.cardSumText}</label>
+        <input id="withdraw-form-sum" type="tel" autocomplete = 'off'>
+      </div>
+      <p class="withdraw-form-p">${siteLanguage.withdrawPage.alertText}: 15₼</p>
+      <button class="withdraw-form__item-button">${siteLanguage.withdrawPage.withdrawButtonText}</button>
+
+      <button class="go-back">
+        <p>${siteLanguage.withdrawPage.returnBtnText}</p>
+        <img src="img/logout.png" alt="logout" />
+      </button>
+    </form>
+  </div>
+  <div class="withdraw-page__footer"></div>
+</section>
   `;
 
   const goBackButton = document.querySelector(".withdraw-page .go-back");
-  goBackButton.addEventListener("click", function () {
+  goBackButton.addEventListener("click", function (e) {
+    e.preventDefault();
     openBalance();
   });
 
@@ -619,7 +566,7 @@ async function openWithdraw() {
     ".withdraw-page .withdraw-form__item-button"
   );
 
-  const cardInput = document.querySelector("#withdraw-form-cart-number");
+  const cardInput = document.querySelector("#withdraw-form-card-number");
   const cardNumberOnCard = document.querySelector(
     ".withdraw-form__card-item .card-item__number"
   );
@@ -635,7 +582,7 @@ async function openWithdraw() {
     e.target.value = value;
   });
 
-  const usrnameInput = document.querySelector("#withdraw-form-cart-name");
+  const usrnameInput = document.querySelector("#withdraw-form-card-name");
   const usrnameInputOnCard = document.querySelector(
     ".withdraw-form__card-item .card-item__holder-name"
   );
@@ -654,7 +601,7 @@ async function openWithdraw() {
     ".card-item__expires-date .mm"
   );
 
-  const monthInput = document.querySelector("#withdraw-form-cart-mounth");
+  const monthInput = document.querySelector("#withdraw-form-card-month");
   monthInput.addEventListener("input", (e) => {
     let value = e.target.value;
     if (value.length > 2) {
@@ -668,7 +615,7 @@ async function openWithdraw() {
   const cardExpiresYYOnCard = document.querySelector(
     ".card-item__expires-date .yy"
   );
-  const yearInput = document.querySelector("#withdraw-form-cart-year");
+  const yearInput = document.querySelector("#withdraw-form-card-year");
   yearInput.addEventListener("input", (e) => {
     let value = e.target.value;
     if (value.length > 4) {
@@ -687,12 +634,13 @@ async function openWithdraw() {
     sumInput.value = sumInput.value.replace(/(\.[0-9][0-9])./g, "$1");
   });
 
-  withdrawButton.addEventListener("click", async function () {
+  withdrawButton.addEventListener("click", async function (e) {
+    e.preventDefault();
     const withdrawInput = document.querySelector("#withdraw-form-sum");
     let withdrawAmount = withdrawInput.value;
 
     if (withdrawAmount < 15) {
-      impPopup.openErorPopup("Минимальная сумма 15₼");
+      impPopup.openErorPopup(`${siteLanguage.withdrawPage.alertText} 15₼`);
       return;
     }
 
@@ -705,7 +653,7 @@ async function openWithdraw() {
 
     // парсим номер карты
     let cardNumber = document.querySelector(
-      ".withdraw-page #withdraw-form-cart-number"
+      ".withdraw-page #withdraw-form-card-number"
     );
     let cardNumberValue = cardNumber.value;
 
@@ -725,7 +673,7 @@ async function openWithdraw() {
 
     // парсим имя владельца на латинеце
     let cardName = document.querySelector(
-      ".withdraw-page #withdraw-form-cart-name"
+      ".withdraw-page #withdraw-form-card-name"
     );
     let cardNameValue = cardName.value;
     if (!/^[a-zA-Z]+$/.test(cardNameValue) && cardNameValue.length < 3) {
@@ -736,11 +684,11 @@ async function openWithdraw() {
     // проверка мм\гг
     let cardDateBlock = document.querySelector(".withdraw-page .date-input");
     let cardMM = document.querySelector(
-      ".withdraw-page #withdraw-form-cart-mounth"
+      ".withdraw-page #withdraw-form-card-month"
     );
     let cardMMValue = cardMM.value;
     let cardYY = document.querySelector(
-      ".withdraw-page #withdraw-form-cart-year"
+      ".withdraw-page #withdraw-form-card-year"
     );
     let cardYYValue = cardYY.value;
     if (
@@ -768,14 +716,12 @@ async function openWithdraw() {
         `${cardMMValue}/${cardYYValue}`
       );
       if (response.data.message == "ERR_NOT_ENOUGH_BALANCE") {
-        impPopup.openErorPopup("Недостаточно денег");
+        impPopup.openErorPopup(siteLanguage.popups.notEnoughMoney);
         return;
       }
 
       if (response.status == 200) {
-        impPopup.open(
-          "Ваша заявка принята на выплату! В течение 3 рабочих дней вы получите свой выегрышь."
-        );
+        impPopup.open(`${siteLanguage.popups.withdrawInfoPopup}`);
 
         cardName.value = "";
         cardYY.value = "";
@@ -788,7 +734,7 @@ async function openWithdraw() {
         cardExpiresYYOnCard.innerHTML = "YY";
       }
     } else {
-      impPopup.openErorPopup("Ошибка! Проверьте введенные данные");
+      impPopup.openErorPopup(siteLanguage.popups.incorrectFields);
     }
   });
 }
@@ -836,6 +782,7 @@ function isValidCreditCard(cardNumber) {
 }
 
 async function openUserDetails() {
+  let siteLanguage = window.siteLanguage;
   let userInfo = await getProfileInfo();
   if (userInfo == false) {
     return;
@@ -845,24 +792,24 @@ async function openUserDetails() {
   <section class="profile-page">
     <div class="profile-page__header">
       <img src="img/profile.png" alt="user" />
-      <p class="profile-page__header-subtitle">Сменить аватар</p>
+      <!--<p class="profile-page__header-subtitle">Сменить аватар</p>-->
     </div>
     <div class="profile__buttons">
       <div class="profile-info__form">
-        <p>Имя пользователя</p>
+        <p class = 'username-label'>${siteLanguage.profilePage.profileDetailsPage.usernameText}</p>
         <input
           type="text"
           placeholder="${userInfo.username}"
           class="form-body__input username-input"
           disabled
         />
-        <p>Ваше имя</p>
+        <p class = 'name-label'>${siteLanguage.profilePage.profileDetailsPage.nameText}</p>
         <input
           type="text"
           placeholder="${userInfo.name}"
           class="form-body__input password-input"
         />
-        <p>Ваша почта</p>
+        <p class = 'email-label'>${siteLanguage.profilePage.profileDetailsPage.emailText}</p>
         <input
           type="text"
           placeholder="${userInfo.email}"
@@ -870,12 +817,12 @@ async function openUserDetails() {
         />
         </div>
         <button class="profile__save">
-          Сохранить
+          ${siteLanguage.profilePage.profileDetailsPage.saveButtonText}
         </button>
         <div class="profile__buttons m20">
-          <a class="profile__button curpointer">
+          <a class="profile__button curpointer change-language">
             <img src="img/profile icons/lang.png" />
-            <p>СМЕНИТЬ ЯЗЫК</p>
+            <p>${siteLanguage.profilePage.profileDetailsPage.changeLanguageBtnText}</p>
             <img
               src="img/profile icons/chevron-right.png"
               alt="СМЕНИТЬ ЯЗЫК"
@@ -883,7 +830,7 @@ async function openUserDetails() {
           </a>
           <a class="profile__button curpointer transactions">
             <img src="img/profile icons/dep.png" />
-            <p>ТРАНЗАКЦИИ</p>
+            <p>${siteLanguage.profilePage.profileDetailsPage.transactionsBtnText}</p>
             <img
               src="img/profile icons/chevron-right.png"
               alt="ТРАНЗАКЦИИ"
@@ -893,7 +840,7 @@ async function openUserDetails() {
         </div>
         <div class="profile-page__footer">
           <button class="go-back">
-            <p>НАЗАД</p>
+            <p>${siteLanguage.profilePage.profileDetailsPage.returnBtnText}</p>
             <img src="img/logout.png" alt="logout" />
           </button>
         </div>
@@ -916,21 +863,21 @@ async function openUserDetails() {
     const email = emailInput.value || userInfo.email;
 
     if (!name && !email) {
-      impPopup.openErorPopup("Заполните хотя бы одно поле");
+      impPopup.openErorPopup(siteLanguage.popups.emptyFields);
       return;
     }
 
     // validate email using regexp
     let isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isEmailValid) {
-      impPopup.openErorPopup("Неверный формат почты");
+      impPopup.openErorPopup(siteLanguage.popups.wrongFormat);
       return;
     }
 
     let response = await impHttp.updateUserData(name, email);
 
     if (response.status == 200) {
-      impPopup.open("Данные успешно обновлены");
+      impPopup.open(siteLanguage.popups.dataSuccess);
       nameInput.value = "";
       emailInput.value = "";
       nameInput.placeholder = response.data.newName;
@@ -939,9 +886,11 @@ async function openUserDetails() {
 
     if (response.status == 400) {
       if (response.data.message == "ERR_EMAIL_ALREADY_EXISTS") {
-        impPopup.openErorPopup("Пользователь с такой почтой уже существует");
+        impPopup.openErorPopup(siteLanguage.popups.emailExists);
       } else {
-        impPopup.openErorPopup("Ошибка");
+        impPopup.openErorPopup(
+          siteLanguage.profilePage.myGamesPage.statsItem.errorText
+        );
       }
       console.log(response.data);
     }
@@ -968,6 +917,7 @@ async function openUserDetails() {
 }
 
 async function openUserGames() {
+  let siteLanguage = window.siteLanguage;
   let main = document.querySelector(".main__container");
   if (main) {
     const userGames = await impHttp.getUserGames();
@@ -977,9 +927,9 @@ async function openUserGames() {
         <section class="user-game-history">
           <div class="pader user-game-history-header">
             <div class="user-game-history-header__back">
-              <p>ВЫЙТИ</p>
+              <p>${siteLanguage.profilePage.myGamesPage.header.backButtonText}</p>
               <img src="img/logout.png" alt="logout" /></div>
-            <h3 class="user-game-history-header__title">Моя статистика</h3>
+            <h3 class="user-game-history-header__title">${siteLanguage.profilePage.myGamesPage.header.headerTitle}</h3>
           </div>
           <div class="user-game-history__main-wrapper">            
           
@@ -1015,34 +965,48 @@ async function openUserGames() {
           <!-- tickets -->
         </div>
         <div class="game-item__row game-item__isWon">
-          Результат: <span>${game.isWinner ? "Победил" : "Проиграл"}</span>
+          ${siteLanguage.profilePage.myGamesPage.statsItem.resultText}: <span>${
+        game.isWinner
+          ? siteLanguage.profilePage.myGamesPage.statsItem.winGameText
+          : siteLanguage.profilePage.myGamesPage.statsItem.loseGameText
+      }</span>
         </div>
         <div class="game-item__row game-item__winSum">
-          Сума выигрыша: <span>${game.winSum.toFixed(2)}</span> ₼
+          ${
+            siteLanguage.profilePage.myGamesPage.statsItem.sumWinText
+          }: <span>${game.winSum.toFixed(2)}</span> ₼
         </div>
         <div class="game-item__row game-item__last-index">
-          Ход: <span class="game-item__last-index-num">${game.winIndex}</span>
+          ${
+            siteLanguage.profilePage.myGamesPage.statsItem.winSumText
+          }: <span class="game-item__last-index-num">${game.winIndex}</span>
         </div>
         <div class="game-item__row game-item__jackpotWon">
-          Джекпот выигран:
+          ${siteLanguage.profilePage.myGamesPage.statsItem.winJackpotText}:
           <span class="game-item__jackpotWon-status">${
-            game.isJackpotWon ? "да" : "нет"
+            game.isJackpotWon
+              ? siteLanguage.profilePage.myGamesPage.statsItem
+                  .jackpotStatusWinText
+              : siteLanguage.profilePage.myGamesPage.statsItem
+                  .jackpotStatusLoseText
           }</span>
         </div>
         <div class="game-item__row game-item__price">
-          Цена билета: <span class="game-item__price-sum">${game.bet.toFixed(
-            2
-          )}</span> ₼
+          ${
+            siteLanguage.profilePage.myGamesPage.statsItem.ticketPriceText
+          }: <span class="game-item__price-sum">${game.bet.toFixed(2)}</span> ₼
         </div>
         <div class="game-item__row game-item__bet">
-          Ставка: <span class="game-item__bet-sum">${(
-            game.bet * game.tickets.length
-          ).toFixed(2)}</span> ₼
+          ${
+            siteLanguage.profilePage.myGamesPage.statsItem.ticketBetText
+          }: <span class="game-item__bet-sum">${(
+        game.bet * game.tickets.length
+      ).toFixed(2)}</span> ₼
         </div>
         <div class="game-item__row game-item__bank">
-          Общий банк: <span class="game-item__bank-sum">${game.bank.toFixed(
-            2
-          )}</span> ₼
+          ${
+            siteLanguage.profilePage.myGamesPage.statsItem.bankText
+          }: <span class="game-item__bank-sum">${game.bank.toFixed(2)}</span> ₼
         </div>
       `;
 
@@ -1070,6 +1034,7 @@ async function openUserGames() {
 }
 
 function createHistoryUserTickets(parent, tickets) {
+  let siteLanguage = window.siteLanguage;
   // ticket = ticket.card;
   tickets.forEach((ticket) => {
     let ticketCard = JSON.parse(ticket.card);
@@ -1105,6 +1070,8 @@ function createHistoryUserTickets(parent, tickets) {
 }
 
 async function openUserBonuses() {
+  let siteLanguage = window.siteLanguage;
+
   let main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -1117,31 +1084,31 @@ async function openUserBonuses() {
   <div class="change-tokens-page__container">
     <div class="change-tokens-page-form">
       <div class="change-tokens-page-form__title">
-        Ваш баланс <span>0</span> поинтов
+        ${siteLanguage.profilePage.bonusesPage.balanceText}: <span>0</span>
       </div>
       <div class="change-tokens-page-form__info">
-        Коефициент обмена 100 / 0.20₼
+        ${siteLanguage.profilePage.bonusesPage.changeCofText}
       </div>
       <div class="change-tokens-page-form__block">
         <div class="change-tokens-page-form__block-row">
-          <p>Поинтов для обмена</p>
+          <p>${siteLanguage.profilePage.bonusesPage.pointToChangeText}</p>
           <input type="number" />
         </div>
         <div class="change-tokens-page-form__block-row">
-          <div class="get-sum-block">  <p>Вы получите:</p>
+          <div class="get-sum-block">  <p>${siteLanguage.profilePage.bonusesPage.pointToGetText}:</p>
             <span>0 ₼</span></div>
         
-        <button class="change-tokens-page-form__block-button">Обмен</button>
+        <button class="change-tokens-page-form__block-button">${siteLanguage.profilePage.bonusesPage.changeButtonText}</button>
 
         </div>
       </div>
-      <div class="change-tokens-page-form__alert-text">Обмен осуществляется минимально от 100 поинтов</div>
+      <div class="change-tokens-page-form__alert-text">${siteLanguage.profilePage.bonusesPage.alertText}</div>
       <button class="change-tokens-page__exit-button"> 
-        <p>ВЫЙТИ</p>
+        <p>${siteLanguage.profilePage.bonusesPage.returnBtnText}</p>
         <img src="img/logout.png" alt="logout" /> 
       </button>
     </div>
-    <div class="change-tokens-page-description">За каждую сыгранную игру вы получаете бонусные очки, бонусные очки это ваш кэшбэк которых можно обменять на реальные деньги</div>
+    <div class="change-tokens-page-description">${siteLanguage.profilePage.bonusesPage.mainDescription}</div>
   </div>
 </div>
   `;
@@ -1206,7 +1173,7 @@ async function openUserBonuses() {
     const tokens = input.value;
 
     if (tokens < 100) {
-      impPopup.openErorPopup("Минимальная сумма обмена 100 поинтов");
+      impPopup.openErorPopup(siteLanguage.profilePage.bonusesPage.alertText);
       return;
     }
 
@@ -1217,14 +1184,14 @@ async function openUserBonuses() {
     const response = await impHttp.exchangeTokens(tokens);
 
     if (response.data.message == "ERR_NOT_ENOUGH_TOKENS") {
-      impPopup.openErorPopup("Недостаточно поинтов для обмена");
+      impPopup.openErorPopup(siteLanguage.popups.notEnoughPoints);
       return;
     } else if (response.data.message == "ERR_LESS_100") {
-      impPopup.openErorPopup("Минимальная сумма обмена 100 поинтов");
+      impPopup.openErorPopup(siteLanguage.profilePage.bonusesPage.alertText);
       return;
     }
 
-    impPopup.open("Поинты успешно обменены", 200);
+    impPopup.open(siteLanguage.popups.pointsSuccess, 200);
 
     impAuthInterface.updateBalance(response.data.balance);
 
@@ -1238,6 +1205,8 @@ async function openUserBonuses() {
 }
 
 export function openChangePasswordForm() {
+  let siteLanguage = window.siteLanguage;
+
   let main = document.querySelector(".main__container");
 
   // let profilePage = document.createElement("div");
@@ -1248,23 +1217,23 @@ export function openChangePasswordForm() {
     <div class="password-form-main__block profile-block">
       <div class="password-form-block__section">
         <div class="password-form-block__item">
-          <label for="old-password">Старый пароль</label>
+          <label for="old-password">${siteLanguage.profilePage.changePasswordPage.oldPassText}</label>
           <input type="password" id="old-password" class=""> 
         </div>
         <div class="password-form-block__item">
-          <label for="new-password">Новый пароль</label>
+          <label for="new-password">${siteLanguage.profilePage.changePasswordPage.newPassText}</label>
           <input type="password" id="new-password" class="">
         </div>
         <div class="password-form-block__item">
-          <label for="new-password-repeat">Повторите новый пароль</label>
+          <label for="new-password-repeat">${siteLanguage.profilePage.changePasswordPage.repeatNewPassText}</label>
           <input type="password" id="new-password-repeat" class="">
         </div>
         <div class="password-form-block__item password-button change-password">
-          <h4>Изменить пароль</h4>
+          <h4>${siteLanguage.profilePage.changePasswordPage.saveBtnText}</h4>
         </div>
 
         <div class="password-form-block__exit-button">
-          <p>НАЗАД</p>
+          <p>${siteLanguage.profilePage.changePasswordPage.returnBtnText}</p>
           <img src="img/logout.png" alt="logout" />
         </div>
       </div>
@@ -1292,7 +1261,7 @@ export function openChangePasswordForm() {
       "#new-password-repeat"
     ).value;
     if (newPassword != newPasswordRepeat) {
-      impPopup.open("Пароли не совпадают", 400);
+      impPopup.open(siteLanguage.popups.passwordsNotMatch, 400);
       return;
     }
 
@@ -1303,15 +1272,16 @@ export function openChangePasswordForm() {
 
     let status = await impHttp.changePassword(data);
     if (status.data == false) {
-      impPopup.open("Неверный пароль", 400);
+      impPopup.open(siteLanguage.popups.wrongPassword, 400);
       return;
     }
-    impPopup.open("Пароль успешно изменен", 200);
+    impPopup.open(siteLanguage.popups.passwordChangeSuccess, 200);
     openProfilePage();
   });
 }
 
 async function openPayments() {
+  let siteLanguage = window.siteLanguage;
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -1412,6 +1382,8 @@ async function openPayments() {
 }
 
 async function openTransactions() {
+  let siteLanguage = window.siteLanguage;
+
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -1423,16 +1395,16 @@ async function openTransactions() {
       <div class="transactions__content">
         <div class="pader user-game-history-header" style="width:100%;margin-bottom:20px;">
           <div class="user-game-history-header__back">
-            <p>ВЫЙТИ</p>
+            <p>${siteLanguage.profilePage.bonusesPage.returnBtnText}</p>
             <img src="img/logout.png" alt="logout" /></div>
-          <h3 class="user-game-history-header__title">Транзакции</h3>
+          <h3 class="user-game-history-header__title">${siteLanguage.profilePage.profileDetailsPage.transactionsBtnText}</h3>
         </div>
         <div class="transactions__table">
           <div class="transactions-table__header">
-            <div class="table-header__item">Ник</div>
-            <div class="table-header__item">Тип</div>
-            <div class="table-header__item">Сумма</div>
-            <div class="table-header__item">Дата</div>
+            <div class="table-header__item">${siteLanguage.profilePage.transactionsPage.tableheader.nickText}</div>
+            <div class="table-header__item">${siteLanguage.profilePage.transactionsPage.tableheader.typeText}</div>
+            <div class="table-header__item">${siteLanguage.profilePage.transactionsPage.tableheader.sumText}</div>
+            <div class="table-header__item">${siteLanguage.profilePage.transactionsPage.tableheader.dateText}</div>
           </div>
           <div class="transactions-table__body">
           </div>
@@ -1457,7 +1429,7 @@ async function openTransactions() {
       user?.payouts.forEach((payout) => {
         transactions.push({
           username: user.username,
-          type: "Вывод",
+          type: siteLanguage.profilePage.transactionsPage.tableItem.typeText1,
           sum: payout.withdrawAmount,
           date: new Date(payout.createdAt).toLocaleString("ru-RU"),
         });
@@ -1465,7 +1437,7 @@ async function openTransactions() {
       user?.deposits.forEach((deposit) => {
         transactions.push({
           username: user.username,
-          type: "Депозит",
+          type: siteLanguage.profilePage.transactionsPage.tableItem.typeText2,
           sum: deposit.depositAmount,
           date: new Date(deposit.createdAt).toLocaleString("ru-RU"),
         });

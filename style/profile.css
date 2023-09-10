@@ -994,6 +994,8 @@
   padding: 25px 20px;
   border-radius: 20px;
   border: 1px solid #777;
+  width: 100%;
+  max-width: 400px;
 }
 
 .withdraw-page .withdraw-form__card-item {
@@ -1216,7 +1218,6 @@
   }
 
   .withdraw-form__item input {
-    padding: 7px 10px;
     font-size: 14px;
   }
 

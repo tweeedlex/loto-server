@@ -115,7 +115,7 @@
   padding: 10px 15px;
   cursor: pointer;
   position: relative;
-  border-radius: 10px;
+  border-radius: 35px;
   background: var(
     --linear,
     linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)

@@ -176,7 +176,7 @@ export const connectWebsocketFunctions = () => {
         break;
       case "buyTickets":
         if (msg.isBought == false) {
-          impPopup.openErorPopup("Произошла ошибка при покупке билета!");
+          impPopup.openErorPopup(siteLanguage.popups.ticketBuyError);
           return;
         }
         deleteTickets();
@@ -253,7 +253,7 @@ export const connectWebsocketFunctions = () => {
         break;
       case "sendNewCask":
         impLotoGame.createCask(ws, msg.cask, msg.caskNumber, msg.pastCasks);
-        await impLotoGame.colorDropedCasks(msg.pastCasks);
+        // await impLotoGame.colorDropedCasks(msg.pastCasks);
         break;
 
       case "jackpotWon":
@@ -270,8 +270,9 @@ export const connectWebsocketFunctions = () => {
           msg.jackpotData,
           msg.winnersData
         );
+        localStorage.setItem("pastCasks", JSON.stringify([]));
+        localStorage.setItem("ticketsInfo", JSON.stringify([]));
         break;
-
       case "leftSome":
         switch (msg.type) {
           case "left1":
@@ -299,6 +300,7 @@ export const connectWebsocketFunctions = () => {
         window.ws = newWs;
         location.hash = "";
         impNav.pageNavigation(newWs);
+        impNav.addHashListeners();
         return;
       }
     } else {
@@ -306,6 +308,7 @@ export const connectWebsocketFunctions = () => {
       window.ws = newWs;
       location.hash = "";
       impNav.pageNavigation(newWs);
+      impNav.addHashListeners();
     }
   };
 
@@ -363,7 +366,7 @@ export async function openLotoRoom(ws, roomId) {
 
 const handleLeftSome = (msg, leftSome) => {
   let block1, block2, block3;
-
+  let siteLanguage = window.siteLanguage;
   const gameContent = document.querySelector(".loto-game-room-page-content");
   const gameProcess = document.querySelector(".loto-game-room__gameprocess");
   block3 = document.querySelector(".left3 span");
@@ -389,7 +392,14 @@ const handleLeftSome = (msg, leftSome) => {
         if (!block1) {
           let block = document.createElement("div");
           block.classList.add("loto-gameinfo__information-left", "left1");
-          block.innerHTML = `У <span>0</span> карточек осталось 1 номер`;
+
+          // У COUNT_PLAYERS игроков остался 1 боченок
+          // if COUNT_PLAYERS in row, replace it to msg.left1
+          block.innerHTML = siteLanguage.lotoGamePage.left1Text.replace(
+            "COUNT_PLAYERS",
+            "<span>0</span>"
+          );
+
           gameContent.insertBefore(block, gameProcess);
         }
         block1 = document.querySelector(".left1 span");
@@ -414,7 +424,11 @@ const handleLeftSome = (msg, leftSome) => {
         if (!block2) {
           let block = document.createElement("div");
           block.classList.add("loto-gameinfo__information-left", "left2");
-          block.innerHTML = `У <span>0</span> карточек осталось 2 номерa`;
+          block.innerHTML = siteLanguage.lotoGamePage.left2Text.replace(
+            "COUNT_PLAYERS",
+            "<span>0</span>"
+          );
+          // block.innerHTML = `У <span>0</span> карточек осталось 2 номерa`;
           gameContent.insertBefore(block, gameProcess);
         }
         block2 = document.querySelector(".left2 span");
@@ -431,7 +445,11 @@ const handleLeftSome = (msg, leftSome) => {
           initialBlock.remove();
           let block = document.createElement("div");
           block.classList.add("loto-gameinfo__information-left", "left3");
-          block.innerHTML = `У <span>0</span> карточек осталось 3 номерa`;
+          block.innerHTML = siteLanguage.lotoGamePage.left3Text.replace(
+            "COUNT_PLAYERS",
+            "<span>0</span>"
+          );
+          // block.innerHTML = `У <span>0</span> карточек осталось 3 номерa`;
           gameContent.insertBefore(block, gameProcess);
         }
         block3 = document.querySelector(".left3 span");
@@ -485,7 +503,7 @@ async function startLotoTimer(strtedAt) {
     }, 1000);
   }
 }
-
+NowClientTime();
 async function NowClientTime() {
   const date = await axios.get(
     "https://api.api-ninjas.com/v1/worldtime?city=London",
@@ -497,12 +515,89 @@ async function NowClientTime() {
     }
   );
 
-  const time = new Date(date.data.datetime).getTime();
+  // console.log(date.data.datetime);
+  // const timeDate = new Date(date.data.datetime);
+  // console.log(timeDate);
+  // console.log(new Date());
+
+  // let time = new Date(date.data.datetime).getTime();
+  // console.log("time", time);
+  let timeHands = createDateMillis(
+    date.data.year,
+    date.data.month,
+    date.data.day,
+    date.data.hour,
+    date.data.minute,
+    date.data.second
+  );
+  // console.log("timeHands", timeHands);
+
+  // console.log("now time", new Date().getTime());
+  // console.log("api time", time);
 
   // return time + 60 * 60 * 1000;
   // return time - 60 * 60 * 1000;
   // return time - 7200000;
-  return time + 60 * 60 * 1000 * 4;
+  // return time + timezomeOffset * 60 * 1000;/
+  return timeHands;
+}
+
+// "year": "2023",
+// "month": "09",
+// "day": "09",
+// "hour": "21",
+// "minute": "52",
+// "second": "24",
+// "day_of_week": "Saturday"
+
+function createDateMillis(year, month, day, hours, minutes, seconds) {
+  // Проверяем, является ли год высокосным
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+
+  // Количество дней в месяцах (включая февраль для высокосных и невысокосных лет)
+  const daysInMonth = [
+    31,
+    isLeapYear ? 29 : 28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
+
+  // Проверяем корректность значений месяца и дня
+  if (month < 1 || month > 12 || day < 1 || day > daysInMonth[month - 1]) {
+    throw new Error("Некорректные значения месяца или дня.");
+  }
+
+  // Рассчитываем миллисекунды с начала эпохи (1 января 1970 года)
+  let milliseconds = 0;
+
+  // Рассчитываем миллисекунды для годов
+  for (let y = 1970; y < year; y++) {
+    const isLeapYearY = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+    milliseconds += isLeapYearY ? 31622400000 : 31536000000; // 31,622,400,000 мс в високосном году, 31,536,000,000 мс в невисокосном
+  }
+
+  // Рассчитываем миллисекунды для месяцев
+  for (let m = 1; m < month; m++) {
+    milliseconds += daysInMonth[m - 1] * 86400000; // 86,400,000 мс в дне
+  }
+
+  // Рассчитываем миллисекунды для дней
+  milliseconds += (day - 1) * 86400000;
+
+  // Рассчитываем миллисекунды для времени (часы, минуты, секунды)
+  milliseconds += hours * 3600000; // 3,600,000 мс в часе
+  milliseconds += minutes * 60000; // 60,000 мс в минуте
+  milliseconds += seconds * 1000; // 1,000 мс в секунде
+
+  return milliseconds;
 }
 
 function updateAllRoomsOnline(onlineArr) {
@@ -600,6 +695,12 @@ export function buyTickets(ws, roomId, bet) {
         ".loto-gamecontrolls__counter__value"
       );
 
+      const isGameStartedRes = await impHttp.isGameStarted(roomId);
+      if (isGameStartedRes.data == false) {
+        localStorage.setItem("ticketsInfo", JSON.stringify([]));
+        localStorage.setItem("pastCasks", JSON.stringify([]));
+      } else return;
+
       if (ticketsCount && ticketsCount.innerHTML == 0) {
         return;
       }
@@ -654,6 +755,7 @@ export function buyTickets(ws, roomId, bet) {
 }
 
 export function createTicket(cells, ticketId) {
+  let siteLanguage = window.siteLanguage;
   let ticketsBody = document.querySelector(".loto-gamemain");
   if (ticketsBody) {
     let ticketContainer = document.createElement("div");
@@ -675,7 +777,7 @@ export function createTicket(cells, ticketId) {
     let refreshButton = document.createElement("button");
     refreshButton.classList.add("loto-gamemain__ticket__refresh");
 
-    refreshButton.innerHTML = `<img src="img/refresh-ticket.png" alt="" /> Обновить`;
+    refreshButton.innerHTML = `<img src="img/refresh-ticket.png" alt="" /> ${siteLanguage.lotoRoomPage.tickets.updateText}`;
     refreshButton.addEventListener("click", async function () {
       let ticketData = impLotoGame.generateLotoCard();
       let cells = ticketData.newCard;
@@ -695,7 +797,7 @@ export function createTicket(cells, ticketId) {
     });
     let deleteButton = document.createElement("button");
     deleteButton.classList.add("loto-gamemain__ticket__delete");
-    deleteButton.innerHTML = `<img src="img/remove-ticket.png" alt="" /> Удалить`;
+    deleteButton.innerHTML = `<img src="img/remove-ticket.png" alt="" /> ${siteLanguage.lotoRoomPage.tickets.deleteText}`;
     deleteButton.addEventListener("click", async function () {
       if (!ticket.classList.contains("bought-ticket")) {
         // check if tickets > 1, then delete
@@ -744,7 +846,8 @@ async function startMenuTimerLobby(timers) {
         let lotoRoomTimerText = lotoRoom.querySelector(
           ".room-left__item-timer-block .timer-block__text"
         );
-        lotoRoomTimerText.innerHTML = "Начинается";
+        lotoRoomTimerText.innerHTML =
+          siteLanguage.mainPage.gamecards.timerTextStarting;
         lotoRoom.classList.add("starting");
         let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 30000;
 
@@ -782,6 +885,7 @@ async function startMenuTimerLobby(timers) {
 }
 
 async function startMenuTimerGame(timers) {
+  const siteLanguage = window.siteLanguage;
   // get all timers on the page
   let mainPage = document.querySelector(".games");
   if (mainPage) {
@@ -802,7 +906,8 @@ async function startMenuTimerGame(timers) {
           let lotoRoomTimerText = lotoRoom.querySelector(
             ".room-left__item-timer-block .timer-block__text"
           );
-          lotoRoomTimerText.innerHTML = "Ожидание";
+          lotoRoomTimerText.innerHTML =
+            siteLanguage.mainPage.gamecards.timerTextWaiting;
         }
         if (lotoRoomTimer) {
           lotoRoomTimer.innerHTML = "00:00";
@@ -819,7 +924,8 @@ async function startMenuTimerGame(timers) {
         let lotoRoomTimerText = lotoRoom.querySelector(
           ".room-left__item-timer-block .timer-block__text"
         );
-        lotoRoomTimerText.innerHTML = "Закончится";
+        lotoRoomTimerText.innerHTML =
+          siteLanguage.mainPage.gamecards.timerTextFinising;
         lotoRoom.classList.add("finishing");
 
         let countDownDate = new Date(timers[`room${roomId}`]).getTime();

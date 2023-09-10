@@ -2,6 +2,7 @@ import * as impHttp from "./http.js";
 import * as impPopup from "./popup.js";
 
 export function openLeadersMenuPage() {
+  let siteLanguage = window.siteLanguage;
   let main = document.querySelector("main");
   if (main) {
     main.innerHTML = `<div class="main__container">
@@ -41,6 +42,7 @@ async function leadersMenuPageFunc() {
 }
 
 export async function openLeadersPage(gameType) {
+  let siteLanguage = window.siteLanguage;
   let preloader = document.querySelector(".page-preloader");
 
   let tableTitle = "Лидеры";
@@ -54,20 +56,7 @@ export async function openLeadersPage(gameType) {
 
   const currentDate = new Date();
 
-  const monthNames = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ];
+  const monthNames = siteLanguage.statsPage.menuHeader.mounthes;
 
   const monthNumber = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -81,17 +70,17 @@ export async function openLeadersPage(gameType) {
         <div class="leader-page__head">
           <button class="leader-page__info">
             <img src="img/leader icons/info.png" alt="info" />
-            Информация
+            ${siteLanguage.statsPage.informationButtonText}
           </button>
           <div class="leader-page__games">
             <button>
-              <img src="img/leader icons/loto.png" alt="" />Лото
+              <img src="img/leader icons/loto.png" alt="" />${siteLanguage.statsPage.menuHeader.gameLotoText}
             </button>
             <button>
-              <img src="img/leader icons/nards.png" alt="" />Нарды
+              <img src="img/leader icons/nards.png" alt="" />${siteLanguage.statsPage.menuHeader.gameNardsText}
             </button>
             <button>
-              <img src="img/leader icons/domino.png" alt="" />Домино
+              <img src="img/leader icons/domino.png" alt="" />${siteLanguage.statsPage.menuHeader.gameBackgamonsText}
             </button>
             <div class="leader-page-games__season">
               <span class="games-season__month">${currentMonthName}</span>
@@ -100,11 +89,11 @@ export async function openLeadersPage(gameType) {
           </div>
         </div>
         <div class="leader-page__table-head">
-          <div class="table-header__name">ИМЯ</div>
+          <div class="table-header__name">${siteLanguage.statsPage.tableHeader.nameText}</div>
           <hr />
-          <div class="table-header__winsum">победЫ</div>
+          <div class="table-header__winsum">${siteLanguage.statsPage.tableHeader.winsText}</div>
           <hr />
-          <div class="table-header__bonuses">БОНУСЫ</div>
+          <div class="table-header__bonuses">${siteLanguage.statsPage.tableHeader.bonusesText}</div>
         </div>
         <div class="leader-page__table-main">
           
