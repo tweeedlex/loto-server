@@ -349,7 +349,7 @@ export function showUserTickets(tickets, roomId) {
           ticketCell.classList.add("ticket-cell");
           if (prevTicketInfo) {
             if (prevTicketInfo.choosedCasks.includes(+cell)) {
-              cell.classList.add(
+              ticketCell.classList.add(
                 "active",
                 localStorage.getItem("cask-color") || ""
               );
