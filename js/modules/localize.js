@@ -87,22 +87,30 @@ export function translateAuthPage() {
     let selectLanguageTextBottom = authPage.querySelector(
       ".select-language__text span"
     );
+    let selectLanguageIcon = authPage.querySelector(
+      ".select-language .select-language__img"
+    );
 
     switch (localStorage.getItem("language")) {
       case "ru":
         selectLanguageTextBottom.innerHTML = "Русский";
+        selectLanguageIcon.innerHTML = `<img src="./img/ru-lang.png" alt="AZ" />`;
         break;
       case "EN":
         selectLanguageTextBottom.innerHTML = "English";
+        selectLanguageIcon.innerHTML = `<img src="./img/en-lang.png" alt="AZ" />`;
         break;
       case "UA":
         selectLanguageTextBottom.innerHTML = "Українська";
+        selectLanguageIcon.innerHTML = `<img src="./img/ua-lang.png" alt="AZ" />`;
         break;
       case "AZ":
         selectLanguageTextBottom.innerHTML = "Azərbaycan";
+        selectLanguageIcon.innerHTML = `<img src="./img/az-lang.png" alt="AZ" />`;
         break;
       case "TR":
         selectLanguageTextBottom.innerHTML = "Türk";
+        selectLanguageIcon.innerHTML = `<img src="./img/tr-lang.png" alt="AZ" />`;
         break;
     }
 

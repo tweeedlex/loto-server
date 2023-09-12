@@ -144,8 +144,15 @@ export async function openProfilePage() {
       footer.classList.remove("d-none");
       main.classList.add("footer__padding");
     }
-    let userInfo = await getProfileInfo();
-    if (userInfo == false) {
+    // let userInfo = await getProfileInfo();
+
+    let localUser = localStorage.getItem("user");
+
+    if (localUser) {
+      localUser = JSON.parse(localUser);
+    }
+
+    if (!localUser) {
       location.hash = "#";
       return;
     }
@@ -168,18 +175,13 @@ export async function openProfilePage() {
       color.addEventListener("click", () => {
         colors.forEach((color) => color.classList.remove("active"));
         color.classList.add("active");
-        localStorage.setItem(
-          "cask-color-code",
-          color.getAttribute("color-code")
-        );
         localStorage.setItem("cask-color", color.getAttribute("color"));
       });
     });
 
     // ставим active для кнопки с цветом из localstorage
     const caskColor = localStorage.getItem("cask-color");
-    const caskColorCode = localStorage.getItem("cask-color-code");
-    if (caskColor && caskColorCode) {
+    if (caskColor) {
       const cask = document.querySelector(`.setting-cask[color=${caskColor}]`);
       if (cask) {
         cask.classList.add("active");
@@ -189,10 +191,10 @@ export async function openProfilePage() {
     // вставляем ник и баланс
     let profilePage = document.querySelector(".profile-page");
     let usernameBlock = profilePage.querySelector(".profile-page__header h2");
-    usernameBlock.innerHTML = userInfo.username;
+    usernameBlock.innerHTML = localUser.username;
 
     let usernameBalance = profilePage.querySelector(".profile__balance span");
-    usernameBalance.innerHTML = userInfo.balance.toFixed(2);
+    usernameBalance.innerHTML = localUser.balance.toFixed(2);
 
     const soundSwitcher = document.querySelector(".profile__button-switcher");
     const soundOn = document.querySelector(".profile__button-switcher-on");
@@ -320,8 +322,13 @@ export async function openBalance() {
   let header = document.querySelector("header");
   let footer = document.querySelector("#footer");
 
-  let userInfo = await getProfileInfo();
-  if (userInfo == false) {
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
+  if (!localUser) {
     return;
   }
   if (!header.classList.contains("d-none")) {
@@ -340,8 +347,8 @@ export async function openBalance() {
     </div>
 
     <div class="profile-page__card">
-      <p class="profile-page__card-username">${userInfo.username}</p>
-      <p class="profile-page__card-balance"><span>${userInfo.balance.toFixed(
+      <p class="profile-page__card-username">${localUser.username}</p>
+      <p class="profile-page__card-balance"><span>${localUser.balance.toFixed(
         2
       )}</span> ₼</p>
       <div class="profile-page__card-buttons">
@@ -390,8 +397,15 @@ async function openDeposit() {
     header.classList.remove("d-none");
     main.classList.add("header__padding");
   }
-  let userInfo = await getProfileInfo();
-  if (userInfo == false) {
+
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
+  // let userInfo = await getProfileInfo();
+  if (!localUser) {
     return;
   }
   main.classList.remove("footer__padding");
@@ -408,7 +422,7 @@ async function openDeposit() {
       </div>
 
       <div class="deposit__form">
-        <h2 class="deposit__form-username">${userInfo.username}</h2>
+        <h2 class="deposit__form-username">${localUser.username}</h2>
         <div class="deposit__form-money">
           <h2>${siteLanguage.depositPage.depositSumText}: </h2>
           <div class="deposit__form-content">
@@ -450,7 +464,6 @@ async function openDeposit() {
   `;
 
   const currencyRate = await impHttp.getCurrencyRate();
-  console.log(currencyRate.data.rate);
   const dollarRate = currencyRate.data.rate || 1.705;
 
   const sumInput = document.querySelector(".deposit__form-sum");
@@ -722,6 +735,7 @@ async function openWithdraw() {
 
       if (response.status == 200) {
         impPopup.open(`${siteLanguage.popups.withdrawInfoPopup}`);
+        impAuthInterface.updateBalance(response.data.balance);
 
         cardName.value = "";
         cardYY.value = "";
@@ -783,10 +797,16 @@ function isValidCreditCard(cardNumber) {
 
 async function openUserDetails() {
   let siteLanguage = window.siteLanguage;
-  let userInfo = await getProfileInfo();
-  if (userInfo == false) {
-    return;
+  // let userInfo = await getProfileInfo();
+  // if (userInfo == false) {
+  //   return;
+  // }
+
+  let localUser = localStorage.getItem("user");
+  if (localUser) {
+    localUser = JSON.parse(localUser);
   }
+
   const main = document.querySelector(".main__container");
   main.innerHTML = `
   <section class="profile-page">
@@ -799,20 +819,20 @@ async function openUserDetails() {
         <p class = 'username-label'>${siteLanguage.profilePage.profileDetailsPage.usernameText}</p>
         <input
           type="text"
-          placeholder="${userInfo.username}"
+          placeholder="${localUser.username}"
           class="form-body__input username-input"
           disabled
         />
         <p class = 'name-label'>${siteLanguage.profilePage.profileDetailsPage.nameText}</p>
         <input
           type="text"
-          placeholder="${userInfo.name}"
+          placeholder="${localUser.name}"
           class="form-body__input password-input"
         />
         <p class = 'email-label'>${siteLanguage.profilePage.profileDetailsPage.emailText}</p>
         <input
           type="text"
-          placeholder="${userInfo.email}"
+          placeholder="${localUser.email}"
           class="form-body__input email-input"
         />
         </div>
@@ -859,8 +879,8 @@ async function openUserDetails() {
   const saveButton = document.querySelector(".profile__save");
 
   saveButton.addEventListener("click", async () => {
-    const name = nameInput.value || userInfo.name;
-    const email = emailInput.value || userInfo.email;
+    const name = nameInput.value || localUser.name;
+    const email = emailInput.value || localUser.email;
 
     if (!name && !email) {
       impPopup.openErorPopup(siteLanguage.popups.emptyFields);
@@ -882,6 +902,11 @@ async function openUserDetails() {
       emailInput.value = "";
       nameInput.placeholder = response.data.newName;
       emailInput.placeholder = response.data.newEmail;
+
+      const localUser = JSON.parse(localStorage.getItem("user"));
+      localUser.name = response.data.newName;
+      localUser.email = response.data.newEmail;
+      localStorage.setItem("user", JSON.stringify(localUser));
     }
 
     if (response.status == 400) {
@@ -905,10 +930,6 @@ async function openUserDetails() {
   transactionsButtons.addEventListener("click", async () => {
     await openTransactions();
   });
-
-  if (await impAuth.isAdmin()) {
-    impAdminNav.createAdminButton();
-  }
 
   const goBackButton = document.querySelector(".go-back");
   goBackButton.addEventListener("click", function () {
@@ -1384,6 +1405,16 @@ async function openPayments() {
 async function openTransactions() {
   let siteLanguage = window.siteLanguage;
 
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
+  if (!localUser) {
+    return;
+  }
+
   const main = document.querySelector(".main__container");
   let header = document.querySelector("header");
   if (header.classList.contains("d-none")) {
@@ -1423,7 +1454,7 @@ async function openTransactions() {
   const { data: users } = await impHttp.getPayouts();
   console.log(users[0]);
   let transactions = [];
-  const userId = window.userId;
+  const userId = localUser.userId;
   users.forEach((user) => {
     if (user.id == userId) {
       user?.payouts.forEach((payout) => {

@@ -86,3 +86,21 @@ export const playBuyTicket = () => {
   buyTicket.volume = menuVolume;
   buyTicket.play();
 };
+
+export const playProfileDeposit = () => {
+  const profileDeposit = new Audio("./js/modules/sounds/profile-deposit.mp3");
+  profileDeposit.volume = menuVolume;
+  profileDeposit.play();
+};
+
+export const playGameClick = () => {
+  const gameClick = new Audio("./js/modules/sounds/game-click.mp3");
+  gameClick.volume = menuVolume;
+  gameClick.play();
+};
+
+export const playRating = () => {
+  const rating = new Audio("./js/modules/sounds/rating.mp3");
+  rating.volume = menuVolume;
+  rating.play();
+};

@@ -18,6 +18,13 @@ export const open = (text, status, showButton = false, ws = null) => {
   if (isPopupOpened()) {
     return;
   }
+
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
   const body = document.querySelector("body");
   let popupElement = document.createElement("div");
   popupElement.classList.add("popup", "default-popup");
@@ -45,7 +52,7 @@ export const open = (text, status, showButton = false, ws = null) => {
       close(popupElement);
       ws.close(
         1000,
-        JSON.stringify({ method: "exitGame", userId: window.userId })
+        JSON.stringify({ method: "exitGame", userId: localUser.userId })
       );
     });
   }

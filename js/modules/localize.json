@@ -263,8 +263,8 @@
     "mainPage": {
       "gamecards": {
         "timerTextWaiting": "Gözləyir",
-        "timerTextStarting": "başlayır",
-        "timerTextFinising": "Bitirir",
+        "timerTextStarting": "Başlayır",
+        "timerTextFinising": "Başladı",
         "onlineText": "Oyunçuların sayı",
         "bankText": "Əvvəlki oyunda udulmuş məbləğ",
         "priceText": "Biletin qiyməti"
@@ -289,10 +289,10 @@
         "betText": "Bilet",
         "autoButtonText": "Avto"
       },
-      "enjoyGameText": "Bol şanslar",
-      "left1Text": "COUNT_PLAYERS bilet 1 daş gözləyir",
-      "left2Text": "COUNT_PLAYERS bilet 2 daş gözləyir",
-      "left3Text": "COUNT_PLAYERS bilet 3 daş gözləyir"
+      "enjoyGameText": "Bol şanslar!",
+      "left1Text": "COUNT_PLAYERS bilet 1 daş gözləyir.",
+      "left2Text": "COUNT_PLAYERS bilet 2 daş gözləyir.",
+      "left3Text": "COUNT_PLAYERS bilet 3 daş gözləyir."
     },
     "profilePage": {
       "mainButtons": {
@@ -306,7 +306,7 @@
         "bonusesBtnText": "Bonuslar",
         "soundsBtnText": "Səs",
         "casksBtnText": "Daşın rəngi",
-        "contactsBtnText": "Bizimlə əlaqə saxlayın",
+        "contactsBtnText": "Bizim sosial şəbəkələr",
 
         "logoutBtnText": "Çıxış"
       },
@@ -338,38 +338,38 @@
           "loseGameText": "Uduzdunuz",
           "winGameText": "Qələbə",
           "winSumText": "Gediş",
-          "winJackpotText": "Cekpot uduldu",
+          "winJackpotText": "Cekpot uduldu!",
           "jackpotStatusWinText": "hə",
           "jackpotStatusLoseText": "yox",
           "errorText": "Xəta",
           "continueText": "Davam edəcək",
-          "understandText": "Bu aydındır",
+          "understandText": "aydındır",
           "closeText": "yaxın",
           "ticketPriceText": "Biletin qiyməti",
           "ticketBetText": "Qoyulan məbləğ",
           "bankText": "Ümumi bank",
-          "jackpotWasWon": "Jackpot qazanıldı!",
-          "jackpotWasNotWon": "Jackpot qazanılmadı.",
+          "jackpotWasWon": "Cekpot qazanıldı!",
+          "jackpotWasNotWon": "Cekpot qazanılmadı.",
           "congrats": "Təbrik edirik, qalib gəldiniz",
-          "lose": "Təəssüf edirik, uğur yoxdur, yenidən cəhd edin."
+          "lose": "Təəssüf ki, bu oyun qazana bilmədiniz."
         }
       },
       "bonusesPage": {
-        "mainDescription": "Oynanan hər oyun üçün bonus xallar toplanılır, Bonus xallar keşbek sayılır ve real pula çevirə bilərsiniz",
-        "balanceText": "Bal balansınız",
+        "mainDescription": "Oynadığıniz hər bir oyun üçün sizə bonus xallar əlavə olunur. Bonus xallar keşbek sayılır, istədiyiniz zaman bonusları real pula çevirə bilərsiniz.",
+        "balanceText": "Bouns balansınız",
         "changeCofText": "Mübadilə nisbəti 100 / 0.20₼",
-        "pointToChangeText": "Mübadilə üçün xallar",
+        "pointToChangeText": "Mübadilə üçün bonuslar:",
         "pointToGetText": "Alacaqsan",
         "changeButtonText": "Mübadilə",
-        "alertText": "Mübadilə minimum 100 bal ilə həyata keçirilir",
+        "alertText": "Mübadilə minimum 100 bonus ilə həyata keçirilir",
         "returnBtnText": "Çıxış"
       },
       "transactionsPage": {
         "tableheader": {
-          "nickText": "nik",
-          "typeText": "Növ",
-          "sumText": "Məbləğ",
-          "dateText": "Tarix"
+          "nickText": "ADI",
+          "typeText": "NÖV",
+          "sumText": "MƏBLƏQ",
+          "dateText": "TARİX"
         },
         "tableItem": {
           "typeText1": "Çıxarış",
@@ -399,7 +399,7 @@
         ]
       },
       "tableHeader": {
-        "nameText": "Nik",
+        "nameText": "İstifadəçi",
         "winsText": "Qələbə",
         "bonusesText": "Bonusları"
       }
@@ -413,7 +413,7 @@
       "depositInformationText": "Biz bütün kartları qəbul edirik, o cümlədən Apple Pay, Google Pay vasitəsi ilə",
       "depositSumText": "məbləğ",
       "alertText": "Minimum",
-      "depositButtonText": "Depozit qoyun",
+      "depositButtonText": "Balans artır",
       "returnBtnText": "Geri"
     },
     "withdrawPage": {
@@ -426,31 +426,31 @@
       "returnBtnText": "Geri"
     },
     "popups": {
-      "jackpotInfoPopup": "Cekpot 20 gedişə oynayır, 20 gediş ərzində 1 sıranı (yuxarı/orta/aşağı) tamamlasanız, cekpotun qalibi siz olacaqsınız.",
+      "jackpotInfoPopup": "Cekpot 20 gedişə ərzində oynanılır. 20 gediş ərzində biletin hər hansı bir sırasını tamamlasanız (yuxarı | orta | aşağı), cekpotun qalibi olursunuz.",
       "statsInfoPopup": "Hörmətli oyunçular, topladığınız xalları dəyişdirə bilərsiniz ₼. Mübadilə etmək üçün sizə minimum 100 bonus lazımdır. Valyuta məzənnəsi 100 bonuslar = 0.20 ₼.",
-      "withdrawInfoPopup": "Müraciətiniz qəbul edildi! Çıxarış 3 iş günü ərzində kartınıza göndəriləcək",
-      "jackpotWonPopup": "Təbrik edirik! Oyunçu PLAYER Jackpotu qazandı",
-      "jackpotLosedPopup": "Təəssüf ki, Jackpot qazanılmadı. Növbəti oyunda şansınızı sınayın!",
+      "withdrawInfoPopup": "Müraciətiniz qəbul edildi! Çıxarış 3 iş günü ərzində kartınıza göndəriləcək.",
+      "jackpotWonPopup": "Təbrik edirik! Oyunçu PLAYER Cekpotu qazandı!!",
+      "jackpotLosedPopup": "Təəssüf ki, Cekpot qazanılmadı. Növbəti oyunda şansınızı sınayın!",
       "winGamePopupTitle": "Təbrik edirik, siz qalib oldunuz!",
       "loseGamePopupTitle": "Təəssüf ki, qələbə qazana bilmədiniz",
-      "endGamePopupDescr": "Qaliblərin siyahısı",
-      "leaveGameAlert": "Oyunu tərk etsəniz, mərciniz etibarsız olacaq",
-      "anotherAccountEnter": "Hesabınız başqa yerdən daxil olub!",
+      "endGamePopupDescr": "Qaliblərin siyahısı.",
+      "leaveGameAlert": "Oyunu tərk etsəniz, mərciniz etibarsız olacaq.",
+      "anotherAccountEnter": "Hesabınıza başqa yerdən daxil olunub!",
       "bonusesSuccess": "Siz uğurla bonuslarınızı mübadilə etdiniz!",
-      "confirmAge": "Zəhmət olmasa yaşınızın qanuni yaşa çatdığını təsdiq edin",
-      "confirmTerms": "Zəhmət olmasa istifadə şərtləri və Gizlilik Siyasətini oxuduğunuzu və qəbul etdiyinizi təsdiq edin",
-      "depositSuccess": "Depozit uğurla kreditləşdirildi",
-      "notEnoughMoney": "Kifayət qədər pul yoxdur",
-      "pointsSuccess": "Ballar uğurla mübadilə edildi",
-      "notEnoughPoints": "Yeterli puan yok",
-      "emptyFields": "Ən azı bir sahəni doldurun",
+      "confirmAge": "Zəhmət olmasa yaşınızın qanuni yaşa çatdığını təsdiq edin!",
+      "confirmTerms": "Zəhmət olmasa istifadə şərtləri və Gizlilik Siyasətini oxuduğunuzu və qəbul etdiyinizi təsdiq edin!",
+      "depositSuccess": "Balansınız uğurla tamamlandı.",
+      "notEnoughMoney": "Kifayət qədər vəsait yoxdur.",
+      "pointsSuccess": "Bonus xallar uğurla mübadilə edildi!",
+      "notEnoughPoints": "Yetərli bonusunuz yoxdur!",
+      "emptyFields": "Ən azı bir sahəni doldurun.",
       "wrongFormat": "Səhv e-poçt formatı",
-      "dataSuccess": "Məlumatlar uğurla dəyişdirildi",
-      "emailExists": "Belə bir e-poçt ilə istifadəçi artıq mövcuddur",
-      "passwordsNotMatch": "Parollar uyğun gəlmir",
-      "wrongPassword": "Yanlış parol",
-      "passwordChangeSuccess": "Parol uğurla dəyişdirildi",
-      "enterSum": "Məbləği daxil edin",
+      "dataSuccess": "Məlumatlar uğurla dəyişdirildi.",
+      "emailExists": "Belə bir e-poçt ilə istifadəçi artıq mövcuddur!",
+      "passwordsNotMatch": "Parollar uyğun gəlmir!",
+      "wrongPassword": "Yanlış parol!",
+      "passwordChangeSuccess": "Parol uğurla dəyişdirildi.",
+      "enterSum": "Məbləği daxil edin.",
       "minimumSum": "Minimum məbləğ 2.00₼",
       "incorrectFields": "Yanlış sahələr",
       "ticketBuyError": "Bilet alarkən xəta baş verdi!"

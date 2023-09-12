@@ -8,26 +8,6 @@ import * as impPopup from "./popup.js";
 export function registrationForm() {
   // let openFormButtons = document.querySelectorAll(".open-registration");
   let registrationPopup = document.querySelector(".registration");
-
-  // openFormButtons.forEach((openRegistration) => {
-  //   openRegistration.addEventListener("click", function () {
-  //     if (openRegistration.classList.contains("registration-button")) {
-  //       createRegistrationForm();
-  //     } else if (openRegistration.classList.contains("login-button")) {
-  //       createLoginForm();
-  //     }
-
-  //     if (!registrationPopup.classList.contains("opened")) {
-  //       registrationPopup.classList.add("opened");
-  //     }
-  //     if (registrationPopup.classList.contains("opened")) {
-  //       document.body.style.overflow = "hidden";
-  //     } else {
-  //       document.body.style.overflow = "auto";
-  //     }
-  //   });
-  // });
-
   // form functions
 
   let openLoginButton = registrationPopup.querySelector(".open-login");
@@ -253,8 +233,18 @@ export function createLoginForm() {
       // show auth interface
       registrationPopup.classList.remove("opened");
       impInterface.showUserInterface(response.data.user);
-      window.username = response.data.username;
-      window.userId = response.data.id;
+
+      console.log(response.data);
+      let user = {
+        username: response.data.user.username,
+        balance: response.data.user.balance,
+        name: response.data.user.name,
+        userId: response.data.user.id,
+        email: response.data.user.email,
+        isAdmin: response.data.user.isAdmin,
+      };
+      localStorage.setItem("user", JSON.stringify(user));
+
       if (await isAuth()) {
         let ws = impLotoNav.connectWebsocketFunctions();
         impNav.addHashListeners(ws);
@@ -330,30 +320,24 @@ export async function getUser() {
 
 export async function isAuth() {
   let response = await impHttpRequests.checkAuth();
+  console.log(response);
   if (response?.status == 200 || response?.statusText == "OK") {
     let registrationPopup = document.querySelector(".registration");
     registrationPopup.classList.remove("opened");
     impInterface.showUserInterface(response.data);
 
-    window.username = response.data.username;
-    window.userId = response.data.id;
+    let user = {
+      username: response.data.username,
+      balance: response.data.balance,
+      name: response.data.name,
+      userId: response.data.id,
+      email: response.data.email,
+      isAdmin: response.data.isAdmin,
+    };
+    localStorage.setItem("user", JSON.stringify(user));
 
     return true;
   } else {
     return false;
   }
 }
-
-function resetActiveBtn(buttonsArr) {
-  buttonsArr.forEach((item) => {
-    if (item.classList.contains("active")) {
-      item.classList.remove("active");
-    }
-  });
-}
-
-// const headerExitButton = document.querySelector(".header__exit");
-// headerExitButton.addEventListener("click", async function () {
-//   localStorage.removeItem("token");
-//   location.reload();
-// });

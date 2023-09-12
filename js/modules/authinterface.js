@@ -1,5 +1,4 @@
 export function showUserInterface(user) {
-  console.log(user);
   let userBlock = document.querySelector(".header__user");
   if (userBlock) {
     // let userName = document.querySelector(".header__name");
@@ -12,5 +11,10 @@ export function showUserInterface(user) {
 
 export function updateBalance(newBalance) {
   let userBalance = document.querySelector(".header__balance");
-  userBalance.innerHTML = newBalance.toFixed(2);
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  localUser.balance = newBalance;
+  localStorage.setItem("user", JSON.stringify(localUser));
+  if (userBalance) {
+    userBalance.innerHTML = newBalance.toFixed(2);
+  }
 }

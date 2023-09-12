@@ -34,7 +34,7 @@ function generateRandomNumbersWithoutRepeats(min, max, count) {
   let numbers = [];
   while (numbers.length < count) {
     let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (!numbers.includes(randomNumber)) {
+    if (!numbers.includes(randomNumber) && randomNumber !== 0) {
       numbers.push(randomNumber);
     }
   }
@@ -76,7 +76,11 @@ export function generateLotoCard() {
   }
 
   for (let i = 1; i <= 9; i++) {
-    const column = generateRandomNumbersWithoutRepeats(i * 10 - 9, i * 10, 3);
+    const column = generateRandomNumbersWithoutRepeats(
+      i * 10 - 10,
+      i * 10 - 1,
+      3
+    );
 
     for (let j = 0; j < 3; j++) {
       let index = j * 9 + i - 1;
@@ -142,7 +146,8 @@ export async function openGamePage(
   bank = null,
   roomId = null,
   jackpot = null,
-  isJackpotPlaying = null
+  isJackpotPlaying = null,
+  soundAllowed = null
 ) {
   let body = document.querySelector("main");
   let siteLanguage = window.siteLanguage;
@@ -216,6 +221,22 @@ export async function openGamePage(
     "loto-gameinfo__jackpot-block-wrapper",
     768
   );
+
+  if (
+    soundAllowed &&
+    soundAllowed == true &&
+    localStorage.getItem("sounds-game") == "true"
+  ) {
+    impAudio.setGameSoundsAllowed(true);
+    impAudio.setMenuSoundsAllowed(true);
+    localStorage.setItem("sounds-menu", true);
+    localStorage.setItem("sounds-game", true);
+  } else {
+    impAudio.setGameSoundsAllowed(false);
+    impAudio.setMenuSoundsAllowed(false);
+    localStorage.setItem("sounds-menu", false);
+    localStorage.setItem("sounds-game", false);
+  }
 
   if (isJackpotPlaying && isJackpotPlaying == true) {
     impLotoNav.animateJackpot();
@@ -431,7 +452,8 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
     localStorage.setItem("pastCasks", JSON.stringify(pastCasks));
 
     // показываем последних 6 касок если они есть после того как прийдет новая
-    if (pastCasks.length > 0 && gameprocessBlock.innerHTML == "") {
+    if (pastCasks.length > 0 && gameprocessBlock) {
+      gameprocessBlock.innerHTML = "";
       for (let i = 0; i < 5; i++) {
         let caskBlock = document.createElement("div");
         caskBlock.classList.add("loto-game-room__cask");
@@ -442,6 +464,9 @@ export function createCask(ws, cask, caskNumber, pastCasks) {
         }
       }
     }
+
+    // заполняем выпавшие бочки в билетах при перезаходе
+    colorDropedCasks(pastCasks);
 
     // убираем все бочки что старее 5
     if (gameprocessBlock.children.length > 5) {
@@ -648,73 +673,6 @@ function colorCask(cask, pastCasks) {
   }
 }
 
-export async function colorDropedCasks(pastCasks) {
-  const page = document.querySelector(".loto-game-room-page");
-
-  if (!page.classList.contains("auto-filled")) {
-    page.classList.add("auto-filled");
-
-    let ticketsBody = document.querySelector(".loto-game-room__main");
-    const { data: ticketsData } = await impHttp.getTickets();
-
-    if (ticketsBody) {
-      let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
-      // заполнение старых цифр которые сейчас не заполнены
-      tickets.forEach((ticket) => {
-        const ticketData = ticketsData.find(
-          (item) => item.id == ticket.getAttribute("id")
-        );
-        if (ticketData.isActive == false) {
-          ticket.classList.add("unavailable");
-        }
-        let ticketCells = ticket.querySelectorAll(".ticket-cell");
-
-        ticketCells.forEach((cell) => {
-          if (
-            ticketData.isActive == true &&
-            !cell.classList.contains("active") &&
-            !cell.classList.contains("unavailable")
-          ) {
-            if (pastCasks.includes(Number(cell.innerHTML))) {
-              if (
-                // !unavailableCasks.includes(+cell.innerHTML) &&
-                ticketData.isActive == true
-              ) {
-                cell.classList.add(
-                  "active",
-                  localStorage.getItem("cask-color") || ""
-                );
-              }
-              let allActiveCasks = ticket.querySelectorAll(
-                ".ticket-cell.active"
-              );
-              ticket.setAttribute("choosedcasks", allActiveCasks.length);
-            }
-          } else if (
-            ticketData.isActive == false &&
-            pastCasks.includes(Number(cell.innerHTML))
-          ) {
-            // cell.classList.add("unavailable");
-          }
-
-          // if (unavailableCasks.includes(+cell.innerHTML)) {
-          //   cell.classList.add("unavailable");
-          // } else
-          if (
-            // !unavailableCasks.includes(+cell.innerHTML) &&
-            pastCasks.includes(+cell.innerHTML)
-          ) {
-            cell.classList.add(
-              "active",
-              localStorage.getItem("cask-color") || ""
-            );
-          }
-        });
-      });
-    }
-  }
-}
-
 export function checkWin(
   winners,
   bank,
@@ -773,6 +731,79 @@ export function checkWin(
   }
 }
 
+async function colorDropedCasks(pastCasks) {
+  const page = document.querySelector(".loto-game-room-page");
+
+  if (!page.classList.contains("auto-filled")) {
+    page.classList.add("auto-filled");
+
+    let ticketsBody = document.querySelector(".loto-game-room__main");
+    const { data: ticketsData } = await impHttp.getTickets();
+
+    if (ticketsBody) {
+      let ticketsInfo = JSON.parse(localStorage.getItem("ticketsInfo") || "[]");
+
+      let tickets = ticketsBody.querySelectorAll(".loto-gamemain__ticket");
+      // заполнение старых цифр которые сейчас не заполнены
+      tickets.forEach((ticket) => {
+        const ticketData = ticketsData.find(
+          (item) => item.id == ticket.getAttribute("id")
+        );
+        if (ticketData.isActive == false) {
+          ticket.classList.add("unavailable");
+        }
+        let ticketCells = ticket.querySelectorAll(".ticket-cell");
+        const unavailableCasks =
+          JSON.parse(ticket.getAttribute("unavailableCasks")) || [];
+        ticketCells.forEach((cell) => {
+          if (
+            ticketData.isActive == true &&
+            !cell.classList.contains("active") &&
+            !cell.classList.contains("unavailable")
+          ) {
+            if (pastCasks.includes(Number(cell.innerHTML))) {
+              if (
+                !unavailableCasks.includes(+cell.innerHTML) &&
+                ticketData.isActive == true
+              ) {
+                if (ticketsInfo) {
+                  if (
+                    !ticketsInfo
+                      .find(
+                        (item) => item.ticketId == ticket.getAttribute("id")
+                      )
+                      .choosedCasks.includes(+cell.innerHTML)
+                  ) {
+                    ticketsInfo
+                      .find(
+                        (item) => item.ticketId == ticket.getAttribute("id")
+                      )
+                      .choosedCasks.push(+cell.innerHTML);
+                  }
+
+                  localStorage.setItem(
+                    "ticketsInfo",
+                    JSON.stringify(ticketsInfo)
+                  );
+                }
+
+                cell.classList.add(
+                  "active",
+                  localStorage.getItem("cask-color") || ""
+                );
+              }
+              let allActiveCasks = ticket.querySelectorAll(
+                ".ticket-cell.active"
+              );
+              ticket.setAttribute("choosedcasks", allActiveCasks.length);
+            }
+          }
+        });
+      });
+    }
+  }
+}
+
 function showPreviousCasks() {
   let pastCasks = localStorage.getItem("pastCasks");
   if (pastCasks) {
@@ -783,7 +814,7 @@ function showPreviousCasks() {
     ".loto-game-room__gameprocess"
   );
 
-  if (gameprocessBlock.innerHTML == "") {
+  if (gameprocessBlock && gameprocessBlock.innerHTML == "") {
     for (let i = 0; i < 6; i++) {
       let caskBlock = document.createElement("div");
       caskBlock.classList.add("loto-game-room__cask");

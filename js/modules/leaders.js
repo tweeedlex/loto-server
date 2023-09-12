@@ -95,8 +95,10 @@ export async function openLeadersPage(gameType) {
           <hr />
           <div class="table-header__bonuses">${siteLanguage.statsPage.tableHeader.bonusesText}</div>
         </div>
+        <div class="leader-page__table-main-wrapper">
         <div class="leader-page__table-main">
           
+        </div>
         </div>
       </section>
    </div>`;
@@ -113,16 +115,19 @@ export async function openLeadersPage(gameType) {
     });
 
     // создаем лидеров в таблице лидеров
+    let tableElementWrapper = document.querySelector(
+      ".leader-page__table-main"
+    );
     let tableElement = document.querySelector(".leader-page__table-main");
     if (tableElement) {
       // сбрасываем все старые елементы
       tableElement.innerHTML = "";
-      createLeaderesTable(tableElement, lotoLeaders.data);
+      createLeaderesTable(tableElement, lotoLeaders.data, tableElementWrapper);
     }
   }
 
   // создание победителей в таблицу
-  function createLeaderesTable(table, data) {
+  function createLeaderesTable(table, data, tableElementWrapper) {
     // sort data by tokens amount from max to min
 
     console.log("data", data);
@@ -136,7 +141,7 @@ export async function openLeadersPage(gameType) {
 
     // создаем елементы в таблицу
 
-    for (let index = 0; index < data.length; index++) {
+    for (let index = 0; index < 100; index++) {
       const userObject = data[index];
 
       let userElement = document.createElement("div");
@@ -161,8 +166,67 @@ export async function openLeadersPage(gameType) {
           <span class="leader-item__tokens">${userObject.tokens}</span>
         </p>
         `;
+
+      switch (index + 1) {
+        case 1:
+          let top1 = userElement.querySelector(".leader-table__user-number");
+          top1.innerHTML = `  <img class="leader-icon" src="img/top1.png" alt="">`;
+          break;
+        case 2:
+          let top2 = userElement.querySelector(".leader-table__user-number");
+          top2.innerHTML = `  <img class="leader-icon" src="img/top2.png" alt="">`;
+          break;
+        case 3:
+          let top3 = userElement.querySelector(".leader-table__user-number");
+          top3.innerHTML = `  <img class="leader-icon" src="img/top3.png" alt="">`;
+          break;
+
+        default:
+          break;
+      }
+
+      if (index + 1 == 1 || index + 1 == 2 || index + 1 == 3) {
+        console.log(index + 1, userObject.username);
+      }
       table.appendChild(userElement);
     }
+
+    let localUser = localStorage.getItem("user");
+    if (localUser) {
+      localUser = JSON.parse(localUser);
+    }
+    let clientUsername = localUser.username;
+
+    data.forEach((user, index) => {
+      if (clientUsername == user.username) {
+        if (index > 100) {
+          let userElement = document.createElement("div");
+          userElement.classList.add("leader-page__table-item", "leader-fixed");
+          userElement.innerHTML = `
+        <div class="leader-table__user">
+          <div class="leader-table__user-number">
+            ${index + 1})
+          </div>
+          <div class="leader-item__username">
+            ${user.username}
+          </div>
+        </div>
+        <p class="leader-table__winsum">
+          ${user.gamesWon}
+        </p>
+        <p class="leader-table__bonuses">
+          <img
+            class="leader-table__bonuses-icon"
+            src="img/leader icons/star.png"
+          />
+          <span class="leader-item__tokens">${user.tokens}</span>
+        </p>
+        `;
+
+          tableElementWrapper.appendChild(userElement);
+        }
+      }
+    });
   }
 
   // функции выхода обратно, с таблици лидеров в меню

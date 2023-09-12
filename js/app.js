@@ -5,6 +5,8 @@ import * as impHttp from "./modules/http.js";
 import * as impAdminNav from "./modules/admin-navigation.js";
 import * as impMoveElement from "./modules/move-element.js";
 import * as impLocalization from "./modules/localize.js";
+window.ws = null;
+
 let preloader = document.querySelector(".page-preloader");
 let siteLanguage = await impLocalization.getCurrentSiteLang();
 window.siteLanguage = siteLanguage;

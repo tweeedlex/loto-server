@@ -15,10 +15,6 @@ let footer = document.querySelector("footer");
 let mainContainer = document.querySelector(".main__container");
 mainContainer.classList.add("header__padding");
 
-// let game = document.querySelector(".games");
-// let lotoRooms = game.querySelectorAll(".loto-room");
-// event listeners
-
 export function hideAuthorization() {
   const auth = document.querySelector(".registration");
   auth.classList.remove("opened");
@@ -32,6 +28,7 @@ export function addListeners(ws) {
     room.addEventListener("click", () => {
       const roomId = room.getAttribute("room");
       impLotoNavigation.openLotoRoom(window.ws, roomId);
+      impAudio.playGameClick();
     });
   });
 }
@@ -97,6 +94,12 @@ export async function addHashListeners(ws = null) {
 }
 
 export async function hashNavigation() {
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
   let websocket = window.ws;
   if (header.classList.contains("d-none")) {
     header.classList.remove("d-none");
@@ -118,8 +121,8 @@ export async function hashNavigation() {
       JSON.stringify({
         // roomId,
         // bet: bet,
-        userId: window.userId,
-        username: window.username,
+        userId: localUser.userId,
+        username: localUser.username,
         method: "disconnectGame",
       })
     );
@@ -188,8 +191,8 @@ export async function hashNavigation() {
       JSON.stringify({
         roomId,
         bet,
-        username: window.username,
-        userId: window.userId,
+        username: localUser.username,
+        userId: localUser.userId,
         method: "connectGame",
       })
     );
@@ -213,14 +216,6 @@ export async function hashNavigation() {
     if (ticketsResponce.status == 200 && isGameStartedRes.status == 200) {
       let userTickets = ticketsResponce.data;
       let isGameStarted = isGameStartedRes.data;
-
-      if (isGameStarted == true) {
-        // turn off sound
-        impAudio.setGameSoundsAllowed(false);
-        impAudio.setMenuSoundsAllowed(false);
-        localStorage.setItem("sounds-menu", false);
-        localStorage.setItem("sounds-game", false);
-      }
 
       if (userTickets.length > 0 && isGameStarted == true) {
         let userTicketsRoomId = userTickets[0].gameLevel;
@@ -246,8 +241,8 @@ export async function hashNavigation() {
       JSON.stringify({
         roomId,
         bet: bet,
-        username: window.username,
-        userId: window.userId,
+        username: localUser.username,
+        userId: localUser.userId,
         method: "connectGame",
       })
     );
@@ -255,13 +250,17 @@ export async function hashNavigation() {
     if (!preloader.classList.contains("d-none")) {
       preloader.classList.add("d-none");
     }
+
+    const isAudioAllowed = JSON.parse(query.get("sound"));
+
     await impLotoGame.openGamePage(
       +online || null,
       +bet || null,
       +bank || null,
       +roomId,
       +jackpot || null,
-      isJackpotPlaying || null
+      isJackpotPlaying || null,
+      isAudioAllowed || null
     );
   }
 
@@ -750,7 +749,7 @@ function redirectToMainPage() {
                 <img src="img/loto-room-card-logo.png" alt="" />
               </div>
               <div class="room-left__item-timer-block">
-                <p class="timer-block__text">Ожидание</p>
+                <p class="timer-block__text">${siteLanguage.mainPage.gamecards.timerTextWaiting}</p>
                 <span class="timer-block__timer">00:00</span>
               </div>
             </div>
@@ -805,6 +804,7 @@ function redirectToMainPage() {
     </div>
   </section>
   `;
+
   main.appendChild(main__container);
 
   addListeners(window.ws);
@@ -818,6 +818,13 @@ function redirectToMainPage() {
 
 export function pageNavigation(ws) {
   let footer = document.querySelector("#footer");
+
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
   // добавляем стили навигации на сайт
   if (footer && footer.classList.contains("d-none")) {
     footer.classList.remove("d-none");
@@ -857,6 +864,7 @@ export function pageNavigation(ws) {
       location.hash = "#leaders";
       navButtons.forEach((btn) => btn.classList.remove("active"));
       openLeadersMenuBtn.classList.add("active");
+      impAudio.playRating();
     });
 
     // открытие страницы с играми
@@ -866,8 +874,8 @@ export function pageNavigation(ws) {
         location.hash = "";
         ws.send(
           JSON.stringify({
-            username: window.username,
-            userId: window.userId,
+            username: localUser.username,
+            userId: localUser.userId,
             method: "getAllInfo",
           })
         );
@@ -888,6 +896,7 @@ export function pageNavigation(ws) {
       location.hash = "#deposit";
       navButtons.forEach((btn) => btn.classList.remove("active"));
       openSettingsBtn.classList.add("active");
+      impAudio.playProfileDeposit();
 
       // location.hash = "#settings";
     });
@@ -899,6 +908,7 @@ export function pageNavigation(ws) {
       location.hash = "#profile";
       navButtons.forEach((btn) => btn.classList.remove("active"));
       openProfileBtn.classList.add("active");
+      impAudio.playProfileDeposit();
     });
   }
 }

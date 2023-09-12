@@ -31,13 +31,19 @@ export const connectWebsocketFunctions = () => {
   window.ws = ws;
   let clientId = createClientId();
 
+  let localUser = localStorage.getItem("user");
+
+  if (localUser) {
+    localUser = JSON.parse(localUser);
+  }
+
   ws.onopen = () => {
     console.log("Подключение установлено");
     ws.send(
       JSON.stringify({
         clientId: clientId,
-        username: window.username,
-        userId: window.userId,
+        username: localUser.username,
+        userId: localUser.userId,
         method: "connectGeneral",
       })
     );
@@ -53,6 +59,7 @@ export const connectWebsocketFunctions = () => {
         console.log(msg);
         localStorage.removeItem("token");
         location.username = null;
+        localStorage.removeItem("user");
         let disconnectMsg = {
           reason: "anotherConnection",
         };
@@ -133,8 +140,8 @@ export const connectWebsocketFunctions = () => {
         break;
       case "connectGame":
         console.log(msg);
-        // проверка есть ли юзер в комнате
-        checkUserBeforeEnterRoom(msg);
+        // // проверка есть ли юзер в комнате
+        // checkUserBeforeEnterRoom(msg);
         // добавление информации о комнате
         setBet(msg);
         updateOnline(msg.online);
@@ -157,7 +164,7 @@ export const connectWebsocketFunctions = () => {
           (ticket) => ticket.gameLevel == msg.roomId
         );
 
-        if (msg.userId == window.userId && !userTickesInRoom.length) {
+        if (msg.userId == localUser.userId && !userTickesInRoom.length) {
           // создаём билет если только зашел в комнату
           let ticketData = impLotoGame.generateLotoCard();
           let cells = ticketData.newCard;
@@ -217,8 +224,8 @@ export const connectWebsocketFunctions = () => {
           JSON.stringify({
             roomId: msg.roomId,
             bet: bet,
-            userId: window.userId,
-            username: window.username,
+            userId: localUser.userId,
+            username: localUser.username,
             method: "disconnectGame",
           })
         );
@@ -249,7 +256,7 @@ export const connectWebsocketFunctions = () => {
         break;
       case "openGame":
         console.log(msg);
-        location.hash = `#loto-game-${msg.roomId}?bet=${msg.bet}&bank=${msg.bank}&jackpot=${msg.jackpot}&online=${msg.online}&isJackpotPlaying=${msg.isJackpotPlaying}`;
+        location.hash = `#loto-game-${msg.roomId}?bet=${msg.bet}&bank=${msg.bank}&jackpot=${msg.jackpot}&online=${msg.online}&isJackpotPlaying=${msg.isJackpotPlaying}&sound=true`;
         break;
       case "sendNewCask":
         impLotoGame.createCask(ws, msg.cask, msg.caskNumber, msg.pastCasks);
@@ -341,7 +348,6 @@ export async function openLotoRoom(ws, roomId) {
     if (isPlayerInRoom.data == true) {
       const bet = impLotoGame.getBetByRoomId(roomId);
       location.hash = `#loto-game-${roomId}`;
-      impAudio.playLoading();
     } else {
       location.hash = "";
       impPopup.openErorPopup(
@@ -350,7 +356,6 @@ export async function openLotoRoom(ws, roomId) {
     }
   } else {
     location.hash = `#loto-room-${roomId}`;
-    impAudio.playLoading();
 
     // ws.send(
     //   JSON.stringify({
@@ -467,8 +472,7 @@ async function startLotoTimer(strtedAt) {
     console.log("start loto timer");
     let timerBlock = document.querySelector(".loto-room-page__timer span");
     const startedAt = new Date(strtedAt).getTime();
-    // const targetTime = startedAt + 5 * 60 * 1000; // 5 minutes in milliseconds
-    const targetTime = startedAt + 30 * 1000; // 5 minutes in milliseconds
+    const targetTime = startedAt + 60 * 1000; // 5 minutes in milliseconds
     let nowClientTime = await NowClientTime();
 
     let distance = targetTime - nowClientTime;
@@ -535,11 +539,8 @@ async function NowClientTime() {
   // console.log("now time", new Date().getTime());
   // console.log("api time", time);
 
-  // return time + 60 * 60 * 1000;
-  // return time - 60 * 60 * 1000;
-  // return time - 7200000;
-  // return time + timezomeOffset * 60 * 1000;/
-  return timeHands;
+  return timeHands - 180 * 60 * 1000;
+  // return timeHands;
 }
 
 // "year": "2023",
@@ -674,22 +675,15 @@ export function animateNumberChange(element, startValue, endValue) {
   updateValue();
 }
 
-function checkUserBeforeEnterRoom(msg) {
-  let userCounter = 0;
-  msg.users.forEach((user) => {
-    if (user == window.username) {
-      userCounter++;
-    }
-  });
-
-  if (userCounter > 1) {
-    alert("you are already in the room");
-  }
-}
-
 export function buyTickets(ws, roomId, bet) {
   let buyButton = document.querySelector(".loto-gamecontrolls__buy");
   if (buyButton) {
+    let localUser = localStorage.getItem("user");
+
+    if (localUser) {
+      localUser = JSON.parse(localUser);
+    }
+
     buyButton.addEventListener("click", async function () {
       let ticketsCount = document.querySelector(
         ".loto-gamecontrolls__counter__value"
@@ -743,8 +737,8 @@ export function buyTickets(ws, roomId, bet) {
         bet,
         roomId,
         tickets: ticketsArray,
-        user: window.username,
-        userId: window.userId,
+        user: localUser.username,
+        userId: localUser.userId,
         method: "buyTickets",
       };
 
@@ -849,7 +843,7 @@ async function startMenuTimerLobby(timers) {
         lotoRoomTimerText.innerHTML =
           siteLanguage.mainPage.gamecards.timerTextStarting;
         lotoRoom.classList.add("starting");
-        let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 30000;
+        let countDownDate = new Date(timers[`room${roomId}`]).getTime() + 60000;
 
         let nowClientTime = await NowClientTime();
 

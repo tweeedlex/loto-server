@@ -104,7 +104,7 @@ export async function getUser() {
     const response = await $api.get(`/get-user`);
     return await response;
   } catch (error) {
-    console.log(e.response);
+    console.log(error.response);
     return await error.response;
   }
 }
@@ -411,7 +411,6 @@ export async function createPayout(
 export async function updateUserData(name, email) {
   try {
     const response = await $api.put(`/updateUserData`, {
-      username,
       name,
       email,
     });

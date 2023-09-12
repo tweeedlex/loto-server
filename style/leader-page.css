@@ -122,11 +122,32 @@
   background: #f0e274;
 }
 
+.leader-page__table-main-wrapper {
+  /* height: 100%;
+  max-height: calc(100vh - 370px);
+  overflow-y: auto; */
+  margin-top: 10px;
+  width: 100%;
+  position: relative;
+}
+
 .leader-page__table-main {
+  height: 100%;
+  max-height: calc(100vh - 370px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
+}
+.leader-page__table-main::-webkit-scrollbar {
+  width: 0; /* Устанавливаем ширину скроллбара на 0 */
+  background: transparent; /* Задаем прозрачный фон для скроллбара */
+}
+
+/* Для других браузеров (Firefox и др.) */
+.leader-page__table-main {
+  scrollbar-width: none; /* Устанавливаем ширину скроллбара на 0 */
 }
 
 .leader-page__table-item {
@@ -141,6 +162,24 @@
   font-weight: 600;
 }
 
+.leader-page__table-item.leader-fixed {
+  position: absolute;
+  background: var(
+    --linear-2-paints,
+    linear-gradient(
+      180deg,
+      rgba(159, 72, 72, 0.2) 0%,
+      rgba(159, 72, 72, 0.14) 27.6%,
+      rgba(159, 72, 72, 0.08) 60.42%,
+      rgba(159, 72, 72, 0) 100%
+    ),
+    linear-gradient(180deg, #572451 0%, rgb(68, 93, 185) 100%)
+  );
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
 .leader-page__table-item > *:not(:nth-child(2)) {
   width: 110px;
 }
@@ -149,6 +188,18 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.leader-table__user .leader-table__user-number .leader-icon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 425px) {
+  .leader-table__user .leader-table__user-number .leader-icon {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .leader-table__winsum {

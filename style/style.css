@@ -100,6 +100,14 @@ a {
   max-width: 400px;
   cursor: pointer;
 }
+.select-language .select-language__img {
+  width: 24px;
+  height: 24px;
+}
+.select-language .select-language__img img {
+  width: 100%;
+  height: 100%;
+}
 
 .select-language__text {
   color: #78010b;

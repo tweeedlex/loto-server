@@ -44,6 +44,10 @@
   align-items: center; */
 }
 
+.admin-withdraw-page .admin-withdraw__table * {
+  user-select: text;
+}
+
 .admin-withdraw-page .admin-withdraw-table__header {
   display: grid;
   grid-template-columns: 150px 55px 90px 90px 150px 160px 85px 30px;
