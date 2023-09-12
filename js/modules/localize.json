@@ -221,7 +221,9 @@
       "enterSum": "Введите сумму",
       "minimumSum": "Минимальная сумма 2.00₼",
       "incorrectFields": "Неверные поля",
-      "ticketBuyError": "Произошла ошибка при покупке билета!"
+      "ticketBuyError": "Произошла ошибка при покупке билета!",
+      "cancelBet": "Ваша ставка будет анулирована. Вы точно хотите выйти?",
+      "noTransactions": "Не найдено транзакций"
     },
     "words": {
       "yes": "да",
@@ -453,7 +455,9 @@
       "enterSum": "Məbləği daxil edin.",
       "minimumSum": "Minimum məbləğ 2.00₼",
       "incorrectFields": "Yanlış sahələr",
-      "ticketBuyError": "Bilet alarkən xəta baş verdi!"
+      "ticketBuyError": "Bilet alarkən xəta baş verdi!",
+      "cancelBet": "Təklifiniz ləğv ediləcək. Çıxmaq istədiyinizə əminsiniz?",
+      "noTransactions": "Heç bir əməliyyat tapılmadı"
     },
     "words": {
       "yes": "Bəli",
@@ -685,7 +689,9 @@
       "enterSum": "Enter the amount",
       "minimumSum": "Minimum amount 2.00₼",
       "incorrectFields": "Incorrect fields",
-      "ticketBuyError": "An error occurred when buying a ticket!"
+      "ticketBuyError": "An error occurred when buying a ticket!",
+      "cancelBet": "Your bid will be voided. Are you sure you want to exit?",
+      "noTransactions": "No transactions found"
     },
     "words": {
       "yes": "Yes",
@@ -917,7 +923,9 @@
       "enterSum": "Введіть суму",
       "minimumSum": "Мінімальна сума 2.00₼",
       "incorrectFields": "Невірні поля",
-      "ticketBuyError": "Сталася помилка при купівлі білета"
+      "ticketBuyError": "Сталася помилка при купівлі білета",
+      "cancelBet": "Ваша ставка буде анульована. Ви точно хочете вийти?",
+      "noTransactions": "Не знайдено транзакцій"
     },
     "words": {
       "yes": "Так",
@@ -1148,7 +1156,9 @@
       "enterSum": "Tutarı girin",
       "minimumSum": "Minimum tutar 2.00₼",
       "incorrectFields": "Geçersiz alanlar",
-      "ticketBuyError": "Bilet alırken bir hata oluştu!"
+      "ticketBuyError": "Bilet alırken bir hata oluştu!",
+      "cancelBet": "Teklifiniz geçersiz sayılacaktır. Çıkmak istediğine emin misin?",
+      "noTransactions": "İşlem bulunamadı"
     },
     "words": {
       "yes": "Evet",

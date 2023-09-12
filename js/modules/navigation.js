@@ -478,7 +478,7 @@ async function openRoomByHash(hash) {
       );
       if (boughtTickets.length > 0) {
         impPopup.openExitPopup(
-          "Ваша ставка будет анулирована. Вы точно хотите выйти?",
+          siteLanguage.popups.cancelBet,
           Number(roomId),
           bet
         );

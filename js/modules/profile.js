@@ -1496,8 +1496,7 @@ async function openTransactions() {
   });
 
   if (transactions.length === 0) {
-    tableBody.innerHTML =
-      "<span style='color:#fff'>Не найдено транзакций</span>";
+    tableBody.innerHTML = `<span style='color:#fff'>${siteLanguage.popups.noTransactions}</span>`;
   }
 }
 
