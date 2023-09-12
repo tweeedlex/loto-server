@@ -1351,9 +1351,11 @@ async function openPayments() {
 
     const result = await impHttp.checkPayouts(payouts);
     if (result.status == 200) {
-      impPopup.open("Выплаты успешно подтверждены");
+      impPopup.open(siteLanguage.popups.withdrawSuccess);
     } else {
-      impPopup.openErorPopup("Ошибка при подтверждении выплат");
+      impPopup.openErorPopup(
+        siteLanguage.profilePage.myGamesPage.statsItem.errorText
+      );
     }
   });
 
