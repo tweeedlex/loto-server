@@ -224,7 +224,8 @@
       "ticketBuyError": "Произошла ошибка при покупке билета!",
       "cancelBet": "Ваша ставка будет анулирована. Вы точно хотите выйти?",
       "noTransactions": "Не найдено транзакций",
-      "withdrawSuccess": "Выплаты успешно подтверждены"
+      "withdrawSuccess": "Выплаты успешно подтверждены",
+      "gameStarted": "Игра уже началась. Если вы хотите принять участие в игре, подождите ее окончания!"
     },
     "words": {
       "yes": "да",
@@ -459,7 +460,8 @@
       "ticketBuyError": "Bilet alarkən xəta baş verdi!",
       "cancelBet": "Təklifiniz ləğv ediləcək. Çıxmaq istədiyinizə əminsiniz?",
       "noTransactions": "Heç bir əməliyyat tapılmadı",
-      "withdrawSuccess": "Ödənişlər uğurla təsdiqləndi"
+      "withdrawSuccess": "Ödənişlər uğurla təsdiqləndi",
+      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!"
     },
     "words": {
       "yes": "Bəli",
@@ -694,7 +696,8 @@
       "ticketBuyError": "An error occurred when buying a ticket!",
       "cancelBet": "Your bid will be voided. Are you sure you want to exit?",
       "noTransactions": "No transactions found",
-      "withdrawSuccess": "Payments have been successfully confirmed"
+      "withdrawSuccess": "Payments have been successfully confirmed",
+      "gameStarted": "The game has already started. If you want to take part in the game, wait for it to end!"
     },
     "words": {
       "yes": "Yes",
@@ -929,7 +932,8 @@
       "ticketBuyError": "Сталася помилка при купівлі білета",
       "cancelBet": "Ваша ставка буде анульована. Ви точно хочете вийти?",
       "noTransactions": "Не знайдено транзакцій",
-      "withdrawSuccess": "Платежі успішно підтверджені"
+      "withdrawSuccess": "Платежі успішно підтверджені",
+      "gameStarted": "Гра вже почалася. Якщо ви хочете взяти участь у грі, дочекайтеся її закінчення!"
     },
     "words": {
       "yes": "Так",
@@ -1163,7 +1167,8 @@
       "ticketBuyError": "Bilet alırken bir hata oluştu!",
       "cancelBet": "Teklifiniz geçersiz sayılacaktır. Çıkmak istediğine emin misin?",
       "noTransactions": "İşlem bulunamadı",
-      "withdrawSuccess": "Ödemeler başarıyla onaylandı"
+      "withdrawSuccess": "Ödemeler başarıyla onaylandı",
+      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!"
     },
     "words": {
       "yes": "Evet",

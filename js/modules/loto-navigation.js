@@ -351,7 +351,7 @@ export async function openLotoRoom(ws, roomId) {
     } else {
       location.hash = "";
       impPopup.openErorPopup(
-        "Игра уже началась. Если вы хотите принять участие в игре, подождите ее окончания!"
+        siteLanguage.popups.gameStarted
       );
     }
   } else {
