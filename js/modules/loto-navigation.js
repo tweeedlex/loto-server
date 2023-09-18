@@ -27,8 +27,8 @@ let activeFinishTimers = {
 };
 
 export const connectWebsocketFunctions = () => {
-  const ws = new WebSocket(`ws://localhost:5001/game`);
-  // const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
+  // const ws = new WebSocket(`ws://localhost:5001/game`);
+  const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
   window.ws = ws;
   let clientId = createClientId();
 
@@ -1027,7 +1027,7 @@ async function startMenuTimerGame(timers) {
             lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
           }
         }, 1000);
-        
+
         clearInterval(activeFinishTimers[`room${room}`]);
         activeFinishTimers[`room${roomId}`] = timer;
       }
