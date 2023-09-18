@@ -613,8 +613,8 @@ async function NowClientTime() {
   // console.log("now time", new Date().getTime());
   // console.log("api time", time);
 
-  return timeHands - 180 * 60 * 1000;
-  // return timeHands;
+  // return timeHands - 180 * 60 * 1000;
+  return timeHands;
 }
 
 // "year": "2023",
