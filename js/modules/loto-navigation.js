@@ -27,8 +27,8 @@ let activeFinishTimers = {
 };
 
 export const connectWebsocketFunctions = () => {
-  // const ws = new WebSocket(`ws://localhost:5001/game`);
-  const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
+  const ws = new WebSocket(`ws://localhost:5001/game`);
+  // const ws = new WebSocket(`wss://loto-server-new.onrender.com/game`);
   window.ws = ws;
   let clientId = createClientId();
 
@@ -86,10 +86,9 @@ export const connectWebsocketFunctions = () => {
         await startMenuTimerLobby(msg.timers);
 
         for (let room = 1; room <= 5; room++) {
-          let roomTimer = activeFinishTimers[`room${room}`];
-          if (roomTimer != null) {
-            roomTimer = null;
-            clearInterval(roomTimer);
+          if (activeFinishTimers[`room${room}`] != null) {
+            clearInterval(activeFinishTimers[`room${room}`]);
+            activeFinishTimers[`room${room}`] = null;
           }
         }
 
@@ -108,11 +107,12 @@ export const connectWebsocketFunctions = () => {
         updateAllRoomsJackpot(msg.jackpots);
         break;
       case "allRoomsStartTimers":
+        // console.log(msg);
+        // console.log(activeTimers);
         for (let room = 1; room <= 5; room++) {
-          let roomTimer = activeTimers[`room${room}`];
-          if (roomTimer != null) {
-            roomTimer = null;
-            clearInterval(roomTimer);
+          if (activeTimers[`room${room}`] != null) {
+            clearInterval(activeTimers[`room${room}`]);
+            activeTimers[`room${room}`] = null;
           }
         }
         // for (let timer of activeTimers) {
@@ -122,12 +122,12 @@ export const connectWebsocketFunctions = () => {
 
         break;
       case "allRoomsFinishTimers":
-        // console.log(msg);
+        console.log(activeFinishTimers);
+        console.log(msg);
         for (let room = 1; room <= 5; room++) {
-          let roomTimer = activeFinishTimers[`room${room}`];
-          if (roomTimer != null) {
-            roomTimer = null;
-            clearInterval(roomTimer);
+          if (activeFinishTimers[`room${room}`] != null) {
+            clearInterval(activeFinishTimers[`room${room}`]);
+            activeFinishTimers[`room${room}`] = null;
           }
         }
         // for (let timer of activeFinishTimers) {
@@ -613,8 +613,8 @@ async function NowClientTime() {
   // console.log("now time", new Date().getTime());
   // console.log("api time", time);
 
-  // return timeHands - 180 * 60 * 1000;
-  return timeHands;
+  return timeHands - 180 * 60 * 1000;
+  // return timeHands;
 }
 
 // "year": "2023",
@@ -954,6 +954,7 @@ async function startMenuTimerLobby(timers) {
             }
           }
         }, 1000);
+        clearInterval(activeTimers[`room${roomId}`]);
         activeTimers[`room${roomId}`] = timer;
       }
     }
@@ -1026,7 +1027,8 @@ async function startMenuTimerGame(timers) {
             lotoRoomTimer.innerHTML = `${formattedMinutes}:${formattedSeconds}`;
           }
         }, 1000);
-
+        
+        clearInterval(activeFinishTimers[`room${room}`]);
         activeFinishTimers[`room${roomId}`] = timer;
       }
     }

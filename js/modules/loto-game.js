@@ -60,7 +60,6 @@ const deleteNumbers = (card) => {
     let row = newCard.slice(i * 9, i * 9 + 9);
 
     let numbersToDelete = generateRandomNumbersWithoutRepeats(0, 8, 4, true);
-    console.log(numbersToDelete);
     numbersToDelete.forEach((number) => {
       row[number] = " ";
     });
