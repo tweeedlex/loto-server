@@ -130,8 +130,6 @@ export async function openLeadersPage(gameType) {
   function createLeaderesTable(table, data, tableElementWrapper) {
     // sort data by tokens amount from max to min
 
-    console.log("data", data);
-
     data = data.sort((a, b) => {
       if (b.gamesWon === a.gamesWon) {
         return b.moneyWon - a.moneyWon; // Фильтрация по moneyWon при равных tokens
@@ -185,9 +183,6 @@ export async function openLeadersPage(gameType) {
           break;
       }
 
-      if (index + 1 == 1 || index + 1 == 2 || index + 1 == 3) {
-        console.log(index + 1, userObject.username);
-      }
       table.appendChild(userElement);
     }
 

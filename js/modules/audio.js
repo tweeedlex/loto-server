@@ -1,17 +1,35 @@
-let menuSoundsAllowed = localStorage.getItem("sounds-menu");
-let gameSoundsAllowed = localStorage.getItem("sounds-game");
+let menuSoundsAllowed = localStorage.getItem(`sounds-menu`);
+let gameSoundsAllowed = localStorage.getItem(`sounds-game`);
 
-let language = localStorage.getItem("language") || "ru";
+let language = localStorage.getItem(`language`) || `ru`;
+
+const path = `./sounds`;
+
+const loadCaskSounds = () => {
+  casksSounds = [];
+  for (let i = 1; i <= 90; i++) {
+    if (language == `AZ` || language == `TR`) {
+      language = `AZ-TR`;
+    }
+
+    let audio = new Audio(
+      `${path}/${language}/${i}${language.split(`-`)[0].toLowerCase()}.mp3`
+    );
+    casksSounds.push(audio);
+  }
+};
+
 export const setLanguage = (lang) => {
   language = lang;
+  loadCaskSounds();
 };
 
 let menuVolume = 0.5;
 let gameVolume = 0.5;
-if (menuSoundsAllowed == "false") {
+if (menuSoundsAllowed == `false`) {
   menuVolume = 0;
 }
-if (gameSoundsAllowed == "false") {
+if (gameSoundsAllowed == `false`) {
   gameVolume = 0;
 }
 
@@ -26,19 +44,9 @@ export const setMenuSoundsAllowed = (allowed) => {
 };
 
 // casks
-const casksSounds = [];
-for (let i = 1; i <= 90; i++) {
-  if (language == "AZ" || language == "TR") {
-    language = "AZ-TR";
-  }
+let casksSounds = [];
 
-  let audio = new Audio(
-    `./js/modules/sounds/${language}/${i}${language
-      .split("-")[0]
-      .toLowerCase()}.mp3`
-  );
-  casksSounds.push(audio);
-}
+loadCaskSounds();
 
 export const playNumber = (number) => {
   casksSounds[number - 1].volume = gameVolume;
@@ -48,7 +56,7 @@ export const playNumber = (number) => {
 // general
 const generalSounds = {};
 
-const loading = new Audio("./js/modules/sounds/loading.mp3");
+const loading = new Audio(`${path}/loading.mp3`);
 generalSounds.loading = loading;
 
 export const playLoading = () => {
@@ -57,50 +65,50 @@ export const playLoading = () => {
 };
 
 export const playRefreshTicket = () => {
-  const refresh = new Audio("./js/modules/sounds/refresh-ticket.mp3");
+  const refresh = new Audio(`${path}/refresh-ticket.mp3`);
   refresh.volume = menuVolume;
   refresh.play();
 };
 
 export const playDeleteTicket = () => {
-  const deleteTicket = new Audio("./js/modules/sounds/delete-ticket.mp3");
+  const deleteTicket = new Audio(`${path}/delete-ticket.mp3`);
   deleteTicket.volume = menuVolume;
   deleteTicket.play();
 };
 
 export const playTicket = () => {
   // чтоб можно было нажимать на кнопку несколько раз
-  const ticket = new Audio("./js/modules/sounds/ticket.mp3");
+  const ticket = new Audio(`${path}/ticket.mp3`);
   ticket.volume = menuVolume;
   ticket.play();
 };
 
 export const playSuccess = () => {
-  const success = new Audio("./js/modules/sounds/success.mp3");
+  const success = new Audio(`${path}/success.mp3`);
   success.volume = menuVolume;
   success.play();
 };
 
 export const playBuyTicket = () => {
-  const buyTicket = new Audio("./js/modules/sounds/buy-ticket.mp3");
+  const buyTicket = new Audio(`${path}/buy-ticket.mp3`);
   buyTicket.volume = menuVolume;
   buyTicket.play();
 };
 
 export const playProfileDeposit = () => {
-  const profileDeposit = new Audio("./js/modules/sounds/profile-deposit.mp3");
+  const profileDeposit = new Audio(`${path}/profile-deposit.mp3`);
   profileDeposit.volume = menuVolume;
   profileDeposit.play();
 };
 
 export const playGameClick = () => {
-  const gameClick = new Audio("./js/modules/sounds/game-click.mp3");
+  const gameClick = new Audio(`${path}/game-click.mp3`);
   gameClick.volume = menuVolume;
   gameClick.play();
 };
 
 export const playRating = () => {
-  const rating = new Audio("./js/modules/sounds/rating.mp3");
+  const rating = new Audio(`${path}/rating.mp3`);
   rating.volume = menuVolume;
   rating.play();
 };

@@ -26,7 +26,12 @@ export const getBetByRoomId = (roomId) => {
   return bet;
 };
 
-function generateRandomNumbersWithoutRepeats(min, max, count) {
+function generateRandomNumbersWithoutRepeats(
+  min,
+  max,
+  count,
+  allowZero = false
+) {
   if (count > max - min + 1) {
     throw new Error("Can't generate random numbers without repeats");
   }
@@ -34,8 +39,14 @@ function generateRandomNumbersWithoutRepeats(min, max, count) {
   let numbers = [];
   while (numbers.length < count) {
     let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (!numbers.includes(randomNumber) && randomNumber !== 0) {
-      numbers.push(randomNumber);
+    if (!numbers.includes(randomNumber)) {
+      if (allowZero) {
+        numbers.push(randomNumber);
+      } else {
+        if (randomNumber != 0) {
+          numbers.push(randomNumber);
+        }
+      }
     }
   }
 
@@ -44,18 +55,12 @@ function generateRandomNumbersWithoutRepeats(min, max, count) {
 
 const deleteNumbers = (card) => {
   const newCard = [...card];
-  // delete 4 numbers from each row
 
   for (let i = 0; i < 3; i++) {
     let row = newCard.slice(i * 9, i * 9 + 9);
-    let numbers = [];
-    for (let j = 0; j < 9; j++) {
-      if (row[j] != " ") {
-        numbers.push(j);
-      }
-    }
 
-    let numbersToDelete = generateRandomNumbersWithoutRepeats(0, 8, 4);
+    let numbersToDelete = generateRandomNumbersWithoutRepeats(0, 8, 4, true);
+    console.log(numbersToDelete);
     numbersToDelete.forEach((number) => {
       row[number] = " ";
     });

@@ -225,13 +225,18 @@
       "cancelBet": "Ваша ставка будет анулирована. Вы точно хотите выйти?",
       "noTransactions": "Не найдено транзакций",
       "withdrawSuccess": "Выплаты успешно подтверждены",
-      "gameStarted": "Игра уже началась. Если вы хотите принять участие в игре, подождите ее окончания!"
+      "gameStarted": "Игра уже началась. Если вы хотите принять участие в игре, подождите ее окончания!",
+      "connectionErrorText": "Ошибка подключения к интернету!",
+      "registrationError": "Произошла ошибка! Проверьте введенные данные и попробуйте еще раз!",
+      "registrationSuccess": "Аккаунт создан, войдите в него",
+      "usernameExists": "Акаунт с таким именем уже существует!"
     },
     "words": {
       "yes": "да",
       "no": "нет",
       "understood": "понятно",
-      "ok": "OK"
+      "ok": "OK",
+      "reload": "Перезагрузить"
     }
   },
   "az": {
@@ -433,7 +438,7 @@
       "jackpotInfoPopup": "Cekpot 20 gedişə ərzində oynanılır. 20 gediş ərzində biletin hər hansı bir sırasını tamamlasanız (yuxarı | orta | aşağı), cekpotun qalibi olursunuz.",
       "statsInfoPopup": "Hörmətli oyunçular, topladığınız xalları dəyişdirə bilərsiniz ₼. Mübadilə etmək üçün sizə minimum 100 bonus lazımdır. Valyuta məzənnəsi 100 bonuslar = 0.20 ₼.",
       "withdrawInfoPopup": "Müraciətiniz qəbul edildi! Çıxarış 3 iş günü ərzində kartınıza göndəriləcək.",
-      "jackpotWonPopup": "Təbrik edirik! Oyunçu PLAYER Cekpotu qazandı!!",
+      "jackpotWonPopup": "Təbrik edirik! Oyunçu PLAYER_USERNAME Cekpotu qazandı!!",
       "jackpotLosedPopup": "Təəssüf ki, Cekpot qazanılmadı. Növbəti oyunda şansınızı sınayın!",
       "winGamePopupTitle": "Təbrik edirik, siz qalib oldunuz!",
       "loseGamePopupTitle": "Təəssüf ki, qələbə qazana bilmədiniz",
@@ -461,13 +466,18 @@
       "cancelBet": "Təklifiniz ləğv ediləcək. Çıxmaq istədiyinizə əminsiniz?",
       "noTransactions": "Heç bir əməliyyat tapılmadı",
       "withdrawSuccess": "Ödənişlər uğurla təsdiqləndi",
-      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!"
+      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!",
+      "connectionErrorText": "İnternet bağlantısı xətası!",
+      "registrationError": "Xəta baş verdi! Daxil edilmiş məlumatları yoxlayın və yenidən cəhd edin!",
+      "registrationSuccess": "Hesab yaradıldı, daxil olun",
+      "usernameExists": "Bu adda hesab artıq mövcuddur!"
     },
     "words": {
       "yes": "Bəli",
       "no": "Yox",
       "understood": "Aydındır",
-      "ok": "OK"
+      "ok": "OK",
+      "reload": "Yenidən başladın"
     }
   },
   "en": {
@@ -669,7 +679,7 @@
       "jackpotInfoPopup": "The jackpot plays in 20 moves, if you complete 1 row (top/middle/bottom) within 20 moves, you will be the jackpot winner.",
       "statsInfoPopup": "Dear players, having accumulated points, you can exchange them for ₼. To exchange you need a minimum of 100 bonuses. Exchange rate 100 bonuses = 0.20 ₼.",
       "withdrawInfoPopup": "Application accepted! Money will be sent within 3 business days",
-      "jackpotWonPopup": "Congratulations! Player PLAYER won Jackpot",
+      "jackpotWonPopup": "Congratulations! Player PLAYER_USERNAME won Jackpot",
       "jackpotLosedPopup": "Unfortunately the Jackpot has not been won. Try your luck on the next game!",
       "winGamePopupTitle": "Congratulations you have win!",
       "loseGamePopupTitle": "Unfortunately you didn't manage to win",
@@ -697,13 +707,18 @@
       "cancelBet": "Your bid will be voided. Are you sure you want to exit?",
       "noTransactions": "No transactions found",
       "withdrawSuccess": "Payments have been successfully confirmed",
-      "gameStarted": "The game has already started. If you want to take part in the game, wait for it to end!"
+      "gameStarted": "The game has already started. If you want to take part in the game, wait for it to end!",
+      "connectionErrorText": "Internet connection error!",
+      "registrationError": "An error occurred! Check the entered data and try again!",
+      "registrationSuccess": "Account created, log in",
+      "usernameExists": "An account with that name already exists!"
     },
     "words": {
       "yes": "Yes",
       "no": "NO",
       "understood": "got it",
-      "ok": "OK"
+      "ok": "OK",
+      "reload": "Reload"
     }
   },
   "ua": {
@@ -905,7 +920,7 @@
       "jackpotInfoPopup": "Джекпот грає за 20 ходів, якщо протягом 20 ходів заповнити 1 будь-який ряд (верхній/середній/нижній), то ви будете переможцем джекпоту.",
       "statsInfoPopup": "Шановні гравці, накопичивши бали, ви можете обміняти їх на ₼. Для обміну вам потрібно щонайменше 100 бонусів. Курс Обміну 100 бонусів = 0.20 ₼.",
       "withdrawInfoPopup": "Заявку прийнято! Гроші будуть надіслані протягом 3 робочих днів",
-      "jackpotWonPopup": "Вітаємо! Гравець ГРАВНИК виграв Джекпот",
+      "jackpotWonPopup": "Вітаємо! Гравець PLAYER_USERNAME виграв Джекпот",
       "jackpotLosedPopup": "На жаль, Джекпот не виграний. Спробуйте свій успіх у наступній грі!",
       "winGamePopupTitle": "Вітаємо ви виграли!",
       "loseGamePopupTitle": "На жаль, Вам не вдалося виграти",
@@ -933,13 +948,18 @@
       "cancelBet": "Ваша ставка буде анульована. Ви точно хочете вийти?",
       "noTransactions": "Не знайдено транзакцій",
       "withdrawSuccess": "Платежі успішно підтверджені",
-      "gameStarted": "Гра вже почалася. Якщо ви хочете взяти участь у грі, дочекайтеся її закінчення!"
+      "gameStarted": "Гра вже почалася. Якщо ви хочете взяти участь у грі, дочекайтеся її закінчення!",
+      "connectionErrorText": "Помилка підключення до інтернету!",
+      "registrationError": "Виникла помилка! Перевірте введені дані та повторіть спробу!",
+      "registrationSuccess": "Акаунт створено, увійдіть",
+      "usernameExists": "Акаунт із таким ім'ям користувача вже існує!"
     },
     "words": {
       "yes": "Так",
       "no": "НІ",
       "understood": "Зрозуміло",
-      "ok": "OK"
+      "ok": "OK",
+      "reload": "Перезавантажити"
     }
   },
   "tr": {
@@ -1140,7 +1160,7 @@
       "jackpotInfoPopup": "Jackpot 20 hamlede oynanır, herhangi bir satırın (üst/orta/alt) 1 - ni 20 hamlede doldurursanız jackpotun kazananı olursunuz.",
       "statsInfoPopup": "Sevgili oyuncular, puan biriktirdikten sonra bunları ₼ ile değiştirebilirsiniz. Kullanmak için en az 100 bonusa ihtiyacınız var. 100 bonusun döviz kuru = 0.20 ₼.",
       "withdrawInfoPopup": "Başvuru kabul edildi! Para 3 iş günü içinde gönderilecektir",
-      "jackpotWonPopup": "Tebrikler! Oyuncu GRAVNYK Jackpot'u kazandı",
+      "jackpotWonPopup": "Tebrikler! Oyuncu PLAYER_USERNAME Jackpot'u kazandı",
       "jackpotLosedPopup": "Maalesef Jackpot kazanılmadı. Bir sonraki oyunda şansınızı deneyin!",
       "winGamePopupTitle": "Tebrikler kazandın!",
       "loseGamePopupTitle": "Maalesef kazanamadın",
@@ -1168,13 +1188,18 @@
       "cancelBet": "Teklifiniz geçersiz sayılacaktır. Çıkmak istediğine emin misin?",
       "noTransactions": "İşlem bulunamadı",
       "withdrawSuccess": "Ödemeler başarıyla onaylandı",
-      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!"
+      "gameStarted": "Oyun çoktan başladı. Oyunda yer almak istiyorsanız bitmesini bekleyin!",
+      "connectionErrorText": "İnternet bağlantısı hatası!",
+      "registrationError": "Bir hata oluştu! Girilen verileri kontrol edin ve tekrar deneyin!",
+      "registrationSuccess": "Hesap oluşturuldu, giriş yapın",
+      "usernameExists": "Bu isimde bir hesap zaten mevcut!"
     },
     "words": {
       "yes": "Evet",
       "no": "HAYIR",
       "understood": "Apaçık",
-      "ok": "OK"
+      "ok": "OK",
+      "reload": "Yeniden başlat"
     }
   }
 }

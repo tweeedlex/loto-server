@@ -5,6 +5,7 @@ import * as impHttp from "./modules/http.js";
 import * as impAdminNav from "./modules/admin-navigation.js";
 import * as impMoveElement from "./modules/move-element.js";
 import * as impLocalization from "./modules/localize.js";
+import * as impPopup from "./modules/popup.js";
 window.ws = null;
 
 let preloader = document.querySelector(".page-preloader");
@@ -43,3 +44,12 @@ if (await impAuth.isAuth()) {
     }
   }
 }
+
+// если сайт стал офлайн то показываем окно ошибки
+
+window.addEventListener("offline", (event) => {
+  let siteLanguage = window.siteLanguage;
+  impPopup.openConnectionErorPopup(
+    `${siteLanguage.popups.connectionErrorText}`
+  );
+});

@@ -257,11 +257,17 @@
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
+  min-width: 70px;
 }
+.loto-room__gameinfo
+  .loto-gameinfo__top-row
+  .loto-gameinfo__top-row-item.loto-gameinfo__bank {
+  min-width: 145px;
+}
+
 .loto-room__gameinfo .loto-gameinfo__bottom-row {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   justify-content: center;
   column-gap: 30px;
 }
@@ -337,10 +343,10 @@
 
 @media (max-width: 1240px) {
   .loto-room__gameinfo {
-    max-width: 350px;
+    max-width: 370px;
   }
   .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .loto-room__gameinfo
@@ -368,7 +374,7 @@
 
 @media (max-width: 998px) {
   .loto-room__gameinfo {
-    max-width: 350px;
+    max-width: 450px;
   }
   .loto-room__gameinfo .loto-gameinfo__top-row .loto-gameinfo__top-row-item {
     font-size: 20px;

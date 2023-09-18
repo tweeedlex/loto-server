@@ -172,8 +172,22 @@ export function createRegistrationForm() {
       // registrationPopup.classList.remove("opened");
       // alert("Аккаунт создан, войдите в него");
       createLoginForm();
+      impPopup.open(siteLanguage.popups.registrationSuccess, 200);
     } else {
-      errorBlock.innerHTML = response.data.message;
+      switch (response.data.message) {
+        case "ERR_USERNAME_ALREADY_EXISTS":
+          errorBlock.innerHTML = siteLanguage.popups.usernameExists;
+          break;
+        case "ERR_EMAIL_ALREADY_EXISTS":
+          errorBlock.innerHTML = siteLanguage.popups.emailExists;
+          break;
+        case "ERR_VALIDATION":
+          errorBlock.innerHTML = siteLanguage.popups.registrationError;
+          break;
+        default:
+          errorBlock.innerHTML = siteLanguage.popups.registrationError;
+          break;
+      }
     }
   });
 }
@@ -243,6 +257,7 @@ export function createLoginForm() {
         email: response.data.user.email,
         isAdmin: response.data.user.isAdmin,
       };
+
       localStorage.setItem("user", JSON.stringify(user));
 
       if (await isAuth()) {
@@ -295,7 +310,7 @@ export function createLoginForm() {
     } else {
       const errorBlock = document.querySelector(".auth-form-error");
 
-      errorBlock.innerHTML = response.data.message;
+      errorBlock.innerHTML = siteLanguage.popups.registrationError;
     }
   });
 }
@@ -321,7 +336,10 @@ export async function getUser() {
 export async function isAuth() {
   let response = await impHttpRequests.checkAuth();
   console.log(response);
-  if (response?.status == 200 || response?.statusText == "OK") {
+  if (
+    (response?.status == 200 || response?.statusText == "OK") &&
+    response?.data?.username
+  ) {
     let registrationPopup = document.querySelector(".registration");
     registrationPopup.classList.remove("opened");
     impInterface.showUserInterface(response.data);

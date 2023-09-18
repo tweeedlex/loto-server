@@ -3,6 +3,7 @@ import * as impLotoGame from "./loto-game.js";
 import * as impNav from "./navigation.js";
 import * as impPopup from "./popup.js";
 import * as impAudio from "./audio.js";
+import * as authinterface from "./authinterface.js";
 
 let preloader = document.querySelector(".page-preloader");
 
@@ -51,7 +52,7 @@ export const connectWebsocketFunctions = () => {
 
   ws.onmessage = async (event) => {
     let msg = JSON.parse(event.data);
-    // console.log(msg);
+    console.log(msg);
     switch (msg.method) {
       case "connectGeneral":
         break;
@@ -136,7 +137,7 @@ export const connectWebsocketFunctions = () => {
 
         break;
       case "updateBalance":
-        impNav.updateBalance(msg.balance);
+        authinterface.updateBalance(msg.balance);
         break;
       case "connectGame":
         console.log(msg);
@@ -293,16 +294,87 @@ export const connectWebsocketFunctions = () => {
             break;
         }
         break;
+      case "rejectGameBet":
+        console.log("rejectgame", msg);
+        if (msg.error > 0) {
+          impPopup.open("Ошибка выхода из игры", 300);
+        } else {
+          authinterface.updateBalance(msg.newBalance);
+        }
+
+        break;
     }
   };
 
+  // ws.onclose = (info) => {
+  //   console.log(info);
+  //   // если вебсокет был закрыт изза проблем с интернетом или другими проблемами клиента
+  //   if (info.code == 1006) {
+  //     let siteLanguage = window.siteLanguage;
+  //     console.log("1", navigator.onLine);
+  //     if (navigator.onLine) {
+  //       const newWs = connectWebsocketFunctions();
+  //       window.ws = newWs;
+  //       location.hash = "";
+  //       impNav.pageNavigation(newWs);
+  //       impNav.addHashListeners();
+  //     } else {
+  //       impPopup.openConnectionErorPopup(
+  //         `${siteLanguage.popups.connectionErrorText}`
+  //       );
+  //     }
+  //     return;
+  //   }
+
+  //   // проверяем на reason ответ от вебсокетов
+  //   if (info.reason != "" && info.reason != " ") {
+  //     let infoReason = JSON.parse(info.reason);
+  //     if (infoReason != "" && infoReason.reason == "anotherConnection") {
+  //       return;
+  //     } else {
+  //       const newWs = connectWebsocketFunctions();
+  //       window.ws = newWs;
+  //       location.hash = "";
+  //       impNav.pageNavigation(newWs);
+  //       impNav.addHashListeners();
+  //       return;
+  //     }
+  //   } else {
+  //     const newWs = connectWebsocketFunctions();
+  //     window.ws = newWs;
+  //     location.hash = "";
+  //     impNav.pageNavigation(newWs);
+  //     impNav.addHashListeners();
+  //     return;
+  //   }
+  // };
+
   ws.onclose = (info) => {
     console.log(info);
+
+    // если вебсокет был закрыт изза проблем с интернетом или другими проблемами клиента
+    if (info.code == 1006) {
+      console.log("1", navigator.onLine);
+      if (navigator.onLine) {
+        const newWs = connectWebsocketFunctions();
+        window.ws = newWs;
+        location.hash = "";
+        impNav.pageNavigation(newWs);
+        impNav.addHashListeners();
+      }
+      return;
+    }
+
+    // проверяем на reason ответ от вебсокетов
     if (info.reason != "" && info.reason != " ") {
       let infoReason = JSON.parse(info.reason);
       if (infoReason != "" && infoReason.reason == "anotherConnection") {
         return;
       } else {
+        if (window.ws) {
+          let disconnectMsg = { reason: "createNewWs" };
+          window.ws.close(1000, JSON.stringify(disconnectMsg));
+        }
         const newWs = connectWebsocketFunctions();
         window.ws = newWs;
         location.hash = "";
@@ -311,6 +383,10 @@ export const connectWebsocketFunctions = () => {
         return;
       }
     } else {
+      if (window.ws) {
+        let disconnectMsg = { reason: "createNewWs" };
+        window.ws.close(1000, JSON.stringify(disconnectMsg));
+      }
       const newWs = connectWebsocketFunctions();
       window.ws = newWs;
       location.hash = "";
@@ -350,9 +426,7 @@ export async function openLotoRoom(ws, roomId) {
       location.hash = `#loto-game-${roomId}`;
     } else {
       location.hash = "";
-      impPopup.openErorPopup(
-        siteLanguage.popups.gameStarted
-      );
+      impPopup.openErorPopup(siteLanguage.popups.gameStarted);
     }
   } else {
     location.hash = `#loto-room-${roomId}`;
@@ -539,8 +613,8 @@ async function NowClientTime() {
   // console.log("now time", new Date().getTime());
   // console.log("api time", time);
 
-  // return timeHands - 180 * 60 * 1000;
-  return timeHands;
+  return timeHands - 180 * 60 * 1000;
+  // return timeHands;
 }
 
 // "year": "2023",
@@ -833,6 +907,14 @@ async function startMenuTimerLobby(timers) {
             clearInterval(activeTimers[`room${roomId}`]);
             activeTimers[`room${roomId}`] = null;
           }
+
+          lotoRoom.classList.remove("finishing", "starting");
+          let lotoRoomTimerText = lotoRoom.querySelector(
+            ".room-left__item-timer-block .timer-block__text"
+          );
+          lotoRoomTimerText.innerHTML =
+            siteLanguage.mainPage.gamecards.timerTextWaiting;
+
           // clearInterval(activeTimers[roomId - 1]);
           // return;
         }
@@ -908,12 +990,16 @@ async function startMenuTimerGame(timers) {
         }
       } else {
         // очищаем интервал если он был
-
         if (activeFinishTimers[`room${roomId}`] != null) {
           clearInterval(activeFinishTimers[`room${roomId}`]);
           activeFinishTimers[`room${roomId}`] = null;
         }
-
+        // очищаем интервал у таймеров начала ожидания игр
+        if (activeTimers[`room${roomId}`] != null) {
+          clearInterval(activeTimers[`room${roomId}`]);
+          activeTimers[`room${roomId}`] = null;
+          console.log(`timer ${roomId} clear`);
+        }
         //добавляем клас на комнату
         let lotoRoomTimerText = lotoRoom.querySelector(
           ".room-left__item-timer-block .timer-block__text"

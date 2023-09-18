@@ -115,17 +115,22 @@ export async function hashNavigation() {
     let openGamesLobbyBtn = document.querySelector(".open-games-menu");
     openGamesLobbyBtn.classList.add("active");
 
-    // закрыть вебсокет
-    websocket.close(
-      3001,
-      JSON.stringify({
-        // roomId,
-        // bet: bet,
-        userId: localUser.userId,
-        username: localUser.username,
-        method: "disconnectGame",
-      })
-    );
+    // закрыть вебсокет если он открыт
+
+    console.log(websocket);
+    if (websocket && websocket.readyState == 1) {
+      websocket.close(
+        3001,
+        JSON.stringify({
+          // roomId,
+          // bet: bet,
+          userId: localUser.userId,
+          username: localUser.username,
+          method: "disconnectGame",
+        })
+      );
+    }
+
     redirectToMainPage();
     preloader.classList.remove("d-none");
 

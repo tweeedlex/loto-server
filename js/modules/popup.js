@@ -1,4 +1,5 @@
 import * as impNav from "./navigation.js";
+import * as authinterface from "./authinterface.js";
 import * as impHttp from "./http.js";
 import * as impAudio from "./audio.js";
 import * as impLocalization from "./localize.js";
@@ -88,6 +89,36 @@ export const openErorPopup = (text) => {
   const closeButton = document.querySelector(".popup__button");
   closeButton.addEventListener("click", function () {
     close(popupElement);
+  });
+};
+
+export const openConnectionErorPopup = (text) => {
+  let siteLanguage = window.siteLanguage;
+  if (isPopupOpened()) {
+    return;
+  }
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup", "error-popup");
+  popupElement.innerHTML = `<div class="popup__body">
+  <div class="popup__content">
+    <div class="popup-header">
+      <p>${siteLanguage.profilePage.myGamesPage.statsItem.errorText}</p>
+      <img src="img/error-icon.png" alt="" />
+    </div>
+    <div class="popup__text">
+      ${text}
+    </div>
+    <button class="popup__button">${siteLanguage.words.reload}</button>
+  </div>
+</div>`;
+
+  body.appendChild(popupElement);
+
+  const closeButton = document.querySelector(".popup__button");
+  closeButton.addEventListener("click", function () {
+    window.ws = null;
+    location.reload();
   });
 };
 
@@ -184,13 +215,29 @@ export const openExitPopup = (text, roomId, bet = null) => {
   const button = body.querySelector(".popup__submit-button");
   button.addEventListener("click", async () => {
     close(popupElement);
-    let responce = await impHttp.deleteTicketsReturnBalance(roomId, bet);
-    if (responce.status == 200) {
-      impNav.updateBalance(responce.data.balance);
-      location.hash = "";
-    } else {
-      open("Ошибка выхода из игры", 300);
-    }
+
+    let user = localStorage.getItem("user");
+    if (user) {
+      user = JSON.parse(user);
+    } else return;
+
+    let ws = window.ws;
+    let closeMsg = {
+      reason: "rejectGameBet",
+      method: "rejectGameBet",
+      roomId: roomId,
+      bet: bet,
+      userId: user.userId,
+    };
+    ws.send(JSON.stringify(closeMsg));
+
+    // let responce = await impHttp.deleteTicketsReturnBalance(roomId, bet);
+    // if (responce.status == 200) {
+    //   authinterface.updateBalance(responce.data.balance);
+    //   location.hash = "";
+    // } else {
+    //   open("Ошибка выхода из игры", 300);
+    // }
     // responce.data.balance
   });
 
@@ -313,13 +360,6 @@ export const openEndGamePopup = (
   var timerInterval = setInterval(updateTimer, 1000);
 
   body.appendChild(popupElement);
-
-  // const closeButtons = document.querySelectorAll(".close-popup");
-  // closeButtons.forEach((closeButton) => {
-  //   closeButton.addEventListener("click", function () {
-  //     close(popupElement);
-  //   });
-  // });
 };
 
 function openJackpotPopup(isJackpotWon, jackpotData) {
@@ -330,6 +370,14 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
   if (isJackpotWon) {
     const body = document.querySelector("body");
     let popupElement = document.createElement("div");
+
+    let jackpotWinnerText = siteLanguage.popups.jackpotWonPopup;
+
+    jackpotWinnerText = jackpotWinnerText.replace(
+      "PLAYER_USERNAME",
+      jackpotData.jackpotWinnerName
+    );
+
     popupElement.classList.add("popup", "jackpot-popup");
     popupElement.innerHTML = `
     <div class="popup__body jackpot-popup__body">
@@ -339,7 +387,7 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
         </div>
         <div class="jackpot-popup__jackpot animation"><span>${jackpotData.jackpotSum}</span>₼</div>
         <div class="popup__title jackpot-popup__title visible">
-        ${siteLanguage.popups.jackpotWonPopup} ${jackpotData.jackpotWinnerName}
+        ${jackpotWinnerText}
         </div>
       </div>
     </div>
