@@ -259,11 +259,11 @@
   line-height: 18px;
   min-width: 70px;
 }
-.loto-room__gameinfo
+/* .loto-room__gameinfo
   .loto-gameinfo__top-row
   .loto-gameinfo__top-row-item.loto-gameinfo__bank {
   min-width: 145px;
-}
+} */
 
 .loto-room__gameinfo .loto-gameinfo__bottom-row {
   display: flex;
@@ -426,6 +426,10 @@
   .loto-room__gameinfo {
     /* max-width: unset; */
     border-radius: 0 0 10px 10px;
+  }
+  .loto-room__gameinfo .loto-gameinfo__bottom-row {
+    max-width: 320px;
+    margin: 0 auto;
   }
 }
 

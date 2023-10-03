@@ -1,4 +1,4 @@
-import * as impHttp from "./http.js";
+import * as impHttp from "../http.js";
 import * as impPopup from "./popup.js";
 
 export function openLeadersMenuPage() {

@@ -1,8 +1,8 @@
-import * as impNav from "./navigation.js";
-import * as authinterface from "./authinterface.js";
-import * as impHttp from "./http.js";
-import * as impAudio from "./audio.js";
-import * as impLocalization from "./localize.js";
+import * as impNav from "../navigation.js";
+import * as authinterface from "../authinterface.js";
+import * as impHttp from "../http.js";
+import * as impAudio from "../audio.js";
+import * as impLocalization from "../localize.js";
 
 // 100 предупреждения
 // 200 выиграш
@@ -53,7 +53,11 @@ export const open = (text, status, showButton = false, ws = null) => {
       close(popupElement);
       ws.close(
         1000,
-        JSON.stringify({ method: "exitGame", userId: localUser.userId })
+        JSON.stringify({
+          method: "exitGame",
+          userId: localUser.userId,
+          page: "mainLotoPage",
+        })
       );
     });
   }
@@ -286,9 +290,6 @@ export const openEndGamePopup = (
           
         </div>
       </div>
-      
-        
-    
     </div>
     </div>
     `;
@@ -363,6 +364,7 @@ export const openEndGamePopup = (
 };
 
 function openJackpotPopup(isJackpotWon, jackpotData) {
+  console.log(jackpotData);
   let siteLanguage = window.siteLanguage;
   if (isPopupOpened()) {
     return;
@@ -371,10 +373,17 @@ function openJackpotPopup(isJackpotWon, jackpotData) {
     const body = document.querySelector("body");
     let popupElement = document.createElement("div");
 
+    // обновления баланса пользователю
+    let localUser = localStorage.getItem("user");
+    if (localUser) {
+      localUser = JSON.parse(localUser);
+      authinterface.updateBalance(+localUser.balance);
+    }
+
     let jackpotWinnerText = siteLanguage.popups.jackpotWonPopup;
 
     jackpotWinnerText = jackpotWinnerText.replace(
-      "PLAYER_USERNAME",
+      "JACKPOT_USERNAME",
       jackpotData.jackpotWinnerName
     );
 
@@ -602,3 +611,185 @@ export function openChangeLanguage() {
 
   body.appendChild(popupElement);
 }
+
+export const openDominoWaitingPopup = (
+  online,
+  dominoRoomId,
+  tableId,
+  playerMode
+) => {
+  if (isPopupOpened()) {
+    return;
+  }
+
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+  popupElement.innerHTML = `
+    <div class="popup">
+      <div class="popup__body">
+        <div class="popup__content domino-waiting-popup">
+          <div class="popup__header"></div>
+          <div class="popup__text domino-waiting-popup__text">
+            <p><span class="domino-waiting-popup__online">${online}</span>/${playerMode}</p>
+            <p>Идет подбор игроков...</p>
+          </div>
+          <button class="domino-waiting-popup__button">Выйти</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  body.appendChild(popupElement);
+
+  const quitWainingButton = popupElement.querySelector(
+    ".domino-waiting-popup__button"
+  );
+
+  quitWainingButton.addEventListener("click", function () {
+    window.location.hash = `#domino-menu`;
+    window.ws.send(
+      JSON.stringify({
+        method: "leaveDominoTable",
+        dominoRoomId,
+        tableId,
+        playerMode,
+        userId: +JSON.parse(localStorage.getItem("user")).userId,
+      })
+    );
+
+    location.hash = "#domino-menu";
+    close(popupElement);
+  });
+};
+
+export const updateDominoWaitingPopup = (online) => {
+  const onlineElement = document.querySelector(".domino-waiting-popup__online");
+  if (onlineElement) {
+    onlineElement.innerHTML = online;
+  }
+};
+
+export const openDominoTimerPopup = (online) => {
+  const prevPopup = document.querySelector(".popup");
+  if (prevPopup) {
+    prevPopup.remove();
+  }
+
+  if (isPopupOpened()) {
+    return;
+  }
+
+  let playerMode, dominoRoomId, tableId;
+  dominoRoomId = +location.hash.split("/")[1];
+  tableId = +location.hash.split("/")[2];
+  playerMode = +location.hash.split("/")[3];
+
+  const body = document.querySelector("body");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+  popupElement.innerHTML = `
+    <div class="popup">
+      <div class="popup__body">
+        <div class="popup__content domino-starting-popup">
+          <div class="popup__header">
+            <div class="popup__timer">
+              <img src="img/timer-icon.png" alt="timer" /> 
+              <span class="domino-starting-popup__timer">00:10</span>
+            </div>
+          </div>
+          <div class="popup__text domino-starting-popup__text">
+            <p>Ожидание начала игры...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const timerElement = popupElement.querySelector(
+    ".domino-starting-popup__timer"
+  );
+
+  let timeLeft = 10;
+
+  const timerInterval = setInterval(() => {
+    timeLeft -= 1;
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      close(popupElement);
+    } else {
+      timerElement.innerHTML = `00:${
+        timeLeft < 10 ? "0" + timeLeft : timeLeft
+      }`;
+    }
+  }, 1000);
+
+  body.appendChild(popupElement);
+};
+
+export const openDominoWinGame = (winners) => {
+  if (isPopupOpened()) {
+    return;
+  }
+
+  const main = document.querySelector(".main__container");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+
+  let winnersList = "";
+  winners.forEach((winner) => {
+    console.log(winner);
+    winnersList += `<p>${winner.username}</p>`;
+  });
+  console.log(winnersList);
+  popupElement.innerHTML = `
+    <div class="popup">
+      <div class="popup__body">
+        <div class="popup__content domino-win-popup">
+          <div class="popup__header">
+            <img src="img/win-icon.png" alt="win" />
+          </div>
+          <div class="popup__text domino-win-popup__text">
+            <p>Победители:</p>
+            ${winnersList}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  main.appendChild(popupElement);
+};
+
+export const openDominoLoseGame = (winners) => {
+  if (isPopupOpened()) {
+    return;
+  }
+
+  const main = document.querySelector(".main__container");
+  let popupElement = document.createElement("div");
+  popupElement.classList.add("popup");
+
+  let winnersList = "";
+  winners.forEach((winner) => {
+    winnersList += `<p>${winner.username}</p>`;
+  });
+  console.log(winnersList);
+
+  popupElement.innerHTML = `
+    <div class="popup">
+      <div class="popup__body">
+        <div class="popup__content domino-lose-popup">
+          <div class="popup__header">
+            <img src="img/lose-icon.png" alt="lose" />
+          </div>
+          <div class="popup__text domino-lose-popup__text">
+            <p>К сожалению, вы проиграли</p>
+            <p>Победители:</p>
+            ${winnersList}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  main.appendChild(popupElement);
+};

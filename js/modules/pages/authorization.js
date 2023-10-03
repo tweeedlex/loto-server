@@ -1,7 +1,8 @@
-import * as impHttpRequests from "./http.js";
-import * as impInterface from "./authinterface.js";
-import * as impNav from "./navigation.js";
-import * as impLotoNav from "./loto-navigation.js";
+import * as impHttpRequests from "../http.js";
+import * as impInterface from "../authinterface.js";
+import * as impNav from "../navigation.js";
+// import * as impLotoNav from "./loto-navigation.js";
+import * as impWSNavigation from "../ws-navigation.js";
 import * as impAdminNav from "./admin-navigation.js";
 import * as impPopup from "./popup.js";
 
@@ -261,7 +262,7 @@ export function createLoginForm() {
       localStorage.setItem("user", JSON.stringify(user));
 
       if (await isAuth()) {
-        let ws = impLotoNav.connectWebsocketFunctions();
+        let ws = impWSNavigation.connectWebsocketFunctions();
         impNav.addHashListeners(ws);
         // impNav.addHashListenersWS(ws);
         impNav.addListeners(ws);

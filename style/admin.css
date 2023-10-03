@@ -1,13 +1,14 @@
 .admin {
   padding-bottom: 60px;
+  background-color: #fff;
 }
 
 .admin-room {
   font-family: Arial, sans-serif;
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 30px;
-  background-color: #f7f7f7;
+  background-color: #d4d4d4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: flex;
@@ -23,7 +24,7 @@ h2 {
 
 label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-size: 14px;
 }
 
@@ -66,6 +67,7 @@ input[type="number"] {
   margin: 0 auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 20px;
 }
 
 table {
@@ -101,9 +103,21 @@ th {
   color: #007bff;
 }
 
+.admin-stats-container-wrapper {
+  overflow-y: auto;
+}
+
 .admin-stats-container {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 0 auto;
+  width: 768px;
+  overflow-y: auto;
+}
+
+.admin-stats-title {
+  margin-bottom: 10px;
+  color: #fff;
+  font-weight: 600;
 }
 
 .admin-stats-row {
@@ -124,6 +138,71 @@ th {
   background-color: #f2f2f2;
 }
 
+.admin-stats-body {
+  display: flex;
+  flex-direction: column;
+}
+
 .admin-stats-row:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.admin-date-stats-container-wrapper {
+  margin-top: 40px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: block;
+}
+
+.admin-stats-title.black {
+  color: #000;
+}
+
+.date-stats-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-stats-item,
+.date-stats-header {
+  /* display: flex;
+  justify-content: space-between;
+  padding: 5px 0; */
+  display: grid;
+  grid-template-columns: repeat(5, 150px);
+  text-align: center;
+  column-gap: 20px;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.date-stats-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.date-stats-table-wrapper {
+  margin-top: 20px;
+  overflow-y: auto;
+}
+
+.date-stats-table {
+  margin: 0 auto;
+  width: 830px;
+}
+
+.date-stats-item {
+  display: grid;
+  grid-template-columns: repeat(5, 150px);
+  text-align: center;
+  column-gap: 20px;
+  row-gap: 5px;
+}
+.date-stats-body .date-stats-item {
+  padding: 5px 0;
+}
+.date-stats-body .date-stats-item {
+  margin-bottom: 5px;
+  border-bottom: 0.5px solid #333;
 }

@@ -1,0 +1,197 @@
+.domino-choose-players {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 40px;
+}
+
+.choose-players-button {
+  border: 3px solid #d6c062;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+  background: var(
+    --linear,
+    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)
+  );
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.choose-players-button.active {
+  background: rgba(71, 100, 204, 0.64);
+  color: #fff;
+  border: 3px solid #fff;
+}
+
+.domino-games {
+  gap: 10px;
+}
+
+.domino-room {
+  padding: 30px 15px;
+  cursor: default;
+  position: relative;
+  border-radius: 35px;
+  background: var(
+    --linear,
+    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)
+  );
+  border: 4px solid #d6c062;
+  max-width: 500px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.domino-room-content {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.domino-room-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.domino-room-header__info {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.domino-room-header__title span {
+  font-size: 12px;
+}
+
+.domino-room-duration {
+  font-size: 10px;
+}
+
+.domino-room-content__tables {
+  display: flex;
+  gap: 20px;
+}
+
+.domino-room-content__table {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.domino-room-content__table-info {
+  line-height: 1.2;
+}
+
+.domino-room-content__table-image {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: 3px solid #d6c062;
+}
+
+.domino-room-content__table-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  grid-template-rows: repeat(2, 2fr);
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: 3px solid #d6c062;
+}
+
+.domino-room-table-quater {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 1px solid #d6c062;
+  background-color: #2e8f43;
+}
+
+.domino-room-table-quater.filled {
+  background-color: #da5e5e;
+}
+
+.domino-room-table-quater.filled::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  top: calc(50% - 7.5px);
+  left: calc(50% - 7.5px);
+}
+
+.domino-room-table-half {
+  width: 50%;
+  height: 100%;
+  background-color: #2e8f43;
+  position: relative;
+  border: 1px solid #d6c062;
+}
+
+.domino-room-table-half.filled {
+  background-color: #da5e5e;
+}
+
+.domino-room-table-half.filled::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  top: calc(50% - 10px);
+  left: calc(50% - 10px);
+}
+
+.domino-choose__button {
+  border: 3px solid #d6c062;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: #fff;
+  padding: 5px 10px;
+  min-width: 250px;
+  max-width: 500px;
+  height: 200px;
+  margin: 10px auto;
+}
+
+.domino-choose__button.classic {
+  /* background filter */
+  background: linear-gradient(
+    180deg,
+    rgba(87, 36, 49, 0.5) 0%,
+    rgba(87, 36, 43, 0.5) 100%
+  ),
+    url("../../img/domino/domino-classic.jpg");
+}
+
+.domino-choose__button.telephone {
+  background: linear-gradient(
+      180deg,
+      rgba(87, 36, 49, 0.5) 0%,
+      rgba(87, 36, 43, 0.5) 100%
+    ),
+    url("../../img/domino/domino-phone.jpg");
+}

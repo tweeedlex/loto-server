@@ -4,6 +4,8 @@
 
 .popup {
   background-color: rgba(0, 0, 0, 0.3);
+  /* background blur */
+  backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
@@ -818,4 +820,99 @@
 .language-popup-content .popup__text {
   text-align: center;
   margin-bottom: 5px;
+}
+
+.popup__timer {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid #777;
+  background: var(
+    --linear,
+    linear-gradient(180deg, #572451 0%, rgba(71, 100, 204, 0.64) 100%)
+  );
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  align-self: flex-start;
+}
+
+.popup__header {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.popup__timer img {
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+}
+
+.domino-starting-popup,
+.domino-waiting-popup {
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.domino-starting-popup__text,
+.domino-waiting-popup__text {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.domino-starting-popup__text p,
+.domino-waiting-popup__text p {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+}
+
+@media (max-width: 479px) {
+  .domino-starting-popup,
+  .domino-waiting-popup {
+    width: 100%;
+    height: 200px;
+  }
+
+  .popup__timer {
+    font-size: 18px;
+  }
+
+  .popup__timer img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.domino-waiting-popup__button {
+  display: flex;
+  width: 175px;
+  height: 30px;
+  padding: 3px 10px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #78010b 0%, #d32433 100%);
+  box-shadow: 0px 2.56477px 5.12953px 1.70984px rgba(0, 0, 0, 0.24);
+
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
 }

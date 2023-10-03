@@ -110,7 +110,38 @@
   background: var(--Linear, linear-gradient(180deg, #78010b 0%, #d32433 100%));
   border: 1px solid #d3d3d3;
   top: -15px;
+  position: relative;
 }
+.menu-footer .menu-footer__item.menu-footer__main-item .open-games__drop-menu {
+  /* overflow: none; */
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.menu-footer
+  .menu-footer__item.menu-footer__main-item
+  .open-games__drop-menu.opened {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #78010b;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+  gap: 10px;
+  padding: 5px 7px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 400;
+  width: auto;
+  height: auto;
+  visibility: visible;
+  opacity: 1;
+}
+
 .menu-footer .menu-footer__item.menu-footer__main-item img {
   width: 80%;
   height: 80%;

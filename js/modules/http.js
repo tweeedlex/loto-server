@@ -1,3 +1,4 @@
+// export const API_URL = "https://app.24loto.com/api";
 export const API_URL = "https://loto-server-new.onrender.com/api";
 // export const API_URL = "http://localhost:5001/api";
 
@@ -414,6 +415,26 @@ export async function updateUserData(name, email) {
       name,
       email,
     });
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getPlayedGames() {
+  try {
+    const response = await $api.get(`/played-games`);
+    return await response;
+  } catch (e) {
+    console.log(e.response);
+    return await e.response;
+  }
+}
+
+export async function getDominoStatus() {
+  try {
+    const response = await $api.get("/game/domino-status");
     return await response;
   } catch (e) {
     console.log(e.response);

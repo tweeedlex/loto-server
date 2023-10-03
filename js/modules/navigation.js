@@ -1,11 +1,11 @@
 import * as impHttp from "./http.js";
-import * as impLotoGame from "./loto-game.js";
-import * as impLotoNavigation from "./loto-navigation.js";
-import * as impLeadersFunc from "./leaders.js";
-import * as impSettingsFunc from "./settings.js";
-import * as impProfileFunc from "./profile.js";
-import * as impLotoNav from "./loto-navigation.js";
-import * as impPopup from "./popup.js";
+import * as impLotoGame from "./loto/loto-game.js";
+import * as impLotoNavigation from "./loto/loto-navigation.js";
+import * as impDominoNav from "./domino/domino-navigation.js";
+import * as impLeadersFunc from "./pages/leaders.js";
+import * as impProfileFunc from "./pages/profile.js";
+import * as impLotoNav from "./loto/loto-navigation.js";
+import * as impPopup from "./pages/popup.js";
 import * as impMoveElement from "./move-element.js";
 import * as impAudio from "./audio.js";
 let preloader = document.querySelector(".page-preloader");
@@ -34,7 +34,7 @@ export function addListeners(ws) {
 }
 
 export async function addHashListeners(ws = null) {
-  location.hash = "#";
+  // location.hash = "#";
   if (header.classList.contains("d-none")) {
     header.classList.remove("d-none");
     mainContainer.classList.add("header__padding");
@@ -127,6 +127,7 @@ export async function hashNavigation() {
           userId: localUser.userId,
           username: localUser.username,
           method: "disconnectGame",
+          page: "mainLotoPage",
         })
       );
     }
@@ -267,11 +268,39 @@ export async function hashNavigation() {
       isJackpotPlaying || null,
       isAudioAllowed || null
     );
+    // ============= DOMINO ============== //
+  } else if (hash == "#domino-choose") {
+    impDominoNav.openDominoChoosePage();
+  } else if (hash == "#domino-menu") {
+    if (websocket && websocket.readyState == 1) {
+      console.log("close ws");
+      websocket.close(
+        3001,
+        JSON.stringify({
+          // roomId,
+          // bet: bet,
+          userId: localUser.userId,
+          username: localUser.username,
+          method: "disconnectGame",
+          page: "mainDominoPage",
+        })
+      );
+    }
+    setTimeout(() => {
+      impDominoNav.openDominoMenuPage(true);
+    }, 50);
+  } else if (hash.includes("#domino-room-table")) {
+    hideNavigation();
+
+    const dominoRoomId = +hash.split("/")[1];
+    const tableId = +hash.split("/")[2];
+    const playerMode = +hash.split("/")[3];
+    impDominoNav.openDominoTable(dominoRoomId, tableId, playerMode);
   }
 
   let navMenu = document.querySelector(".menu-footer");
   let navButtons = navMenu.querySelectorAll(".active");
-  let openGamesLobbyBtn = document.querySelector(".open-games-menu");
+  let openGamesLobbyBtn = document.querySelector(".open-games-menu-loto");
   let openLeadersMenuBtn = document.querySelector(".open-liders-menu");
   let openSettingsBtn = document.querySelector(".open-settings");
   let openProfileBtn = document.querySelector(".open-profile");
@@ -342,10 +371,10 @@ async function openRoomByHash(hash) {
     <div class="loto-room__gameinfo loto-gameinfo">
       <div class="loto-gameinfo__top-row">
         <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
-          ${siteLanguage.lotoRoomPage.gameInfo.betText}: <span>0</span> ₼
+          ${siteLanguage.lotoRoomPage.gameInfo.betText}: <span>0</span>₼
         </p>
         <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
-        ${siteLanguage.lotoRoomPage.gameInfo.bankText}: <span>0</span> ₼
+        ${siteLanguage.lotoRoomPage.gameInfo.bankText}: <span>0</span>₼
         </p>
         <div class="loto-room-page__exit-wrapper"></div>
       </div>
@@ -851,7 +880,7 @@ export function pageNavigation(ws) {
   createPageNavBlock();
   let navMenu = document.querySelector(".menu-footer");
   if (navMenu) {
-    let openGamesLobbyBtn = document.querySelector(".open-games-menu");
+    let openGamesLobbyBtn = document.querySelector(".open-games-menu-loto");
     let openLeadersMenuBtn = document.querySelector(".open-liders-menu");
     let openSettingsBtn = document.querySelector(".open-settings");
     let openProfileBtn = document.querySelector(".open-profile");
@@ -872,7 +901,7 @@ export function pageNavigation(ws) {
       impAudio.playRating();
     });
 
-    // открытие страницы с играми
+    // открытие страницы с играми лото
     openGamesLobbyBtn.addEventListener("click", function () {
       let isCurrGameMenuPage = document.querySelector(".games");
       if (!isCurrGameMenuPage) {
@@ -887,23 +916,15 @@ export function pageNavigation(ws) {
 
         navButtons.forEach((btn) => btn.classList.remove("active"));
         openGamesLobbyBtn.classList.add("active");
-
-        // redirectToMainPage(ws);
-        // pageNavigation(newWs);
       }
     });
 
-    // открытие страницы с настройками
+    // открытие страницы с депозитом
     openSettingsBtn.addEventListener("click", async function () {
-      // ws.close();
-      // impSettingsFunc.openSettingsPage();
-      // await impProfileFunc.openBalance();
       location.hash = "#deposit";
       navButtons.forEach((btn) => btn.classList.remove("active"));
       openSettingsBtn.classList.add("active");
       impAudio.playProfileDeposit();
-
-      // location.hash = "#settings";
     });
 
     // открытие страницы с профилем
@@ -930,6 +951,10 @@ export function createPageNavBlock() {
          <div
            class="menu-footer__item menu-footer__main-item open-games-menu active"
          >
+         <div class="open-games__drop-menu ">
+            <div class="open-games__drop-menu-item open-games-menu-loto">Лото</div>
+            <div class="open-games__drop-menu-item open-games-menu-domino">Домино</div>
+          </div>
          <img src="img/games.png" alt="">
          </div>
          <div class="menu-footer__item open-liders-menu"><img src="img/leaders.png" alt=""></div>
@@ -938,16 +963,30 @@ export function createPageNavBlock() {
      </div>
    </div>
  </footer>`;
+
+    let menuButton = document.querySelector(".menu-footer__main-item");
+    let menuBlock = document.querySelector(".open-games__drop-menu");
+
+    menuButton.addEventListener("click", function () {
+      if (menuBlock.classList.contains("opened")) {
+        menuBlock.classList.remove("opened");
+      } else {
+        menuBlock.classList.add("opened");
+      }
+    });
+
+    const openLotoMenu = document.querySelector(".open-games-menu-loto");
+    const openDominoMenu = document.querySelector(".open-games-menu-domino");
+
+    openLotoMenu.addEventListener("click", function () {
+      location.hash = "";
+    });
+
+    openDominoMenu.addEventListener("click", function () {
+      location.hash = "#domino-choose";
+    });
   }
 }
-
-export const updateBalance = (balance) => {
-  balance = balance.toFixed(2);
-  let balanceSpan = document.querySelector(".header__balance");
-  if (balanceSpan) {
-    balanceSpan.innerHTML = balance;
-  }
-};
 
 export const applyDefaultSettings = () => {
   if (!localStorage.getItem("auto-play")) {

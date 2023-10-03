@@ -1,8 +1,8 @@
-import * as impHttp from "./http.js";
+import * as impHttp from "../http.js";
 import * as impLotoNav from "./loto-navigation.js";
-import * as impPopup from "./popup.js";
-import * as impAudio from "./audio.js";
-import * as impMoveElement from "./move-element.js";
+import * as impPopup from "../pages/popup.js";
+import * as impAudio from "../audio.js";
+import * as impMoveElement from "../move-element.js";
 
 export const getBetByRoomId = (roomId) => {
   let bet;
@@ -176,11 +176,11 @@ export async function openGamePage(
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bet">
             ${siteLanguage.lotoGamePage.gameInfo.betText}: <span>${
     bet != null ? bet : 0
-  }</span> ₼
+  }</span>₼
           </p>
           <p class="loto-gameinfo__top-row-item loto-gameinfo__bank">
             ${siteLanguage.lotoGamePage.gameInfo.bankText}:
-            <span>${bank != null ? Number(bank).toFixed(2) : 0}</span> ₼
+            <span>${bank != null ? Number(bank).toFixed(2) : 0}</span>₼
           </p>
           <div class="loto-room-page__exit-wrapper"></div>
         </div>
@@ -244,6 +244,14 @@ export async function openGamePage(
 
   if (isJackpotPlaying && isJackpotPlaying == true) {
     impLotoNav.animateJackpot();
+  }
+  let isJackpotWon = localStorage.getItem("jackpotWon");
+
+  if (isJackpotWon) {
+    isJackpotWon = JSON.parse(isJackpotWon);
+    if (isJackpotWon == true) {
+      showJackpotWon();
+    }
   }
 
   const soundButton = document.querySelector(".loto-gameinfo__sounds-button");

@@ -1,10 +1,10 @@
 import * as impAuth from "./authorization.js";
-import * as impHttp from "./http.js";
+import * as impHttp from "../http.js";
 import * as impPopup from "./popup.js";
 import * as impAdminNav from "./admin-navigation.js";
-import * as impAudio from "./audio.js";
+import * as impAudio from "../audio.js";
 import * as impLeaders from "./leaders.js";
-import * as impAuthInterface from "./authinterface.js";
+import * as impAuthInterface from "../authinterface.js";
 let preloader = document.querySelector(".page-preloader");
 
 export async function openProfilePage() {
